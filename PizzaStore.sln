@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Domain", "PizzaStore.Domain\PizzaStore.Domain.csproj", "{523A6DA4-791F-4E0A-8F83-996D72380E91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Infrastructure", "PizzaStore.Infrastructure\PizzaStore.Infrastructure.csproj", "{40E308A9-0275-4995-8000-B33542ACA75B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.WPF", "PizzaStore.WPF\PizzaStore.WPF.csproj", "{D547DDD7-1C14-49FE-87AB-C27526C37559}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{523A6DA4-791F-4E0A-8F83-996D72380E91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{523A6DA4-791F-4E0A-8F83-996D72380E91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{523A6DA4-791F-4E0A-8F83-996D72380E91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{523A6DA4-791F-4E0A-8F83-996D72380E91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40E308A9-0275-4995-8000-B33542ACA75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E308A9-0275-4995-8000-B33542ACA75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E308A9-0275-4995-8000-B33542ACA75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E308A9-0275-4995-8000-B33542ACA75B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D547DDD7-1C14-49FE-87AB-C27526C37559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D547DDD7-1C14-49FE-87AB-C27526C37559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D547DDD7-1C14-49FE-87AB-C27526C37559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D547DDD7-1C14-49FE-87AB-C27526C37559}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

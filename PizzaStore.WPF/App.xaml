@@ -1,0 +1,31 @@
+﻿<Application x:Class="PizzaStore.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:PizzaStore.WPF.ViewModels"
+             xmlns:views="clr-namespace:PizzaStore.WPF.Views"
+             xmlns:local="clr-namespace:PizzaStore.WPF">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Common.xaml" />
+                <ResourceDictionary Source="/Styles/NavigationBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate DataType="{x:Type viewmodels:MenuViewModel}">
+                <views:MenuView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:CartViewModel}">
+                <views:CartView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:OrderHistoryViewModel}">
+                <views:OrderHistory/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>
