@@ -15,7 +15,6 @@
         </Grid.RowDefinitions>
         
         <TextBlock Text="Menu" />
-        <c:MenuItem Grid.Row="1" Margin="0 10" DataContext="{Binding }" />
 
     </Grid>
 </UserControl>
