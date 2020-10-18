@@ -14,7 +14,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Padding="10" FontSize="32" Foreground="White" Text="Pizza Store" Background="{StaticResource PrimaryBrush}" />
+        <TextBlock Grid.Row="0" Padding="10" FontSize="32" Foreground="White" Text="PIZZA STORE" TextAlignment="Center" Background="{StaticResource PrimaryBrush}" />
         
         <Grid Grid.Row="1" RenderOptions.EdgeMode="Aliased" Background="{StaticResource SecondaryBrush}">
             <Grid.Resources>
@@ -23,12 +23,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <RadioButton Grid.Column="0" Content="Menu" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Menu}" />
             <RadioButton Grid.Column="1" Content="Order history" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.OrderHistory}" />
-            <RadioButton Grid.Column="3" Content="Cart" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Cart}" />
+            <RadioButton Grid.Column="2" Content="Cart" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Cart}" />
         </Grid>
 
     </Grid>
