@@ -4,6 +4,7 @@ using PizzaStore.Domain.Models;
 using PizzaStore.Infrastructure.Services;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
+using PizzaStore.WPF.ViewModels.Factories;
 using System;
 using System.Windows;
 
@@ -17,13 +18,8 @@ namespace PizzaStore.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             IServiceProvider serviceProvider = CreateServiceProvider();
-            IDataService<Product> productDataService = serviceProvider.GetRequiredService<IDataService<Product>>();
 
-            Window window = new MainWindow
-            {
-                DataContext = serviceProvider.GetRequiredService<MainViewModel>()
-            };
-
+            Window window = serviceProvider.GetRequiredService<MainWindow>();
             window.Show();
 
             base.OnStartup(e);
@@ -33,10 +29,17 @@ namespace PizzaStore.WPF
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<IDataService<Product>, HardCodedProductDataService>();
+            services.AddSingleton<IDataService<Pizza>, HardCodedProductDataService>();
+
+            services.AddSingleton<IPizzaStoreViewModelAbstractFactory, PizzaStoreViewModelAbstractFactory>();
+            services.AddSingleton<IPizzaStoreViewModelFactory<MenuViewModel>, MenuViewModelFactory>();
+            services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, CartViewModelFactory>();
+            services.AddSingleton<IPizzaStoreViewModelFactory<OrderHistoryViewModel>, OrderHistoryViewModelFactory>();
 
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();
+
+            services.AddScoped(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
 
             return services.BuildServiceProvider();
         }

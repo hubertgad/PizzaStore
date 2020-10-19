@@ -1,5 +1,5 @@
 ﻿using PizzaStore.WPF.State.Navigators;
-using PizzaStore.WPF.ViewModels;
+using PizzaStore.WPF.ViewModels.Factories;
 using System;
 using System.Windows.Input;
 
@@ -11,9 +11,12 @@ namespace PizzaStore.WPF.Commands
 
         private readonly INavigator _navigator;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator)
+        private readonly IPizzaStoreViewModelAbstractFactory _viewModelFactory;
+
+        public UpdateCurrentViewModelCommand(INavigator navigator, IPizzaStoreViewModelAbstractFactory viewModelFactory)
         {
             _navigator = navigator;
+            _viewModelFactory = viewModelFactory;
         }
 
         public bool CanExecute(object parameter)
@@ -23,17 +26,9 @@ namespace PizzaStore.WPF.Commands
 
         public void Execute(object parameter)
         {
-            if (parameter is ViewType)
+            if (parameter is ViewType viewType)
             {
-                ViewType viewType = (ViewType)parameter;
-                
-                _navigator.CurrentViewModel = viewType switch
-                {
-                    ViewType.Menu => new MenuViewModel(),
-                    ViewType.Cart => new CartViewModel(),
-                    ViewType.OrderHistory => new OrderHistoryViewModel(),
-                    _ => null
-                };
+                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
             }
         }
     }

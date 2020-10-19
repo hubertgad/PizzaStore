@@ -1,6 +1,7 @@
 ﻿using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.Models;
 using PizzaStore.WPF.ViewModels;
+using PizzaStore.WPF.ViewModels.Factories;
 using System.Windows.Input;
 
 namespace PizzaStore.WPF.State.Navigators
@@ -19,6 +20,11 @@ namespace PizzaStore.WPF.State.Navigators
             }
         }
 
-        public ICommand UpdateCurrentViewModelCommand => new UpdateCurrentViewModelCommand(this);
+        public ICommand UpdateCurrentViewModelCommand { get; set; }
+
+        public Navigator(IPizzaStoreViewModelAbstractFactory viewModelFactory)
+        {
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(this, viewModelFactory);
+        }
     }
 }

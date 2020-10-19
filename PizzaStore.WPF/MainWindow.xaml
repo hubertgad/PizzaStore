@@ -16,7 +16,7 @@
         
         <c:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}" />
 
-        <ContentControl Grid.Row="1" Content="{Binding Navigator.CurrentViewModel}" />
+        <ContentControl Grid.Row="1" Margin="10" MaxWidth="1024" Content="{Binding Navigator.CurrentViewModel}" />
 
     </Grid>
 </Window>
