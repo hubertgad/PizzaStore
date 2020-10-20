@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PizzaStore.WPF"
         xmlns:c="clr-namespace:PizzaStore.WPF.Controls"
         mc:Ignorable="d"
-        Title="Pizza Store" Height="450" Width="800">
+        Title="Pizza Store" Height="675" Width="1200">
     <Grid>
         
         <Grid.RowDefinitions>
@@ -16,7 +16,9 @@
         
         <c:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}" />
 
-        <ContentControl Grid.Row="1" Margin="10" MaxWidth="1024" Content="{Binding Navigator.CurrentViewModel}" />
+        <ScrollViewer Grid.Row="1" MaxWidth="1024" VerticalScrollBarVisibility="Auto">
+            <ContentControl Margin="10" Content="{Binding Navigator.CurrentViewModel}" />
+        </ScrollViewer>
 
     </Grid>
 </Window>

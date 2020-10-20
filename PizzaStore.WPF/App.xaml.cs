@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models;
+using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Infrastructure.Services;
 using PizzaStore.WPF.State.Navigators;
+using PizzaStore.WPF.State.Basket;
 using PizzaStore.WPF.ViewModels;
 using PizzaStore.WPF.ViewModels.Factories;
 using System;
@@ -29,12 +30,13 @@ namespace PizzaStore.WPF
         {
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<IDataService<Pizza>, HardCodedProductDataService>();
+            services.AddSingleton<IDataService<Product>, HardCodedProductDataService>();
 
             services.AddSingleton<IPizzaStoreViewModelAbstractFactory, PizzaStoreViewModelAbstractFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<MenuViewModel>, MenuViewModelFactory>();
-            services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, CartViewModelFactory>();
+            services.AddSingleton<IPizzaStoreViewModelFactory<BasketViewModel>, BasketViewModelFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<OrderHistoryViewModel>, OrderHistoryViewModelFactory>();
+            services.AddSingleton<IBasket, Basket>();
 
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();

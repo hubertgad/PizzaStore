@@ -12,6 +12,6 @@ namespace PizzaStore.WPF.State.Navigators
 
     public enum ViewType
     {
-        Menu, Cart, OrderHistory
+        Menu, Basket, OrderHistory
     }
 }

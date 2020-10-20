@@ -1,6 +1,6 @@
 ﻿namespace PizzaStore.Domain.SeedWork
 {
-    public class Entity
+    public class Entity : IEntity
     {
         public int Id { get; set; }
     }

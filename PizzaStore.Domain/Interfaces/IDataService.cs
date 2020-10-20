@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace PizzaStore.Domain.Interfaces
 {
-    public interface IDataService<T> where T : Entity
+    public interface IDataService<T> where T : IEntity
     {
         Task<IEnumerable<T>> GetAll();
     }

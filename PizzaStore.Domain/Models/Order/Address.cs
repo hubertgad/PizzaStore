@@ -1,4 +1,4 @@
-﻿namespace PizzaStore.Domain.Models
+﻿namespace PizzaStore.Domain.Models.Order
 {
     public class Address
     {

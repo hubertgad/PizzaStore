@@ -1,18 +1,26 @@
-﻿using PizzaStore.Domain.Models;
+﻿using PizzaStore.Domain.Models.Menu;
+using PizzaStore.Domain.Models.Order;
+using PizzaStore.WPF.State.Basket;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PizzaStore.WPF.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
-        public IEnumerable<Pizza> Pizzas { get; }
+        public IEnumerable<Product> Products { get; }
 
-        public Order Order { get; set; }
+        public IEnumerable<Product> Pizzas => Products.Where(q => q.ProductType == ProductType.Pizza);
 
-        public MenuViewModel(IEnumerable<Pizza> products)
+        public IEnumerable<Product> PizzaToppings => Products.Where(q => q.ProductType == ProductType.PizzaTopping);
+
+        public IBasket Basket { get; set; }
+
+        public MenuViewModel(IBasket basket, IEnumerable<Product> products)
         {
-            Pizzas = products;
-            Order = new Order();
+            Products = products;
+            Basket = basket;
+            basket.Order.AddItem(new OrderItem { Name = "Test", Price = 2 });
         }
     }
 }
