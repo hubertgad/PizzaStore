@@ -1,8 +1,10 @@
 ﻿using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.Order;
-using PizzaStore.WPF.State.Basket;
+using PizzaStore.WPF.Commands;
+using PizzaStore.WPF.State.Cart;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace PizzaStore.WPF.ViewModels
 {
@@ -14,9 +16,17 @@ namespace PizzaStore.WPF.ViewModels
 
         public IEnumerable<Product> PizzaToppings => Products.Where(q => q.ProductType == ProductType.PizzaTopping);
 
-        public IBasket Basket { get; set; }
+        public ICart Basket { get; set; }
 
-        public MenuViewModel(IBasket basket, IEnumerable<Product> products)
+        private ICommand _addItemToCartCommand;
+
+        public ICommand AddCommand
+        {
+            get { return _addItemToCartCommand ??= new AddItemToCartCommand(Basket); }
+            set { _addItemToCartCommand = value; }
+        }
+
+        public MenuViewModel(ICart basket, IEnumerable<Product> products)
         {
             Products = products;
             Basket = basket;

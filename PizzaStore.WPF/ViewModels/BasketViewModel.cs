@@ -1,12 +1,12 @@
-﻿using PizzaStore.WPF.State.Basket;
+﻿using PizzaStore.WPF.State.Cart;
 
 namespace PizzaStore.WPF.ViewModels
 {
     public class BasketViewModel : ViewModelBase
     {
-        public IBasket Basket { get; set; }
+        public ICart Basket { get; set; }
 
-        public BasketViewModel(IBasket basket)
+        public BasketViewModel(ICart basket)
         {
             Basket = basket;
         }

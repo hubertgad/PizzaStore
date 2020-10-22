@@ -1,12 +1,12 @@
-﻿using PizzaStore.WPF.State.Basket;
+﻿using PizzaStore.WPF.State.Cart;
 
 namespace PizzaStore.WPF.ViewModels.Factories
 {
     class BasketViewModelFactory : IPizzaStoreViewModelFactory<BasketViewModel>
     {
-        private readonly IBasket _basket;
+        private readonly ICart _basket;
 
-        public BasketViewModelFactory(IBasket basket)
+        public BasketViewModelFactory(ICart basket)
         {
             _basket = basket;
         }

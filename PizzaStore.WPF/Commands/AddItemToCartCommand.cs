@@ -1,18 +1,18 @@
 ﻿using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.Order;
-using PizzaStore.WPF.State.Basket;
+using PizzaStore.WPF.State.Cart;
 using System;
 using System.Windows.Input;
 
 namespace PizzaStore.WPF.Commands
 {
-    class AddItemToBasketCommand : ICommand
+    class AddItemToCartCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly IBasket _basket;
+        private readonly ICart _basket;
 
-        public AddItemToBasketCommand(IBasket basket)
+        public AddItemToCartCommand(ICart basket)
         {
             _basket = basket;
         }

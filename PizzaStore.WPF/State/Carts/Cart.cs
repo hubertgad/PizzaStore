@@ -2,9 +2,9 @@
 using PizzaStore.WPF.Models;
 using System.Windows.Input;
 
-namespace PizzaStore.WPF.State.Basket
+namespace PizzaStore.WPF.State.Cart
 {
-    class Basket : ObservableObject, IBasket
+    class Cart : ObservableObject, ICart
     {
         private Order _order;
 
@@ -18,9 +18,9 @@ namespace PizzaStore.WPF.State.Basket
             }
         }
 
-        public ICommand AddItemToBasketCommand { get; set; }
+        public ICommand AddItemToCartCommand { get; set; }
 
-        public Basket()
+        public Cart()
         {
             Order = new Order();
         }
