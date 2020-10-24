@@ -17,7 +17,7 @@
                 <views:MenuView/>
             </DataTemplate>
             
-            <DataTemplate DataType="{x:Type viewmodels:BasketViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:CartViewModel}">
                 <views:CartView/>
             </DataTemplate>
             

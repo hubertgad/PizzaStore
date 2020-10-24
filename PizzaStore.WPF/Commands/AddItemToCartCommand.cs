@@ -10,11 +10,11 @@ namespace PizzaStore.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly ICart _basket;
+        private readonly ICart _cart;
 
-        public AddItemToCartCommand(ICart basket)
+        public AddItemToCartCommand(ICart cart)
         {
-            _basket = basket;
+            _cart = cart;
         }
 
         public bool CanExecute(object parameter)
@@ -26,12 +26,12 @@ namespace PizzaStore.WPF.Commands
         {
             if (parameter is OrderItem orderItem)
             {
-                _basket.Order.OrderItems.Add(orderItem);
+                _cart.Order.OrderItems.Add(orderItem);
             }
             if (parameter is Product product)
             {
                 var orderItem2 = new OrderItem(product);
-                _basket.Order.OrderItems.Add(orderItem2);
+                _cart.Order.OrderItems.Add(orderItem2);
             }
         }
     }

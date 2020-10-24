@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" Text="Basket" />
-        <ItemsControl Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding Basket.Order.OrderItems}">
+        <ItemsControl Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding Cart.Order.OrderItems}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>

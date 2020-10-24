@@ -2,7 +2,7 @@
 
 namespace PizzaStore.WPF.ViewModels.Factories
 {
-    class BasketViewModelFactory : IPizzaStoreViewModelFactory<BasketViewModel>
+    class BasketViewModelFactory : IPizzaStoreViewModelFactory<CartViewModel>
     {
         private readonly ICart _basket;
 
@@ -11,9 +11,9 @@ namespace PizzaStore.WPF.ViewModels.Factories
             _basket = basket;
         }
 
-        public BasketViewModel CreateViewModel()
+        public CartViewModel CreateViewModel()
         {
-            return new BasketViewModel(_basket);
+            return new CartViewModel(_basket);
         }
     }
 }

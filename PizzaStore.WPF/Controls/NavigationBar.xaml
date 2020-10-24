@@ -29,7 +29,7 @@
                 </Grid.ColumnDefinitions>
                 <RadioButton Grid.Column="0" Content="Menu" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Menu}" />
                 <RadioButton Grid.Column="1" Content="Order history" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.OrderHistory}" />
-                <RadioButton Grid.Column="2" Content="Basket" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Basket}" />
+                <RadioButton Grid.Column="2" Content="Cart" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Cart}" />
             </Grid>
         </Grid>
 

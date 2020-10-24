@@ -6,8 +6,6 @@ namespace PizzaStore.Domain.Models.Order
 {
     public class OrderItem : Entity
     {
-        public string Symbol { get; set; }
-
         public string Name { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
@@ -18,14 +16,15 @@ namespace PizzaStore.Domain.Models.Order
 
         public OrderItem()
         {
-
         }
 
-        public OrderItem(Product product)
+        public OrderItem(Product product, int? parentItemId = null)
         {
-            Symbol = product.Symbol;
             Name = product.Name;
+            
             Price = product.Price;
+
+            ParentItemId = parentItemId;
         }
     }
 }

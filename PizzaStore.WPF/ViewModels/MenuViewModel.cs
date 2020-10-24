@@ -12,9 +12,9 @@ namespace PizzaStore.WPF.ViewModels
     {
         public IEnumerable<Product> Products { get; }
 
-        public IEnumerable<Product> Pizzas => Products.Where(q => q.ProductType == ProductType.Pizza);
+        public IEnumerable<Product> Pizzas => Products.Where(q => q.Group.Name == "Pizza");
 
-        public IEnumerable<Product> PizzaToppings => Products.Where(q => q.ProductType == ProductType.PizzaTopping);
+        public IEnumerable<Product> PizzaToppings => Products.Where(q => q.Group.Name == "PizzaTopping");
 
         public ICart Basket { get; set; }
 

@@ -9,16 +9,20 @@ namespace PizzaStore.Infrastructure.Services
     {
         public async Task<IEnumerable<Product>> GetAll()
         {
+            var pizzas = new Group { Id = 1, Name = "Pizza", IsTopping = false };
+            var pizzaToppings = new Group { Id = 2, Name = "PizzaTopping", IsTopping = true };
+            var basicTax = new Tax("basicTax", 23);
+
             return new List<Product>
             {
-                new Product { Symbol = "MARGA", Name = "Margaritta", Price = 20, ProductType = ProductType.Pizza },
-                new Product { Symbol = "VEGET", Name = "Vegetariana", Price = 22, ProductType = ProductType.Pizza },
-                new Product { Symbol = "TOSCC", Name = "Tosca", Price = 25, ProductType = ProductType.Pizza },
-                new Product { Symbol = "VENEC", Name = "Venecia", Price = 25, ProductType = ProductType.Pizza },
-                new Product { Symbol = "CHEES", Name = "Double cheese", Price = 2, ProductType = ProductType.PizzaTopping },
-                new Product { Symbol = "SALAM", Name = "Salami", Price = 2, ProductType = ProductType.PizzaTopping },
-                new Product { Symbol = "HAM", Name = "Ham", Price = 2, ProductType = ProductType.PizzaTopping },
-                new Product { Symbol = "MUSHR", Name = "Mushrooms", Price = 2, ProductType = ProductType.PizzaTopping },
+                new Product("Margaritta", 20, basicTax, pizzas),
+                new Product("Vegetariana", 22, basicTax, pizzas),
+                new Product("Tosca", 25, basicTax, pizzas),
+                new Product("Venecia", 25, basicTax, pizzas),
+                new Product("Double cheese", 2, basicTax, pizzaToppings),
+                new Product("Salami", 2, basicTax, pizzaToppings),
+                new Product("Ham", 2, basicTax, pizzaToppings),
+                new Product("Mushrooms", 2, basicTax, pizzaToppings)
             };
         }
     }

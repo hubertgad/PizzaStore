@@ -7,11 +7,14 @@ namespace PizzaStore.Domain.Models.Order
 {
     public class Order : Entity
     {
-        public DateTime OrderPlaced { get; set; }
+        public DateTime OrderPlaced { get; private set; }
 
-        public int CustomerId { get; set; }
+        public int CustomerId { get; private set; }
         
         public string Remarks { get; set; }
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Discount { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal TotalPrice { get; set; }
