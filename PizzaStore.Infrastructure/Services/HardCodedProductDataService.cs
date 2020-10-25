@@ -9,8 +9,8 @@ namespace PizzaStore.Infrastructure.Services
     {
         public async Task<IEnumerable<Product>> GetAll()
         {
-            var pizzas = new Group { Id = 1, Name = "Pizza", IsTopping = false };
-            var pizzaToppings = new Group { Id = 2, Name = "PizzaTopping", IsTopping = true };
+            var pizzas = new Group("Pizza", false);
+            var pizzaToppings = new Group("PizzaTopping", true);
             var basicTax = new Tax("basicTax", 23);
 
             return new List<Product>

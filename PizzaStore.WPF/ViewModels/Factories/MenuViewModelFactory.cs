@@ -7,17 +7,17 @@ namespace PizzaStore.WPF.ViewModels.Factories
     public class MenuViewModelFactory : IPizzaStoreViewModelFactory<MenuViewModel>
     {
         private readonly IDataService<Product> _productDataService;
-        private readonly ICart _basket;
+        private readonly ICart _cart;
 
-        public MenuViewModelFactory(IDataService<Product> productDataService, ICart basket)
+        public MenuViewModelFactory(IDataService<Product> productDataService, ICart cart)
         {
             _productDataService = productDataService;
-            _basket = basket;
+            _cart = cart;
         }
 
         public MenuViewModel CreateViewModel()
         {
-            return new MenuViewModel(_basket, _productDataService.GetAll().Result);
+            return new MenuViewModel(_cart, _productDataService.GetAll().Result);
         }
     }
 }

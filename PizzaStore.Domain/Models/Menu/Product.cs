@@ -5,21 +5,17 @@ namespace PizzaStore.Domain.Models.Menu
 {
     public class Product : Entity
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal NetPrice { get; set; }
+        public decimal NetPrice { get; private set; }
 
-        public Tax Tax { get; set; }
+        public Tax Tax { get; private set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Price { get; set; }
+        public decimal Price { get; private set; }
 
-        public Group Group { get; set; }
-
-        public Product()
-        {
-        }
+        public Group Group { get; private set; }
 
         public Product(string name, decimal price, Tax tax, Group group)
         {

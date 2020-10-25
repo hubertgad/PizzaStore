@@ -2,35 +2,32 @@
 using PizzaStore.Domain.Models.Order;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Cart;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 
 namespace PizzaStore.WPF.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
+        public ICart Cart { get; }
+
         public IEnumerable<Product> Products { get; }
 
-        public IEnumerable<Product> Pizzas => Products.Where(q => q.Group.Name == "Pizza");
+        public IEnumerable<Product> MainProducts =>
+            Products.Where(q => !q.Group.IsTopping);
 
-        public IEnumerable<Product> PizzaToppings => Products.Where(q => q.Group.Name == "PizzaTopping");
+        public IEnumerable<Product> Pizzas => 
+            Products.Where(q => q.Group.Name == "Pizza");
 
-        public ICart Basket { get; set; }
+        public IEnumerable<Product> PizzaToppings => 
+            Products.Where(q => q.Group.Name == "PizzaTopping");
 
-        private ICommand _addItemToCartCommand;
 
-        public ICommand AddCommand
-        {
-            get { return _addItemToCartCommand ??= new AddItemToCartCommand(Basket); }
-            set { _addItemToCartCommand = value; }
-        }
-
-        public MenuViewModel(ICart basket, IEnumerable<Product> products)
+        public MenuViewModel(ICart cart, IEnumerable<Product> products)
         {
             Products = products;
-            Basket = basket;
-            basket.Order.AddItem(new OrderItem { Name = "Test", Price = 2 });
+            Cart = cart;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace PizzaStore.WPF
 
             services.AddSingleton<IPizzaStoreViewModelAbstractFactory, PizzaStoreViewModelAbstractFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<MenuViewModel>, MenuViewModelFactory>();
-            services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, BasketViewModelFactory>();
+            services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, CartViewModelFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<OrderHistoryViewModel>, OrderHistoryViewModelFactory>();
             
             services.AddSingleton<ICart, Cart>();

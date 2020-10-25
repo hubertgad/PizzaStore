@@ -6,13 +6,13 @@ using System.Windows.Input;
 
 namespace PizzaStore.WPF.Commands
 {
-    class AddItemToCartCommand : ICommand
+    class RemoveItemFromCartCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
         private readonly ICart _cart;
 
-        public AddItemToCartCommand(ICart cart)
+        public RemoveItemFromCartCommand(ICart cart)
         {
             _cart = cart;
         }
@@ -27,7 +27,7 @@ namespace PizzaStore.WPF.Commands
             if (parameter is Product product)
             {
                 var orderItem2 = new OrderItem(product);
-                _cart.AddItem(orderItem2);
+                _cart.RemoveItem(orderItem2);
             }
         }
     }

@@ -14,8 +14,8 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Text="Basket" />
-        <ItemsControl Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding Cart.Order.OrderItems}">
+        <TextBlock Grid.Row="0" Text="Order summary:" FontSize="28" FontWeight="Bold" />
+        <ItemsControl Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding Cart.Items}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -30,7 +30,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Grid Grid.Row="2" DataContext="{Binding Basket.Order}">
+        <Grid Grid.Row="2" DataContext="{Binding Cart}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
@@ -50,7 +50,8 @@
             </StackPanel>
         </Grid>
 
-        <Button Grid.Row="3" Margin="10" Padding="10" HorizontalAlignment="Right" Content="Submit" />
+        <Button Grid.Row="3" Margin="10" Padding="10" HorizontalAlignment="Right" Content="Submit"
+                Command="{Binding Cart.PlaceOrderCommand}"/>
 
     </Grid>
 </UserControl>
