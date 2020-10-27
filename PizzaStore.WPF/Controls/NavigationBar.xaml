@@ -14,7 +14,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         
-        <TextBlock Grid.Row="0" Padding="10" FontSize="32" Foreground="White" Text="PIZZA STORE" TextAlignment="Center" Background="{StaticResource PrimaryBrush}" />
+        <TextBlock Grid.Row="0" Padding="10" FontSize="32" FontWeight="SemiBold" Foreground="White" Text="PIZZA STORE" TextAlignment="Center" Background="{StaticResource PrimaryBrush}" />
         
         <Grid Grid.Row="1" RenderOptions.EdgeMode="Aliased" Background="{StaticResource SecondaryBrush}">
             <Grid MaxWidth="1024">

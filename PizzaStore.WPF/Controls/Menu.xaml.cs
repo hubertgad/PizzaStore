@@ -3,11 +3,11 @@
 namespace PizzaStore.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for NavigationBar.xaml
+    /// Interaction logic for MenuGroup.xaml
     /// </summary>
-    public partial class NavigationBar : UserControl
+    public partial class Menu : UserControl
     {
-        public NavigationBar()
+        public Menu()
         {
             InitializeComponent();
         }

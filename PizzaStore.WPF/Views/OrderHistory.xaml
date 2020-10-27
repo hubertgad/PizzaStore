@@ -8,7 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <GroupBox Header="Order history">
         <Grid>
-            <TextBlock Text="Order History" />
+            <TextBlock 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Text="Not implemented yet" FontSize="36" />
         </Grid>
     </GroupBox>
 </UserControl>

@@ -9,8 +9,8 @@ namespace PizzaStore.WPF.ViewModels.Factories
         private readonly IPizzaStoreViewModelFactory<CartViewModel> _cartViewModelFactory;
         private readonly IPizzaStoreViewModelFactory<OrderHistoryViewModel> _orderHistoryViewModelFactory;
 
-        public PizzaStoreViewModelAbstractFactory(IPizzaStoreViewModelFactory<MenuViewModel> menuViewModelFactory, 
-            IPizzaStoreViewModelFactory<CartViewModel> cartViewModelFactory, 
+        public PizzaStoreViewModelAbstractFactory(IPizzaStoreViewModelFactory<MenuViewModel> menuViewModelFactory,
+            IPizzaStoreViewModelFactory<CartViewModel> cartViewModelFactory,
             IPizzaStoreViewModelFactory<OrderHistoryViewModel> orderHistoryViewModelFactory)
         {
             _menuViewModelFactory = menuViewModelFactory;

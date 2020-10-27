@@ -7,6 +7,7 @@ namespace PizzaStore.Infrastructure.Services
 {
     public class HardCodedProductDataService : IDataService<Product>
     {
+
         public async Task<IEnumerable<Product>> GetAll()
         {
             var pizzas = new Group("Pizza", false);
@@ -39,6 +40,26 @@ namespace PizzaStore.Infrastructure.Services
                 new Product("Tea", 5, basicTax, drinks),
                 new Product("Coke", 5, basicTax, drinks),
             };
+        }
+
+        public Task<Product> Get(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Product> Create(Product entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Product> Update(int id, Product entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<bool> Delete(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

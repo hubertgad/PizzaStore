@@ -22,7 +22,7 @@
         
         <c:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}" />
 
-        <ScrollViewer Grid.Row="1" Padding="20 10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Padding="20 0" VerticalScrollBarVisibility="Auto">
             <ContentControl Margin="10" Content="{Binding Navigator.CurrentViewModel}" />
         </ScrollViewer>
 

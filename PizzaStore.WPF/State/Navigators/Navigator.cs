@@ -10,7 +10,7 @@ namespace PizzaStore.WPF.State.Navigators
     {
         private ViewModelBase _currentViewModel;
 
-        public ViewModelBase CurrentViewModel 
+        public ViewModelBase CurrentViewModel
         {
             get => _currentViewModel;
             set

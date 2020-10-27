@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace PizzaStore.WPF.Controls
+namespace PizzaStore.WPF.Converters
 {
     public class MultiValueConverter : IMultiValueConverter
     {

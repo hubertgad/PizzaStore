@@ -3,6 +3,7 @@ using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PizzaStore.WPF.State.Cart
@@ -10,20 +11,20 @@ namespace PizzaStore.WPF.State.Cart
     class Cart : ObservableObject, ICart
     {
         public ObservableCollection<OrderItem> Items { get; set; }
+        
+        public string Remarks { get; set; }
 
         public decimal TotalPrice => Items.Sum(q => q.Price);
         
-        private string _remarks;
+        public Customer Customer { get; set; }
 
-        public string Remarks
-        {
-            get { return _remarks; }
-            set 
-            {
-                _remarks = value;
-                OnPropertyChanged(nameof(Remarks));
-            }
-        }
+        public string Street { get; set; }
+
+        public string HouseNumber { get; set; }
+
+        public string HouseUnitNumber { get; set; }
+
+        public string CustomerName { get; set; }
 
         public ICommand AddItemToCartCommand { get; set; }
 
@@ -34,11 +35,9 @@ namespace PizzaStore.WPF.State.Cart
         public Cart()
         {
             Items = new ObservableCollection<OrderItem>();
-
+            Customer = new Customer();
             AddItemToCartCommand = new AddItemToCartCommand(this);
-
             RemoveItemFromCartCommand = new RemoveItemFromCartCommand(this);
-            
             PlaceOrderCommand = new PlaceOrderCommand(this);
         }
 
@@ -52,21 +51,25 @@ namespace PizzaStore.WPF.State.Cart
         public void RemoveItem(OrderItem orderItem)
         {
             var toppingsToRemove =
-                Items.Where(q => q.ParentItemId == orderItem.Id);
-
-            Items.Remove(orderItem);
+                Items.Where(q => q.ParentItemId == orderItem.Id).ToList();
 
             foreach (var topping in toppingsToRemove)
             {
                 Items.Remove(topping);
             }
 
+            Items.Remove(orderItem);
+
             OnPropertyChanged(nameof(TotalPrice));
         }
 
         public void PlaceOrder()
         {
-            throw new System.NotImplementedException();
+            var address = new Address(Street, HouseNumber, HouseUnitNumber);
+
+            var order = new Order(Remarks, 0, TotalPrice, address, Customer, Items);
+
+            MessageBox.Show(order.ToString());
         }
     }
 }

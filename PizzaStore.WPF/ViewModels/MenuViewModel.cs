@@ -22,10 +22,10 @@ namespace PizzaStore.WPF.ViewModels
 
         public IEnumerable<Product> MainToppings =>
             Products.Where(q => q.Group.Name == "MainMealTopping");
-        
+
         public IEnumerable<Product> Soups =>
             Products.Where(q => q.Group.Name == "Soup");
-        
+
         public IEnumerable<Product> Drinks =>
             Products.Where(q => q.Group.Name == "Drink");
 

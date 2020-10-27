@@ -2,8 +2,8 @@
 using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Infrastructure.Services;
-using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.State.Cart;
+using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
 using PizzaStore.WPF.ViewModels.Factories;
 using System;
@@ -36,7 +36,7 @@ namespace PizzaStore.WPF
             services.AddSingleton<IPizzaStoreViewModelFactory<MenuViewModel>, MenuViewModelFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, CartViewModelFactory>();
             services.AddSingleton<IPizzaStoreViewModelFactory<OrderHistoryViewModel>, OrderHistoryViewModelFactory>();
-            
+
             services.AddSingleton<ICart, Cart>();
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace PizzaStore.Domain.Models.Order
 {
@@ -9,37 +10,59 @@ namespace PizzaStore.Domain.Models.Order
     {
         public DateTime OrderPlaced { get; private set; }
 
-        public int CustomerId { get; private set; }
-        
-        public string Remarks { get; set; }
+        public string Remarks { get; private set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Discount { get; set; }
+        public decimal Discount { get; private set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; private set; }
 
-        public Address Address { get; set; }
+        public Address Address { get; private set; }
 
-        public Customer Customer { get; set; }
+        public Customer Customer { get; private set; }
 
-        public IEnumerable<OrderItem> OrderItems { get; }
+        public IEnumerable<OrderItem> OrderItems { get; private set; }
 
-        public Order()
-        {
-            OrderItems = new List<OrderItem>();
-        }
+        private Order()
+        { }
 
-        public Order(int customerId, string remarks, decimal discount, decimal totalPrice, Address address, Customer customer, IEnumerable<OrderItem> orderItems)
+        public Order(string remarks, decimal discount, decimal totalPrice, Address address, Customer customer, IEnumerable<OrderItem> orderItems)
         {
             OrderPlaced = DateTime.Now;
-            CustomerId = customerId;
             Remarks = remarks;
             Discount = discount;
             TotalPrice = totalPrice;
             Address = address;
             Customer = customer;
             OrderItems = orderItems;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Order placed: { OrderPlaced }");
+            sb.AppendLine();
+
+            sb.AppendLine($"Customer information:");
+            sb.AppendLine($"\tName: { Customer.Name }");
+            sb.AppendLine($"\tPhone: { Customer.Phone}");
+            sb.AppendLine($"\tE-mail address: { Customer.Email}");
+            sb.AppendLine($"\tAddress: { Address }");
+            sb.AppendLine($"\tRemarks: { Remarks }");
+            sb.AppendLine();
+
+            sb.AppendLine($"\tProducts:");
+            foreach (var item in OrderItems)
+            {
+                sb.AppendLine($"\t\t{ item }");
+            }
+            sb.AppendLine();
+
+            sb.AppendLine($"\tTotal price: { string.Format("{0:C2}", TotalPrice) }");
+
+            return sb.ToString();
         }
     }
 }

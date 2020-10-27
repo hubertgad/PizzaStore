@@ -17,7 +17,7 @@ namespace PizzaStore.WPF.State.Cart
         public void AddItem(OrderItem orderItem);
 
         public void RemoveItem(OrderItem orderItem);
-        
+
         public void PlaceOrder();
     }
 }

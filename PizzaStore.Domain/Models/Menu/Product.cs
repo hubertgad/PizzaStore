@@ -17,6 +17,9 @@ namespace PizzaStore.Domain.Models.Menu
 
         public Group Group { get; private set; }
 
+        private Product() 
+        { }
+
         public Product(string name, decimal price, Tax tax, Group group)
         {
             Name = name;
