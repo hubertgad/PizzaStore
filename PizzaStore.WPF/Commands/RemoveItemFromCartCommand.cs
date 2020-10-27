@@ -1,5 +1,4 @@
-﻿using PizzaStore.Domain.Models.Menu;
-using PizzaStore.Domain.Models.Order;
+﻿using PizzaStore.Domain.Models.Order;
 using PizzaStore.WPF.State.Cart;
 using System;
 using System.Windows.Input;
@@ -24,10 +23,9 @@ namespace PizzaStore.WPF.Commands
 
         public void Execute(object parameter)
         {
-            if (parameter is Product product)
+            if (parameter is OrderItem orderItem)
             {
-                var orderItem2 = new OrderItem(product);
-                _cart.RemoveItem(orderItem2);
+                _cart.RemoveItem(orderItem);
             }
         }
     }

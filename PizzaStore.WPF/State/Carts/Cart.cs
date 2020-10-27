@@ -51,15 +51,10 @@ namespace PizzaStore.WPF.State.Cart
 
         public void RemoveItem(OrderItem orderItem)
         {
-            var itemToRemove =
-                Items.LastOrDefault(q => q.Name == orderItem.Name);
-
-            if (itemToRemove == null) return;
-
             var toppingsToRemove =
-                Items.Where(q => q.ParentItemId == itemToRemove.Id);
+                Items.Where(q => q.ParentItemId == orderItem.Id);
 
-            Items.Remove(itemToRemove);
+            Items.Remove(orderItem);
 
             foreach (var topping in toppingsToRemove)
             {

@@ -1,6 +1,4 @@
-﻿using PizzaStore.WPF.State.Navigators;
-
-namespace PizzaStore.WPF.ViewModels
+﻿namespace PizzaStore.WPF.ViewModels
 {
     public class ViewModelBase
     {

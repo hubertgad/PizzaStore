@@ -23,17 +23,23 @@ namespace PizzaStore.Domain.Models.Order
 
         public Customer Customer { get; set; }
 
-        public List<OrderItem> OrderItems { get; }
+        public IEnumerable<OrderItem> OrderItems { get; }
 
         public Order()
         {
             OrderItems = new List<OrderItem>();
         }
 
-        public void AddItem(OrderItem item)
+        public Order(int customerId, string remarks, decimal discount, decimal totalPrice, Address address, Customer customer, IEnumerable<OrderItem> orderItems)
         {
-            OrderItems.Add(item);
-            TotalPrice += item.Price;
+            OrderPlaced = DateTime.Now;
+            CustomerId = customerId;
+            Remarks = remarks;
+            Discount = discount;
+            TotalPrice = totalPrice;
+            Address = address;
+            Customer = customer;
+            OrderItems = orderItems;
         }
     }
 }

@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\pizza.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\pizza.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PizzaStore.Domain\PizzaStore.Domain.csproj" />
     <ProjectReference Include="..\PizzaStore.Infrastructure\PizzaStore.Infrastructure.csproj" />
   </ItemGroup>

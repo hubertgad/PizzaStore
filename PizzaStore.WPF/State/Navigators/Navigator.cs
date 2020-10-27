@@ -24,6 +24,7 @@ namespace PizzaStore.WPF.State.Navigators
 
         public Navigator(IPizzaStoreViewModelAbstractFactory viewModelFactory)
         {
+            CurrentViewModel = viewModelFactory.CreateViewModel(ViewType.Menu);
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(this, viewModelFactory);
         }
     }

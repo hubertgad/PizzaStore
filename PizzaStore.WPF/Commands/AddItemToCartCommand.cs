@@ -19,16 +19,33 @@ namespace PizzaStore.WPF.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            var values = (object[])parameter;
+            if(Int32.TryParse((string)values[1], out int qty))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Execute(object parameter)
         {
-            if (parameter is Product product)
+            var values = (object[])parameter;
+            Int32.TryParse((string)values[1], out int qty);
+            
+
+            for (int i = 0; i < qty; i++)
             {
-                var orderItem2 = new OrderItem(product);
-                _cart.AddItem(orderItem2);
+                if ((Product)values[0] is Product product)
+                {
+                    var orderItem2 = new OrderItem(product);
+                    _cart.AddItem(orderItem2);
+                }
             }
+
+            
         }
     }
 }
