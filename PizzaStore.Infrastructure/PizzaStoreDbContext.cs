@@ -4,7 +4,7 @@ using PizzaStore.Domain.Models.Order;
 
 namespace PizzaStore.Infrastructure
 {
-    class PizzaStoreDbContext : DbContext
+    public class PizzaStoreDbContext : DbContext
     {
         public DbSet<Group> Groups { get; set; }
         
@@ -16,11 +16,14 @@ namespace PizzaStore.Infrastructure
 
         public DbSet<Order> Orders { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase(databaseName: "PizzaStore");
+        public PizzaStoreDbContext(DbContextOptions options) : base(options) { }
 
-            base.OnConfiguring(optionsBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().OwnsOne(q => q.Customer);
+            modelBuilder.Entity<Order>().OwnsOne(q => q.Address);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

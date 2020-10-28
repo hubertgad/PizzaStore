@@ -50,17 +50,19 @@ namespace PizzaStore.Domain.Models.Order
             sb.AppendLine($"\tPhone: { Customer.Phone}");
             sb.AppendLine($"\tE-mail address: { Customer.Email}");
             sb.AppendLine($"\tAddress: { Address }");
-            sb.AppendLine($"\tRemarks: { Remarks }");
             sb.AppendLine();
 
-            sb.AppendLine($"\tProducts:");
+            sb.AppendLine($"Remarks: { Remarks }");
+            sb.AppendLine();
+
+            sb.AppendLine($"Products:");
             foreach (var item in OrderItems)
             {
-                sb.AppendLine($"\t\t{ item }");
+                sb.AppendLine($"\t{ item }");
             }
             sb.AppendLine();
 
-            sb.AppendLine($"\tTotal price: { string.Format("{0:C2}", TotalPrice) }");
+            sb.AppendLine($"Total price: { string.Format("{0:C2}", TotalPrice) }");
 
             return sb.ToString();
         }

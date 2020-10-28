@@ -24,7 +24,11 @@ namespace PizzaStore.WPF.State.Cart
 
         public string HouseUnitNumber { get; set; }
 
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
 
         public ICommand AddItemToCartCommand { get; set; }
 
@@ -35,7 +39,6 @@ namespace PizzaStore.WPF.State.Cart
         public Cart()
         {
             Items = new ObservableCollection<OrderItem>();
-            Customer = new Customer();
             AddItemToCartCommand = new AddItemToCartCommand(this);
             RemoveItemFromCartCommand = new RemoveItemFromCartCommand(this);
             PlaceOrderCommand = new PlaceOrderCommand(this);
@@ -66,8 +69,9 @@ namespace PizzaStore.WPF.State.Cart
         public void PlaceOrder()
         {
             var address = new Address(Street, HouseNumber, HouseUnitNumber);
+            var customer = new Customer(Name, Phone, Email);
 
-            var order = new Order(Remarks, 0, TotalPrice, address, Customer, Items);
+            var order = new Order(Remarks, 0, TotalPrice, address, customer, Items);
 
             MessageBox.Show(order.ToString());
         }
