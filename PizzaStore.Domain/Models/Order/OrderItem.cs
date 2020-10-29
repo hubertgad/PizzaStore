@@ -14,7 +14,7 @@ namespace PizzaStore.Domain.Models.Order
         [ForeignKey("OrderItem")]
         public int? ParentItemId { get; set; }
 
-        private OrderItem()
+        public OrderItem()
         { }
 
         public OrderItem(Product product, int? parentItemId = null)

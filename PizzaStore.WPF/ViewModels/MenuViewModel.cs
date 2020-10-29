@@ -1,4 +1,5 @@
-﻿using PizzaStore.Domain.Models.Menu;
+﻿using PizzaStore.Domain.Interfaces;
+using PizzaStore.Domain.Models.Menu;
 using PizzaStore.WPF.State.Cart;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace PizzaStore.WPF.ViewModels
         public IEnumerable<Product> Drinks =>
             Products.Where(q => q.Group.Name == "Drink");
 
-        public MenuViewModel(ICart cart, IEnumerable<Product> products)
+        public MenuViewModel(ICart cart, IDataService<Product> productDataService)
         {
-            Products = products;
+            Products = productDataService.GetAll().Result;
             Cart = cart;
         }
     }

@@ -4,14 +4,23 @@ namespace PizzaStore.Domain.Models.Menu
 {
     public class Group : Entity
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public bool IsTopping { get; private set; }
+        public bool IsTopping { get; set; }
+
+        public Group()
+        { }
 
         public Group(string name, bool isTopping)
         {
             Name = name;
             IsTopping = isTopping;
+        }
+
+        public Group(int id, string name, bool isTopping) 
+            : this(name, isTopping)
+        {
+            Id = id;
         }
     }
 }

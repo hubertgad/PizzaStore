@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.Menu;
+using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
 
 namespace PizzaStore.Infrastructure
@@ -11,11 +12,12 @@ namespace PizzaStore.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            
             string connectionString = configuration.GetConnectionString("default");
             services.AddDbContext<PizzaStoreDbContext>(o => o.UseSqlServer(connectionString));
 
-            services.AddSingleton<IDataService<Product>, HardCodedProductDataService>();
+            services.AddSingleton(new PizzaStoreDbContextFactory(connectionString));
+
+            services.AddSingleton<IDataService<Product>, GenericDataService<Product>>();
 
             return services;
         }

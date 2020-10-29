@@ -17,7 +17,7 @@ namespace PizzaStore.WPF.ViewModels.Factories
 
         public MenuViewModel CreateViewModel()
         {
-            return new MenuViewModel(_cart, _productDataService.GetAll().Result);
+            return new MenuViewModel(_cart, _productDataService);
         }
     }
 }

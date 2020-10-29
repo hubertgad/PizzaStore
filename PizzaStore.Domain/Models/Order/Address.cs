@@ -10,7 +10,7 @@ namespace PizzaStore.Domain.Models.Order
 
         public string HouseUnitNumber { get; private set; }
 
-        private Address()
+        public Address()
         { }
 
         public Address(string street, string houseNumber, string houseUnitNumber)

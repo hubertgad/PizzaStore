@@ -8,10 +8,19 @@ namespace PizzaStore.Domain.Models.Menu
 
         public int Value { get; private set; }
 
+        public Tax()
+        { }
+
         public Tax(string name, int value)
         {
             Name = name;
             Value = value;
+        }
+
+        public Tax(int id, string name, int value)
+            : this (name, value)
+        {
+            Id = id;
         }
     }
 }

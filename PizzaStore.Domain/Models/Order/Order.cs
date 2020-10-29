@@ -24,7 +24,7 @@ namespace PizzaStore.Domain.Models.Order
 
         public IEnumerable<OrderItem> OrderItems { get; private set; }
 
-        private Order()
+        public Order()
         { }
 
         public Order(string remarks, decimal discount, decimal totalPrice, Address address, Customer customer, IEnumerable<OrderItem> orderItems)

@@ -10,7 +10,7 @@ namespace PizzaStore.Domain.Models.Order
 
         public string Email { get; private set; }
 
-        private Customer()
+        public Customer()
         { }
 
         public Customer(string name, string phone, string email)
