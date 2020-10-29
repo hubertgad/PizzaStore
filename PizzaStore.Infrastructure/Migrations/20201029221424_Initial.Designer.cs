@@ -10,7 +10,7 @@ using PizzaStore.Infrastructure.Data;
 namespace PizzaStore.Infrastructure.Migrations
 {
     [DbContext(typeof(PizzaStoreDbContext))]
-    [Migration("20201029213125_Initial")]
+    [Migration("20201029221424_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,37 +41,37 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             IsTopping = false,
                             Name = "Pizza"
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             IsTopping = true,
                             Name = "PizzaTopping"
                         },
                         new
                         {
-                            Id = -3,
+                            Id = 3,
                             IsTopping = false,
                             Name = "MainMeal"
                         },
                         new
                         {
-                            Id = -4,
+                            Id = 4,
                             IsTopping = true,
                             Name = "MainMealTopping"
                         },
                         new
                         {
-                            Id = -5,
+                            Id = 5,
                             IsTopping = false,
                             Name = "Soup"
                         },
                         new
                         {
-                            Id = -6,
+                            Id = 6,
                             IsTopping = false,
                             Name = "Drink"
                         });
@@ -107,147 +107,147 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
-                            GroupId = -1,
+                            Id = 1,
+                            GroupId = 1,
                             Name = "Margherita",
                             Price = 20m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -2,
-                            GroupId = -1,
+                            Id = 2,
+                            GroupId = 1,
                             Name = "Vegetariana",
                             Price = 22m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -3,
-                            GroupId = -1,
+                            Id = 3,
+                            GroupId = 1,
                             Name = "Tosca",
                             Price = 25m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -4,
-                            GroupId = -1,
+                            Id = 4,
+                            GroupId = 1,
                             Name = "Venecia",
                             Price = 25m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -5,
-                            GroupId = -2,
+                            Id = 5,
+                            GroupId = 2,
                             Name = "Double cheese",
                             Price = 2m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -6,
-                            GroupId = -2,
+                            Id = 6,
+                            GroupId = 2,
                             Name = "Salami",
                             Price = 2m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -7,
-                            GroupId = -2,
+                            Id = 7,
+                            GroupId = 2,
                             Name = "Ham",
                             Price = 2m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -8,
-                            GroupId = -2,
+                            Id = 8,
+                            GroupId = 2,
                             Name = "Mushrooms",
                             Price = 2m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -9,
-                            GroupId = -3,
+                            Id = 9,
+                            GroupId = 3,
                             Name = "Pork chop with chips / rice / potatoes",
                             Price = 30m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -10,
-                            GroupId = -3,
+                            Id = 10,
+                            GroupId = 3,
                             Name = "Fish and chips",
                             Price = 28m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -11,
-                            GroupId = -3,
+                            Id = 11,
+                            GroupId = 3,
                             Name = "Hungarian style potato pancake",
                             Price = 27m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -12,
-                            GroupId = -4,
+                            Id = 12,
+                            GroupId = 4,
                             Name = "Salad bar",
                             Price = 5m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -13,
-                            GroupId = -4,
+                            Id = 13,
+                            GroupId = 4,
                             Name = "Set of sauces",
                             Price = 6m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -14,
-                            GroupId = -5,
+                            Id = 14,
+                            GroupId = 5,
                             Name = "Tomato soup",
                             Price = 12m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -15,
-                            GroupId = -5,
+                            Id = 15,
+                            GroupId = 5,
                             Name = "Chicken soup",
                             Price = 10m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -16,
-                            GroupId = -6,
+                            Id = 16,
+                            GroupId = 6,
                             Name = "Coffee",
                             Price = 5m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -17,
-                            GroupId = -6,
+                            Id = 17,
+                            GroupId = 6,
                             Name = "Tea",
                             Price = 5m,
-                            TaxId = -1
+                            TaxId = 1
                         },
                         new
                         {
-                            Id = -18,
-                            GroupId = -6,
+                            Id = 18,
+                            GroupId = 6,
                             Name = "Coke",
                             Price = 5m,
-                            TaxId = -1
+                            TaxId = 1
                         });
                 });
 
@@ -271,7 +271,7 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             Name = "basicTax",
                             Value = 23
                         });

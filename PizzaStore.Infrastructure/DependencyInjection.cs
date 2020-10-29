@@ -17,7 +17,7 @@ namespace PizzaStore.Infrastructure
 
             services.AddSingleton(new PizzaStoreDbContextFactory(connectionString));
 
-            services.AddSingleton<IDataService<Product>, GenericDataService<Product>>();
+            services.AddSingleton<IDataService<Product>, ProductDataService>();
 
             return services;
         }

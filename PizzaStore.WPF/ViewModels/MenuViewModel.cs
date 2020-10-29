@@ -32,7 +32,7 @@ namespace PizzaStore.WPF.ViewModels
 
         public MenuViewModel(ICart cart, IDataService<Product> productDataService)
         {
-            Products = productDataService.GetAll().Result;
+            Products = productDataService.GetAll();
             Cart = cart;
         }
     }

@@ -112,42 +112,42 @@ namespace PizzaStore.Infrastructure.Migrations
                 columns: new[] { "Id", "IsTopping", "Name" },
                 values: new object[,]
                 {
-                    { -1, false, "Pizza" },
-                    { -2, true, "PizzaTopping" },
-                    { -3, false, "MainMeal" },
-                    { -4, true, "MainMealTopping" },
-                    { -5, false, "Soup" },
-                    { -6, false, "Drink" }
+                    { 1, false, "Pizza" },
+                    { 2, true, "PizzaTopping" },
+                    { 3, false, "MainMeal" },
+                    { 4, true, "MainMealTopping" },
+                    { 5, false, "Soup" },
+                    { 6, false, "Drink" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Taxes",
                 columns: new[] { "Id", "Name", "Value" },
-                values: new object[] { -1, "basicTax", 23 });
+                values: new object[] { 1, "basicTax", 23 });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "GroupId", "Name", "Price", "TaxId" },
                 values: new object[,]
                 {
-                    { -1, -1, "Margherita", 20m, -1 },
-                    { -16, -6, "Coffee", 5m, -1 },
-                    { -15, -5, "Chicken soup", 10m, -1 },
-                    { -14, -5, "Tomato soup", 12m, -1 },
-                    { -13, -4, "Set of sauces", 6m, -1 },
-                    { -12, -4, "Salad bar", 5m, -1 },
-                    { -11, -3, "Hungarian style potato pancake", 27m, -1 },
-                    { -10, -3, "Fish and chips", 28m, -1 },
-                    { -9, -3, "Pork chop with chips / rice / potatoes", 30m, -1 },
-                    { -8, -2, "Mushrooms", 2m, -1 },
-                    { -7, -2, "Ham", 2m, -1 },
-                    { -6, -2, "Salami", 2m, -1 },
-                    { -5, -2, "Double cheese", 2m, -1 },
-                    { -4, -1, "Venecia", 25m, -1 },
-                    { -3, -1, "Tosca", 25m, -1 },
-                    { -2, -1, "Vegetariana", 22m, -1 },
-                    { -17, -6, "Tea", 5m, -1 },
-                    { -18, -6, "Coke", 5m, -1 }
+                    { 1, 1, "Margherita", 20m, 1 },
+                    { 16, 6, "Coffee", 5m, 1 },
+                    { 15, 5, "Chicken soup", 10m, 1 },
+                    { 14, 5, "Tomato soup", 12m, 1 },
+                    { 13, 4, "Set of sauces", 6m, 1 },
+                    { 12, 4, "Salad bar", 5m, 1 },
+                    { 11, 3, "Hungarian style potato pancake", 27m, 1 },
+                    { 10, 3, "Fish and chips", 28m, 1 },
+                    { 9, 3, "Pork chop with chips / rice / potatoes", 30m, 1 },
+                    { 8, 2, "Mushrooms", 2m, 1 },
+                    { 7, 2, "Ham", 2m, 1 },
+                    { 6, 2, "Salami", 2m, 1 },
+                    { 5, 2, "Double cheese", 2m, 1 },
+                    { 4, 1, "Venecia", 25m, 1 },
+                    { 3, 1, "Tosca", 25m, 1 },
+                    { 2, 1, "Vegetariana", 22m, 1 },
+                    { 17, 6, "Tea", 5m, 1 },
+                    { 18, 6, "Coke", 5m, 1 }
                 });
 
             migrationBuilder.CreateIndex(

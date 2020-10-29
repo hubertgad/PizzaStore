@@ -4,6 +4,7 @@ using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.SeedWork;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services
@@ -17,7 +18,7 @@ namespace PizzaStore.Infrastructure.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<T> Create(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             using var context = _contextFactory.CreateDbContext();
 
@@ -27,7 +28,7 @@ namespace PizzaStore.Infrastructure.Services
             return createdEntity.Entity;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             using var context = _contextFactory.CreateDbContext();
 
@@ -38,22 +39,21 @@ namespace PizzaStore.Infrastructure.Services
             return true;
         }
 
-        public Task<T> Get(int id)
+        public Task<T> GetAsync(int id)
         {
             using var context = _contextFactory.CreateDbContext();
 
             return context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
             using var context = _contextFactory.CreateDbContext();
 
-            IEnumerable<T> entities = await context.Set<T>().ToListAsync();
-            return entities;
+            return context.Set<T>().ToList();
         }
 
-        public async Task<T> Update(int id, T entity)
+        public async Task<T> UpdateAsync(int id, T entity)
         {
             using var context = _contextFactory.CreateDbContext();
 
