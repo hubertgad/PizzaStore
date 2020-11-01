@@ -1,28 +1,27 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.SeedWork;
+using PizzaStore.Domain.Models;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : Entity
+    public class UserDataService : IUserDataService
     {
         private readonly PizzaStoreDbContextFactory _contextFactory;
 
-        public GenericDataService(PizzaStoreDbContextFactory contextFactory)
+        public UserDataService (PizzaStoreDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }
 
-        public async Task<T> CreateAsync(T entity)
+        public async Task<User> CreateAsync(User entity)
         {
             using var context = _contextFactory.CreateDbContext();
 
-            EntityEntry<T> createdEntity = await context.Set<T>().AddAsync(entity);
+            EntityEntry<User> createdEntity = await context.Users.AddAsync(entity);
             await context.SaveChangesAsync();
 
             return createdEntity.Entity;
@@ -32,36 +31,49 @@ namespace PizzaStore.Infrastructure.Services
         {
             using var context = _contextFactory.CreateDbContext();
 
-            T entity = await context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
-            context.Set<T>().Remove(entity);
+            User entity = await context.Users.FirstOrDefaultAsync(q => q.Id == id);
+            context.Users.Remove(entity);
             await context.SaveChangesAsync();
 
             return true;
         }
 
-        public Task<T> GetAsync(int id)
+        public Task<User> GetAsync(int id)
         {
             using var context = _contextFactory.CreateDbContext();
 
-            return context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
+            return context.Users
+                .Include(q => q.Orders)
+                .FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
             using var context = _contextFactory.CreateDbContext();
 
-            return await context.Set<T>().ToListAsync();
+            return await context.Users.ToListAsync();
         }
 
-        public async Task<T> UpdateAsync(int id, T entity)
+        public async Task<User> UpdateAsync(int id, User entity)
         {
             using var context = _contextFactory.CreateDbContext();
 
             entity.Id = id;
-            context.Set<T>().Update(entity);
+            context.Users.Update(entity);
             await context.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            using var context = _contextFactory.CreateDbContext();
+
+            User user = await context.Users
+                .Include(q => q.Orders)
+                .FirstOrDefaultAsync(q => q.Email == email);
+
+            return user;
         }
     }
 }

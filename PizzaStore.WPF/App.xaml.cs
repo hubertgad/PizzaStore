@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PizzaStore.Domain;
+using PizzaStore.Domain.Interfaces;
 using PizzaStore.Infrastructure;
+using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Cart;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
@@ -32,13 +35,36 @@ namespace PizzaStore.WPF
                 .ConfigureServices((context, services) =>
                 {
                     services.AddInfrastructure(context.Configuration);
+                    services.AddDomain();
 
-                    services.AddSingleton<IPizzaStoreViewModelAbstractFactory, PizzaStoreViewModelAbstractFactory>();
-                    services.AddSingleton<IPizzaStoreViewModelFactory<MenuViewModel>, MenuViewModelFactory>();
-                    services.AddSingleton<IPizzaStoreViewModelFactory<CartViewModel>, CartViewModelFactory>();
-                    services.AddSingleton<IPizzaStoreViewModelFactory<OrderHistoryViewModel>, OrderHistoryViewModelFactory>();
+                    services.AddSingleton<IPizzaStoreViewModelFactory, PizzaStoreViewModelFactory>();
+
+                    services.AddSingleton<CartViewModel>();
+                    services.AddSingleton<OrderHistoryViewModel>();
+                    services.AddSingleton<MenuViewModel>(s => 
+                        new MenuViewModel(s.GetRequiredService<ICart>(), s.GetRequiredService<IProductDataService>()));
+
+                    services.AddSingleton<CreateViewModel<MenuViewModel>>(s =>
+                    {
+                        return () => s.GetRequiredService<MenuViewModel>();
+                    });
+
+                    services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => new CartViewModel(s.GetRequiredService<ICart>()));
+
+                    services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(() => new OrderHistoryViewModel());
+
+                    services.AddSingleton<ViewModelDelegateRenavigator<MenuViewModel>>();
+
+                    services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
+                    {
+                        return () => new LoginViewModel(
+                            services.GetRequiredService<IAuthenticator>(),
+                            services.GetRequiredService<ViewModelDelegateRenavigator<MenuViewModel>>());
+                    });
+
+                    services.AddSingleton<INavigator, Navigator>();
+                    services.AddSingleton<IAuthenticator, Authenticator>();
                     services.AddSingleton<ICart, Cart>();
-                    services.AddScoped<INavigator, Navigator>();
                     services.AddScoped<MainViewModel>();
 
                     services.AddScoped(s => new MainWindow(s.GetRequiredService<MainViewModel>()));

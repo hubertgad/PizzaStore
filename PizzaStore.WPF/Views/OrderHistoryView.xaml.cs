@@ -3,11 +3,11 @@
 namespace PizzaStore.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for OrderHistory.xaml
     /// </summary>
-    public partial class MainView : UserControl
+    public partial class OrderHistoryView : UserControl
     {
-        public MainView()
+        public OrderHistoryView()
         {
             InitializeComponent();
         }

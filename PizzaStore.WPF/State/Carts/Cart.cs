@@ -1,6 +1,8 @@
-﻿using PizzaStore.Domain.Models.Order;
+﻿using PizzaStore.Domain.Models;
+using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -11,13 +13,11 @@ namespace PizzaStore.WPF.State.Cart
     class Cart : ObservableObject, ICart
     {
         public ObservableCollection<OrderItem> Items { get; set; }
-        
-        public string Remarks { get; set; }
 
         public decimal TotalPrice => Items.Sum(q => q.Price);
         
-        public Customer Customer { get; set; }
-
+        public string Remarks { get; set; }
+        
         public string Street { get; set; }
 
         public string HouseNumber { get; set; }
@@ -27,8 +27,6 @@ namespace PizzaStore.WPF.State.Cart
         public string Name { get; set; }
 
         public string Phone { get; set; }
-
-        public string Email { get; set; }
 
         public ICommand AddItemToCartCommand { get; set; }
 
@@ -46,6 +44,8 @@ namespace PizzaStore.WPF.State.Cart
 
         public void AddItem(OrderItem orderItem)
         {
+            orderItem.Id = new System.Random().Next();
+
             Items.Add(orderItem);
 
             OnPropertyChanged(nameof(TotalPrice));
@@ -69,9 +69,9 @@ namespace PizzaStore.WPF.State.Cart
         public void PlaceOrder()
         {
             var address = new Address(Street, HouseNumber, HouseUnitNumber);
-            var customer = new Customer(Name, Phone, Email);
+            User user = new User { Id = -1 }; //#TODO
 
-            var order = new Order(Remarks, 0, TotalPrice, address, customer, Items);
+            var order = new Order(Remarks, 0, TotalPrice, address, user.Id, Items);
 
             MessageBox.Show(order.ToString());
         }

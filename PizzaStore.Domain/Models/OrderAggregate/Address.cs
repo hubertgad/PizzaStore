@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace PizzaStore.Domain.Models.Order
+namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class Address
     {
@@ -28,12 +28,6 @@ namespace PizzaStore.Domain.Models.Order
             {
                 address.Append($"/{ HouseUnitNumber }");
             }
-
-            //if (!string.IsNullOrEmpty(ZipCode) && !string.IsNullOrEmpty(City))
-            //{
-            //    address.AppendLine();
-            //    address.Append($"{  ZipCode } { City }");
-            //}
 
             return address.ToString();
         }

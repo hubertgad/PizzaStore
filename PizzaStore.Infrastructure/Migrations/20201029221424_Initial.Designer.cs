@@ -277,7 +277,7 @@ namespace PizzaStore.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PizzaStore.Domain.Models.Order.Order", b =>
+            modelBuilder.Entity("PizzaStore.Domain.Models.OrderAggregate.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("PizzaStore.Domain.Models.Order.OrderItem", b =>
+            modelBuilder.Entity("PizzaStore.Domain.Models.OrderAggregate.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -342,9 +342,9 @@ namespace PizzaStore.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PizzaStore.Domain.Models.Order.Order", b =>
+            modelBuilder.Entity("PizzaStore.Domain.Models.OrderAggregate.Order", b =>
                 {
-                    b.OwnsOne("PizzaStore.Domain.Models.Order.Address", "Address", b1 =>
+                    b.OwnsOne("PizzaStore.Domain.Models.OrderAggregate.Address", "Address", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .ValueGeneratedOnAdd()
@@ -368,7 +368,7 @@ namespace PizzaStore.Infrastructure.Migrations
                                 .HasForeignKey("OrderId");
                         });
 
-                    b.OwnsOne("PizzaStore.Domain.Models.Order.Customer", "Customer", b1 =>
+                    b.OwnsOne("PizzaStore.Domain.Models.OrderAggregate.Customer", "Customer", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .ValueGeneratedOnAdd()
@@ -393,9 +393,9 @@ namespace PizzaStore.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PizzaStore.Domain.Models.Order.OrderItem", b =>
+            modelBuilder.Entity("PizzaStore.Domain.Models.OrderAggregate.OrderItem", b =>
                 {
-                    b.HasOne("PizzaStore.Domain.Models.Order.Order", null)
+                    b.HasOne("PizzaStore.Domain.Models.OrderAggregate.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
                 });

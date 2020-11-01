@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Factories\del\**" />
+    <EmbeddedResource Remove="ViewModels\Factories\del\**" />
+    <None Remove="ViewModels\Factories\del\**" />
+    <Page Remove="ViewModels\Factories\del\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\pizza.jpg" />
   </ItemGroup>
 
@@ -21,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\pizza.jpg" />
+    <Resource Include="Resources\pizza.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

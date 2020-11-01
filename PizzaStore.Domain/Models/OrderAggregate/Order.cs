@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace PizzaStore.Domain.Models.Order
+namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class Order : Entity
     {
@@ -20,21 +20,23 @@ namespace PizzaStore.Domain.Models.Order
 
         public Address Address { get; private set; }
 
-        public Customer Customer { get; private set; }
+        public int UserId { get; set; }
+
+        public User User { get; private set; }
 
         public IEnumerable<OrderItem> OrderItems { get; private set; }
 
         public Order()
         { }
 
-        public Order(string remarks, decimal discount, decimal totalPrice, Address address, Customer customer, IEnumerable<OrderItem> orderItems)
+        public Order(string remarks, decimal discount, decimal totalPrice, Address address, int userId, IEnumerable<OrderItem> orderItems)
         {
             OrderPlaced = DateTime.Now;
             Remarks = remarks;
             Discount = discount;
             TotalPrice = totalPrice;
             Address = address;
-            Customer = customer;
+            UserId = userId;
             OrderItems = orderItems;
         }
 
@@ -46,9 +48,9 @@ namespace PizzaStore.Domain.Models.Order
             sb.AppendLine();
 
             sb.AppendLine($"Customer information:");
-            sb.AppendLine($"\tName: { Customer.Name }");
-            sb.AppendLine($"\tPhone: { Customer.Phone}");
-            sb.AppendLine($"\tE-mail address: { Customer.Email}");
+            sb.AppendLine($"\tName: { User.Name }");
+            sb.AppendLine($"\tPhone: { User.Phone}");
+            sb.AppendLine($"\tE-mail address: { User.Email}");
             sb.AppendLine($"\tAddress: { Address }");
             sb.AppendLine();
 

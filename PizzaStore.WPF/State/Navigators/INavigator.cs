@@ -1,5 +1,5 @@
 ﻿using PizzaStore.WPF.ViewModels;
-using System.Windows.Input;
+using System;
 
 namespace PizzaStore.WPF.State.Navigators
 {
@@ -7,11 +7,11 @@ namespace PizzaStore.WPF.State.Navigators
     {
         ViewModelBase CurrentViewModel { get; set; }
 
-        ICommand UpdateCurrentViewModelCommand { get; }
+        event Action StateChanged;
     }
 
     public enum ViewType
     {
-        Menu, Cart, OrderHistory
+        Menu, Cart, OrderHistory, Login
     }
 }

@@ -11,9 +11,9 @@ namespace PizzaStore.WPF.Commands
 
         private readonly INavigator _navigator;
 
-        private readonly IPizzaStoreViewModelAbstractFactory _viewModelFactory;
+        private readonly IPizzaStoreViewModelFactory _viewModelFactory;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator, IPizzaStoreViewModelAbstractFactory viewModelFactory)
+        public UpdateCurrentViewModelCommand(INavigator navigator, IPizzaStoreViewModelFactory viewModelFactory)
         {
             _navigator = navigator;
             _viewModelFactory = viewModelFactory;

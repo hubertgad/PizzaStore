@@ -1,7 +1,9 @@
-﻿namespace PizzaStore.WPF.ViewModels.Factories
+﻿using PizzaStore.WPF.State.Navigators;
+
+namespace PizzaStore.WPF.ViewModels.Factories
 {
-    public interface IPizzaStoreViewModelFactory<out T> where T : ViewModelBase
+    public interface IPizzaStoreViewModelFactory
     {
-        T CreateViewModel();
+        ViewModelBase CreateViewModel(ViewType viewType);
     }
 }

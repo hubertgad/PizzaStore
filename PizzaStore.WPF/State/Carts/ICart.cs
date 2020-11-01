@@ -1,4 +1,5 @@
-﻿using PizzaStore.Domain.Models.Order;
+﻿using PizzaStore.Domain.Models.OrderAggregate;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -6,18 +7,20 @@ namespace PizzaStore.WPF.State.Cart
 {
     public interface ICart
     {
-        public ICommand AddItemToCartCommand { get; set; }
+        decimal TotalPrice { get; }
 
-        public ICommand RemoveItemFromCartCommand { get; set; }
+        ICommand AddItemToCartCommand { get; set; }
 
-        public ICommand PlaceOrderCommand { get; set; }
+        ICommand RemoveItemFromCartCommand { get; set; }
 
-        public ObservableCollection<OrderItem> Items { get; set; }
+        ICommand PlaceOrderCommand { get; set; }
 
-        public void AddItem(OrderItem orderItem);
+        ObservableCollection<OrderItem> Items { get; set; }
 
-        public void RemoveItem(OrderItem orderItem);
+        void AddItem(OrderItem orderItem);
 
-        public void PlaceOrder();
+        void RemoveItem(OrderItem orderItem);
+
+        void PlaceOrder();
     }
 }

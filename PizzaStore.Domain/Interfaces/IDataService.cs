@@ -6,7 +6,7 @@ namespace PizzaStore.Domain.Interfaces
 {
     public interface IDataService<T> where T : Entity
     {
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
 
         Task<T> GetAsync(int id);
 

@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.Menu;
-using PizzaStore.Domain.Models.Order;
+using PizzaStore.Domain.Models.OrderAggregate;
 
 namespace PizzaStore.Infrastructure.Data
 {
     public class PizzaStoreDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+        
         public DbSet<Group> Groups { get; set; }
         
         public DbSet<Tax> Taxes { get; set; }
@@ -20,7 +23,6 @@ namespace PizzaStore.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Order>().OwnsOne(q => q.Customer);
             modelBuilder.Entity<Order>().OwnsOne(q => q.Address);
 
             SeedDatabase(modelBuilder);

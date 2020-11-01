@@ -1,5 +1,5 @@
 ﻿using PizzaStore.Domain.Models.Menu;
-using PizzaStore.Domain.Models.Order;
+using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.WPF.State.Cart;
 using System;
 using System.Collections;

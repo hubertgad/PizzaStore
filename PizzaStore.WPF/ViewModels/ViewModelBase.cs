@@ -1,6 +1,11 @@
-﻿namespace PizzaStore.WPF.ViewModels
+﻿using PizzaStore.WPF.Models;
+
+namespace PizzaStore.WPF.ViewModels
 {
-    public class ViewModelBase
+    public delegate TViewModel CreateViewModel<out TViewModel>() where TViewModel : ViewModelBase;
+
+    public class ViewModelBase : ObservableObject
     {
+
     }
 }

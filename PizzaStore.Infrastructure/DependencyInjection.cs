@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
 
@@ -17,7 +16,9 @@ namespace PizzaStore.Infrastructure
 
             services.AddSingleton(new PizzaStoreDbContextFactory(connectionString));
 
-            services.AddSingleton<IDataService<Product>, ProductDataService>();
+            services.AddSingleton<IProductDataService, ProductDataService>();
+
+            services.AddSingleton<IUserDataService, UserDataService>();
 
             return services;
         }

@@ -10,7 +10,7 @@
         Height="675" Width="1200"
         MinHeight="675" MinWidth="1200">
     <Window.Background>
-        <ImageBrush Opacity="0.5" ImageSource="Resources/pizza.jpg" />
+        <ImageBrush Opacity="0.4" ImageSource="Resources/pizza.jpg" Stretch="UniformToFill" />
     </Window.Background>
     
     <Grid>
@@ -19,11 +19,22 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <c:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}" />
+
+        <Grid Grid.Row="0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <c:NavigationBar />
+        </Grid>
 
         <ScrollViewer Grid.Row="1" Padding="20 0" VerticalScrollBarVisibility="Auto">
-            <ContentControl Margin="10" Content="{Binding Navigator.CurrentViewModel}" />
+            <ContentControl Margin="10" Content="{Binding CurrentViewModel}" />
         </ScrollViewer>
 
     </Grid>
