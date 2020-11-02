@@ -41,28 +41,21 @@ namespace PizzaStore.WPF
 
                     services.AddSingleton<CartViewModel>();
                     services.AddSingleton<OrderHistoryViewModel>();
-                    services.AddSingleton<MenuViewModel>(s => 
-                        new MenuViewModel(s.GetRequiredService<ICart>(), s.GetRequiredService<IProductDataService>()));
+                    services.AddSingleton(s => new MenuViewModel(s.GetRequiredService<IProductDataService>(), s.GetRequiredService<ICart>()));
 
-                    services.AddSingleton<CreateViewModel<MenuViewModel>>(s =>
-                    {
-                        return () => s.GetRequiredService<MenuViewModel>();
-                    });
-
+                    services.AddSingleton<CreateViewModel<MenuViewModel>>(s => () => s.GetRequiredService<MenuViewModel>());
                     services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => new CartViewModel(s.GetRequiredService<ICart>()));
-
                     services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(() => new OrderHistoryViewModel());
 
-                    services.AddSingleton<ViewModelDelegateRenavigator<MenuViewModel>>();
-
-                    services.AddSingleton<CreateViewModel<LoginViewModel>>(services =>
+                    services.AddSingleton<CreateViewModel<LoginViewModel>>(s =>
                     {
                         return () => new LoginViewModel(
-                            services.GetRequiredService<IAuthenticator>(),
-                            services.GetRequiredService<ViewModelDelegateRenavigator<MenuViewModel>>());
+                            s.GetRequiredService<IAuthenticator>(),
+                            s.GetRequiredService<ViewModelDelegateRenavigator<MenuViewModel>>());
                     });
 
                     services.AddSingleton<INavigator, Navigator>();
+                    services.AddSingleton<ViewModelDelegateRenavigator<MenuViewModel>>();
                     services.AddSingleton<IAuthenticator, Authenticator>();
                     services.AddSingleton<ICart, Cart>();
                     services.AddScoped<MainViewModel>();

@@ -44,7 +44,7 @@ namespace PizzaStore.WPF.State.Cart
 
         public void AddItem(OrderItem orderItem)
         {
-            orderItem.Id = new System.Random().Next();
+            orderItem.Id = new Random().Next();
 
             Items.Add(orderItem);
 

@@ -18,6 +18,5 @@ namespace PizzaStore.WPF.State.Authenticators
         Task<bool> LoginAsync(string email, string password);
 
         void Logout();
-
     }
 }

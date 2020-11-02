@@ -34,7 +34,7 @@ namespace PizzaStore.WPF.ViewModels
         
         public ObservableCollection<OrderItem> Items => Cart.Items;
 
-        public MenuViewModel(ICart cart, IProductDataService productDataService)
+        public MenuViewModel(IProductDataService productDataService, ICart cart)
         {
             Products = productDataService.GetAll();
             Cart = cart;
