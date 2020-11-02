@@ -1,4 +1,4 @@
-﻿using PizzaStore.WPF.State.Cart;
+﻿using PizzaStore.WPF.ViewModels;
 using System;
 using System.Windows.Input;
 
@@ -8,16 +8,16 @@ namespace PizzaStore.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly ICart _cart;
+        private readonly CartViewModel _cartViewModel;
 
-        public PlaceOrderCommand(ICart cart)
+        public PlaceOrderCommand(CartViewModel cartViewModel)
         {
-            _cart = cart;
+            _cartViewModel = cartViewModel;
         }
 
         public bool CanExecute(object parameter)
         {
-            if (_cart.Items.Count > 0)
+            if (_cartViewModel.Items.Count > 0)
             {
                 return true;
             }
@@ -27,9 +27,9 @@ namespace PizzaStore.WPF.Commands
             }
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            _cart.PlaceOrder();
+            await _cartViewModel.PlaceOrderAsync();
         }
     }
 }

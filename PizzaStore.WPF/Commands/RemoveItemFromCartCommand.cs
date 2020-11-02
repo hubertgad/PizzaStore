@@ -1,5 +1,5 @@
 ﻿using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.WPF.State.Cart;
+using PizzaStore.WPF.ViewModels;
 using System;
 using System.Windows.Input;
 
@@ -9,11 +9,11 @@ namespace PizzaStore.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly ICart _cart;
+        private readonly CartViewModel _cartViewModel;
 
-        public RemoveItemFromCartCommand(ICart cart)
+        public RemoveItemFromCartCommand(CartViewModel cartViewModel)
         {
-            _cart = cart;
+            _cartViewModel = cartViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -25,7 +25,7 @@ namespace PizzaStore.WPF.Commands
         {
             if (parameter is OrderItem orderItem)
             {
-                _cart.RemoveItem(orderItem);
+                _cartViewModel.RemoveItem(orderItem);
             }
         }
     }

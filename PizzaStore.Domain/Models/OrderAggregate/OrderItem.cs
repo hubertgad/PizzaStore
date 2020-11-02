@@ -14,16 +14,18 @@ namespace PizzaStore.Domain.Models.OrderAggregate
         [ForeignKey("OrderItem")]
         public int? ParentItemId { get; set; }
 
+        public OrderItem ParentItem { get; set; }
+
         public OrderItem()
         { }
 
-        public OrderItem(Product product, int? parentItemId = null)
+        public OrderItem(Product product, OrderItem parentItem = null)
         {
             Name = product.Name;
 
             Price = product.Price;
 
-            ParentItemId = parentItemId;
+            ParentItem = parentItem;
         }
 
         public override string ToString()

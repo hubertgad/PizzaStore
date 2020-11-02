@@ -29,14 +29,14 @@ namespace PizzaStore.Domain.Models.OrderAggregate
         public Order()
         { }
 
-        public Order(string remarks, decimal discount, decimal totalPrice, Address address, int userId, IEnumerable<OrderItem> orderItems)
+        public Order(string remarks, decimal discount, decimal totalPrice, Address address, User user, IEnumerable<OrderItem> orderItems)
         {
             OrderPlaced = DateTime.Now;
             Remarks = remarks;
             Discount = discount;
             TotalPrice = totalPrice;
             Address = address;
-            UserId = userId;
+            UserId = user.Id;
             OrderItems = orderItems;
         }
 
@@ -47,10 +47,7 @@ namespace PizzaStore.Domain.Models.OrderAggregate
             sb.AppendLine($"Order placed: { OrderPlaced }");
             sb.AppendLine();
 
-            sb.AppendLine($"Customer information:");
-            sb.AppendLine($"\tName: { User.Name }");
-            sb.AppendLine($"\tPhone: { User.Phone}");
-            sb.AppendLine($"\tE-mail address: { User.Email}");
+            sb.AppendLine($"Delivery information:");
             sb.AppendLine($"\tAddress: { Address }");
             sb.AppendLine();
 

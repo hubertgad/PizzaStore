@@ -2,13 +2,12 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzaStore.Domain;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Infrastructure;
 using PizzaStore.WPF.State.Authenticators;
-using PizzaStore.WPF.State.Cart;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
 using PizzaStore.WPF.ViewModels.Factories;
+using System.Reflection;
 using System.Windows;
 
 namespace PizzaStore.WPF
@@ -30,7 +29,8 @@ namespace PizzaStore.WPF
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(c =>
                 {
-                    c.AddUserSecrets(System.Reflection.Assembly.GetExecutingAssembly());
+                    c.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    c.AddUserSecrets(Assembly.GetExecutingAssembly());
                 })
                 .ConfigureServices((context, services) =>
                 {
@@ -41,12 +41,11 @@ namespace PizzaStore.WPF
 
                     services.AddSingleton<CartViewModel>();
                     services.AddSingleton<OrderHistoryViewModel>();
-                    services.AddSingleton(s => new MenuViewModel(s.GetRequiredService<IProductDataService>(), s.GetRequiredService<ICart>()));
+                    services.AddSingleton<MenuViewModel>();
 
                     services.AddSingleton<CreateViewModel<MenuViewModel>>(s => () => s.GetRequiredService<MenuViewModel>());
-                    services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => new CartViewModel(s.GetRequiredService<ICart>()));
+                    services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => s.GetRequiredService<CartViewModel>());
                     services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(() => new OrderHistoryViewModel());
-
                     services.AddSingleton<CreateViewModel<LoginViewModel>>(s =>
                     {
                         return () => new LoginViewModel(
@@ -57,7 +56,6 @@ namespace PizzaStore.WPF
                     services.AddSingleton<INavigator, Navigator>();
                     services.AddSingleton<ViewModelDelegateRenavigator<MenuViewModel>>();
                     services.AddSingleton<IAuthenticator, Authenticator>();
-                    services.AddSingleton<ICart, Cart>();
                     services.AddScoped<MainViewModel>();
 
                     services.AddScoped(s => new MainWindow(s.GetRequiredService<MainViewModel>()));

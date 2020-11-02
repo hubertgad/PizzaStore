@@ -4,7 +4,6 @@ using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.SeedWork;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services

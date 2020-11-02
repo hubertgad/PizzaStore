@@ -1,7 +1,6 @@
 ﻿using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.WPF.State.Cart;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace PizzaStore.WPF.ViewModels
 {
     public class MenuViewModel : ViewModelBase
     {
-        public ICart Cart { get; }
+        public CartViewModel Cart { get; }
 
         public IEnumerable<Product> Products { get; }
 
@@ -34,10 +33,10 @@ namespace PizzaStore.WPF.ViewModels
         
         public ObservableCollection<OrderItem> Items => Cart.Items;
 
-        public MenuViewModel(IProductDataService productDataService, ICart cart)
+        public MenuViewModel(IProductDataService productDataService, CartViewModel cartViewModel)
         {
             Products = productDataService.GetAll();
-            Cart = cart;
+            Cart = cartViewModel;
         }
     }
 }

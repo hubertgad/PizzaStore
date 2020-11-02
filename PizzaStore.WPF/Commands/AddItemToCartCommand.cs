@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.WPF.State.Cart;
+using PizzaStore.WPF.ViewModels;
 using System;
 using System.Collections;
 using System.Windows.Input;
@@ -11,11 +11,11 @@ namespace PizzaStore.WPF.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly ICart _cart;
+        private readonly CartViewModel _cartViewModel;
 
-        public AddItemToCartCommand(ICart cart)
+        public AddItemToCartCommand(CartViewModel cartViewModel)
         {
-            _cart = cart;
+            _cartViewModel = cartViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -31,7 +31,7 @@ namespace PizzaStore.WPF.Commands
             }
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             var values = (object[])parameter;
 
@@ -42,7 +42,7 @@ namespace PizzaStore.WPF.Commands
                 if ((Product)values[0] is Product product)
                 {
                     var orderItem = new OrderItem(product);
-                    _cart.AddItem(orderItem);
+                    _cartViewModel.AddItem(orderItem);
 
                     if (values.Length > 2)
                     {
@@ -52,12 +52,12 @@ namespace PizzaStore.WPF.Commands
 
                             var orderItemTopping = new OrderItem(item2)
                             {
-                                ParentItemId = orderItem.Id
+                                ParentItem = orderItem
                             };
 
                             orderItemTopping.Name = "+ " + orderItemTopping.Name;
 
-                            _cart.AddItem(orderItemTopping);
+                            _cartViewModel.AddItem(orderItemTopping);
                         }
                     }
                 }
