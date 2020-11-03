@@ -5,6 +5,7 @@ using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
+using PizzaStore.Infrastructure.Services.EmailServices;
 
 namespace PizzaStore.Infrastructure
 {
@@ -19,7 +20,10 @@ namespace PizzaStore.Infrastructure
 
             services.AddSingleton<IProductDataService, ProductDataService>();
             services.AddSingleton<IUserDataService, UserDataService>();
-            services.AddSingleton<IDataService<Order>, GenericDataService<Order>>();
+            services.AddSingleton<IDataService<Order>, OrderDataService>();
+
+            services.AddSingleton<IEmailConfiguration>(configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddTransient<IEmailService, EmailService>();
 
             return services;
         }

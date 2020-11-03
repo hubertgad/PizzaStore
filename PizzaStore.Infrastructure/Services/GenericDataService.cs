@@ -10,14 +10,14 @@ namespace PizzaStore.Infrastructure.Services
 {
     public class GenericDataService<T> : IDataService<T> where T : Entity
     {
-        private readonly PizzaStoreDbContextFactory _contextFactory;
+        protected readonly PizzaStoreDbContextFactory _contextFactory;
 
         public GenericDataService(PizzaStoreDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }
 
-        public async Task<T> CreateAsync(T entity)
+        public virtual async Task<T> CreateAsync(T entity)
         {
             using var context = _contextFactory.CreateDbContext();
 
@@ -38,7 +38,7 @@ namespace PizzaStore.Infrastructure.Services
             return true;
         }
 
-        public Task<T> GetAsync(int id)
+        public virtual Task<T> GetAsync(int id)
         {
             using var context = _contextFactory.CreateDbContext();
 

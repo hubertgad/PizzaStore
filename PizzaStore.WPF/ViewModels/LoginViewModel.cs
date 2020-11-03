@@ -28,7 +28,7 @@ namespace PizzaStore.WPF.ViewModels
         {
             LoginCommand = new LoginCommand(this, authenticator, renavigator);
 
-            Email = "test";
+            Email = "hubertgad@gmail.com";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PizzaStore.Domain.SeedWork;
+﻿using PizzaStore.Domain.Interfaces;
+using PizzaStore.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;

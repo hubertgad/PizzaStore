@@ -3,6 +3,7 @@ using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Authenticators;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace PizzaStore.WPF.ViewModels
     public class CartViewModel : ViewModelBase
     {
         private readonly IDataService<Order> _orderService;
+        
+        private readonly IEmailService _emailService;
         
         public User User { get; set; }
 
@@ -35,8 +38,14 @@ namespace PizzaStore.WPF.ViewModels
 
         public ICommand PlaceOrderCommand { get; set; }
 
-        public CartViewModel(IAuthenticator authenticator, IDataService<Order> orderService)
+        public CartViewModel(IAuthenticator authenticator, IDataService<Order> orderService, IEmailService emailService)
         {
+            //#TODO: usuń tymczasowe dane
+            Street = "Zamenhofa";
+            HouseNumber = "15";
+            HouseUnitNumber = "1";
+            Remarks = "Ma być ciepłe!!";
+
             Items = new ObservableCollection<OrderItem>();
 
             AddItemToCartCommand = new AddItemToCartCommand(this);
@@ -45,6 +54,7 @@ namespace PizzaStore.WPF.ViewModels
 
             User = authenticator.CurrentUser;
             _orderService = orderService;
+            _emailService = emailService;
         }
 
         public void AddItem(OrderItem orderItem)
@@ -71,9 +81,19 @@ namespace PizzaStore.WPF.ViewModels
             var address = new Address(Street, HouseNumber, HouseUnitNumber);
             var order = new Order(Remarks, 0, TotalPrice, address, User, Items);
 
-            await _orderService.CreateAsync(order);
-
-            MessageBox.Show("Order has been placed!" + "\n\n" + order.ToString());
+            try
+            {
+                await _orderService.CreateAsync(order);
+                
+                order = await _orderService.GetAsync(order.Id);
+                await _emailService.SendAsync(order);
+                
+                MessageBox.Show("Order has been placed! Check your e-mail box to see order's details.");
+            }
+            catch
+            {
+                MessageBox.Show("Error: Order cannot be placed!");
+            }
         }
     }
 }
