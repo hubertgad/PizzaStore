@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PizzaStore.WPF.Controls
+namespace PizzaStore.WPF.Controls.MenuComponents
 {
     /// <summary>
     /// Interaction logic for CartPreview.xaml
