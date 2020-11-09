@@ -91,14 +91,9 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("TaxId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("TaxId");
 
                     b.ToTable("Products");
 
@@ -108,170 +103,126 @@ namespace PizzaStore.Infrastructure.Migrations
                             Id = 1,
                             GroupId = 1,
                             Name = "Margherita",
-                            Price = 20m,
-                            TaxId = 1
+                            Price = 20m
                         },
                         new
                         {
                             Id = 2,
                             GroupId = 1,
                             Name = "Vegetariana",
-                            Price = 22m,
-                            TaxId = 1
+                            Price = 22m
                         },
                         new
                         {
                             Id = 3,
                             GroupId = 1,
                             Name = "Tosca",
-                            Price = 25m,
-                            TaxId = 1
+                            Price = 25m
                         },
                         new
                         {
                             Id = 4,
                             GroupId = 1,
                             Name = "Venecia",
-                            Price = 25m,
-                            TaxId = 1
+                            Price = 25m
                         },
                         new
                         {
                             Id = 5,
                             GroupId = 2,
                             Name = "Double cheese",
-                            Price = 2m,
-                            TaxId = 1
+                            Price = 2m
                         },
                         new
                         {
                             Id = 6,
                             GroupId = 2,
                             Name = "Salami",
-                            Price = 2m,
-                            TaxId = 1
+                            Price = 2m
                         },
                         new
                         {
                             Id = 7,
                             GroupId = 2,
                             Name = "Ham",
-                            Price = 2m,
-                            TaxId = 1
+                            Price = 2m
                         },
                         new
                         {
                             Id = 8,
                             GroupId = 2,
                             Name = "Mushrooms",
-                            Price = 2m,
-                            TaxId = 1
+                            Price = 2m
                         },
                         new
                         {
                             Id = 9,
                             GroupId = 3,
                             Name = "Pork chop with chips / rice / potatoes",
-                            Price = 30m,
-                            TaxId = 1
+                            Price = 30m
                         },
                         new
                         {
                             Id = 10,
                             GroupId = 3,
                             Name = "Fish and chips",
-                            Price = 28m,
-                            TaxId = 1
+                            Price = 28m
                         },
                         new
                         {
                             Id = 11,
                             GroupId = 3,
                             Name = "Hungarian style potato pancake",
-                            Price = 27m,
-                            TaxId = 1
+                            Price = 27m
                         },
                         new
                         {
                             Id = 12,
                             GroupId = 4,
                             Name = "Salad bar",
-                            Price = 5m,
-                            TaxId = 1
+                            Price = 5m
                         },
                         new
                         {
                             Id = 13,
                             GroupId = 4,
                             Name = "Set of sauces",
-                            Price = 6m,
-                            TaxId = 1
+                            Price = 6m
                         },
                         new
                         {
                             Id = 14,
                             GroupId = 5,
                             Name = "Tomato soup",
-                            Price = 12m,
-                            TaxId = 1
+                            Price = 12m
                         },
                         new
                         {
                             Id = 15,
                             GroupId = 5,
                             Name = "Chicken soup",
-                            Price = 10m,
-                            TaxId = 1
+                            Price = 10m
                         },
                         new
                         {
                             Id = 16,
                             GroupId = 6,
                             Name = "Coffee",
-                            Price = 5m,
-                            TaxId = 1
+                            Price = 5m
                         },
                         new
                         {
                             Id = 17,
                             GroupId = 6,
                             Name = "Tea",
-                            Price = 5m,
-                            TaxId = 1
+                            Price = 5m
                         },
                         new
                         {
                             Id = 18,
                             GroupId = 6,
                             Name = "Coke",
-                            Price = 5m,
-                            TaxId = 1
-                        });
-                });
-
-            modelBuilder.Entity("PizzaStore.Domain.Models.Menu.Tax", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Taxes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "basicTax",
-                            Value = 23
+                            Price = 5m
                         });
                 });
 
@@ -311,21 +262,22 @@ namespace PizzaStore.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ParentItemId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ParentItemId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItems");
                 });
@@ -360,14 +312,8 @@ namespace PizzaStore.Infrastructure.Migrations
             modelBuilder.Entity("PizzaStore.Domain.Models.Menu.Product", b =>
                 {
                     b.HasOne("PizzaStore.Domain.Models.Menu.Group", "Group")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PizzaStore.Domain.Models.Menu.Tax", "Tax")
-                        .WithMany()
-                        .HasForeignKey("TaxId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -375,7 +321,7 @@ namespace PizzaStore.Infrastructure.Migrations
             modelBuilder.Entity("PizzaStore.Domain.Models.OrderAggregate.Order", b =>
                 {
                     b.HasOne("PizzaStore.Domain.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -410,6 +356,16 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.HasOne("PizzaStore.Domain.Models.OrderAggregate.Order", null)
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
+
+                    b.HasOne("PizzaStore.Domain.Models.OrderAggregate.OrderItem", "ParentItem")
+                        .WithMany()
+                        .HasForeignKey("ParentItemId");
+
+                    b.HasOne("PizzaStore.Domain.Models.Menu.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

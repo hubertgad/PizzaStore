@@ -1,12 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Org.BouncyCastle.Utilities.Collections;
 using PizzaStore.Domain;
+using PizzaStore.Domain.Interfaces;
 using PizzaStore.Infrastructure;
+using PizzaStore.Infrastructure.Data;
+using PizzaStore.Infrastructure.Services;
 using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
 using PizzaStore.WPF.ViewModels.Factories;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -65,6 +72,14 @@ namespace PizzaStore.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
+
+            var context = _host.Services.GetRequiredService<PizzaStoreDbContext>();
+            if (context.Users.Count() == 0)
+            {
+                PasswordHasher hasher = new PasswordHasher();
+                context.Users.Add(new Domain.Models.User("hubertgad@gmail.com", "Hubret", hasher.HashPassword("aaa")));
+                context.SaveChanges();
+            }
 
             Window window = _host.Services.GetRequiredService<MainWindow>();
             window.Show();

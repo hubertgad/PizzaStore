@@ -53,12 +53,9 @@ namespace PizzaStore.WPF.Commands
                         {
                             var selectedTopping = (Product)item;
 
-                            var orderItemTopping = new OrderItem(selectedTopping)
-                            {
-                                ParentItem = orderItem
-                            };
+                            var orderItemTopping = new OrderItem(selectedTopping, orderItem);
 
-                            orderItemTopping.Name = "+ " + orderItemTopping.Name;
+                            //orderItemTopping.Name = "+ " + orderItemTopping.Name;
 
                             _cartViewModel.AddItem(orderItemTopping);
                         }

@@ -22,7 +22,7 @@ namespace PizzaStore.Infrastructure.Services
 
             return context.Products
                 .Include(q => q.Group)
-                .Include(q => q.Tax)
+                //.Include(q => q.Tax)
                 .ToList();
         }
     }

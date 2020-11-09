@@ -20,8 +20,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Margin="5" FontSize="18" Text="{Binding Name}" />
-                            <TextBlock Grid.Column="1" Margin="5" FontSize="18" Text="{Binding Price, StringFormat=0.00 PLN}" />
+                            <TextBlock Grid.Column="0" Margin="5" FontSize="18" Text="{Binding Product.Name}" />
+                            <TextBlock Grid.Column="1" Margin="5" FontSize="18" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

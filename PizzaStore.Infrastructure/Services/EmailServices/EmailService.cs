@@ -74,14 +74,14 @@ namespace PizzaStore.Infrastructure.Services.EmailServices
             foreach (var item in order.OrderItems.Where(q => q.ParentItem == null))
             {
                 body.Append(@$"<tr>
-        	            <td>{ item.Name }</th>
-    	                <td>{ item.Price } PLN</th>
+        	            <td>{ item.Product.Name }</th>
+    	                <td>{ item.Product.Price } PLN</th>
                     </tr>");
                 foreach(var childItem in order.OrderItems.Where(q => q.ParentItem == item))
                 {
                     body.Append(@$"<tr>
-        	            <td>{ childItem.Name }</th>
-    	                <td>{ childItem.Price } PLN</th>
+        	            <td>{ childItem.Product.Name }</th>
+    	                <td>{ childItem.Product.Price } PLN</th>
                     </tr>");
                 }
             }

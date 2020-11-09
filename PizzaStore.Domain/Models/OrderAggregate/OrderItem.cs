@@ -6,31 +6,38 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class OrderItem : Entity
     {
-        public string Name { get; set; }
+        //public string Name { get; private set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal Price { get; set; }
+        //[Column(TypeName = "decimal(18, 2)")]
+        //public decimal Price { get; private set; }
+
+        public int ProductId { get; private set; }
+
+        public Product Product { get; private set; }
 
         [ForeignKey("OrderItem")]
-        public int? ParentItemId { get; set; }
+        public int? ParentItemId { get; private set; }
 
-        public OrderItem ParentItem { get; set; }
+        public OrderItem ParentItem { get; private set; }
 
         public OrderItem()
         { }
 
         public OrderItem(Product product, OrderItem parentItem = null)
         {
-            Name = product.Name;
+            Product = product;
+            ParentItem = parentItem;
+        }
 
-            Price = product.Price;
-
+        public OrderItem(int productId, OrderItem parentItem = null)
+        {
+            ProductId = productId;
             ParentItem = parentItem;
         }
 
         public override string ToString()
         {
-            return $"{ Name } { string.Format("{0:C2}", Price) }";
+            return $"{ Product.Name } { string.Format("{0:C2}", Product.Price) }";
         }
     }
 }

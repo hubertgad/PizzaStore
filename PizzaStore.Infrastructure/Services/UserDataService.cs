@@ -51,7 +51,9 @@ namespace PizzaStore.Infrastructure.Services
         {
             using var context = _contextFactory.CreateDbContext();
 
-            return await context.Users.ToListAsync();
+            List<User> users = await context.Users.ToListAsync();
+
+            return users;
         }
 
         public async Task<User> UpdateAsync(int id, User entity)
