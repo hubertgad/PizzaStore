@@ -15,5 +15,7 @@ namespace PizzaStore.Domain.Interfaces
         Task<Order> UpdateAsync(int id, Order entity);
 
         Task<bool> DeleteAsync(int id);
+
+        Task<Address> ValidateAddress(Address newAddress);
     }
 }

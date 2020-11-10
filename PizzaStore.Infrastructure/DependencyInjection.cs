@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
 using PizzaStore.Infrastructure.Services.EmailServices;
@@ -16,14 +15,14 @@ namespace PizzaStore.Infrastructure
             string connectionString = configuration.GetConnectionString("default");
             services.AddDbContext<PizzaStoreDbContext>(o => o.UseSqlServer(connectionString));
 
-            services.AddSingleton(new PizzaStoreDbContextFactory(connectionString));
-
             services.AddSingleton<IProductDataService, ProductDataService>();
             services.AddSingleton<IUserDataService, UserDataService>();
-            services.AddSingleton<IDataService<Order>, OrderDataService>();
+            services.AddSingleton<IOrderDataService, OrderDataService>();
 
             services.AddSingleton<IEmailConfiguration>(configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
+
+            services.AddSingleton<DataSeeder>();
 
             return services;
         }

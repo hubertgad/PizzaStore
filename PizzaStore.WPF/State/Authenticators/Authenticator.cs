@@ -19,12 +19,12 @@ namespace PizzaStore.WPF.State.Authenticators
 
         public User CurrentUser
         {
-            get 
-            { 
+            get
+            {
                 return _currentUser;
             }
-            private set 
-            { 
+            private set
+            {
                 _currentUser = value;
                 StateChanged?.Invoke();
             }

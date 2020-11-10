@@ -13,10 +13,10 @@ namespace PizzaStore.WPF.ViewModels
 {
     public class CartViewModel : ViewModelBase
     {
-        private readonly IDataService<Order> _orderService;
-        
+        private readonly IOrderDataService _orderService;
+
         private readonly IEmailService _emailService;
-        
+
         public User User { get; set; }
 
         public ObservableCollection<OrderItem> Items { get; set; }
@@ -27,9 +27,9 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Street { get; set; }
 
-        public string HouseNumber { get; set; }
+        public string Building { get; set; }
 
-        public string HouseUnitNumber { get; set; }
+        public string Unit { get; set; }
 
         public ICommand AddItemToCartCommand { get; set; }
 
@@ -37,12 +37,20 @@ namespace PizzaStore.WPF.ViewModels
 
         public ICommand PlaceOrderCommand { get; set; }
 
-        public CartViewModel(IAuthenticator authenticator, IDataService<Order> orderService, IEmailService emailService)
+        public CartViewModel(IAuthenticator authenticator, IOrderDataService orderService, IEmailService emailService)
         {
-            //#TODO: usuń tymczasowe dane
-            Street = "Zamenhofa";
-            HouseNumber = "15";
-            HouseUnitNumber = "1";
+            User = authenticator.CurrentUser;
+            _orderService = orderService;
+            _emailService = emailService;
+
+            if (User.Orders.LastOrDefault() != null && User.Orders.LastOrDefault().Address != null)
+            {
+                var address = User.Orders.LastOrDefault().Address;
+
+                Street = address.Street;
+                Building = address.Building;
+                Unit = address.Unit;
+            }
             Remarks = "Ma być ciepłe!!";
 
             Items = new ObservableCollection<OrderItem>();
@@ -50,10 +58,6 @@ namespace PizzaStore.WPF.ViewModels
             AddItemToCartCommand = new AddItemToCartCommand(this);
             RemoveItemFromCartCommand = new RemoveItemFromCartCommand(this);
             PlaceOrderCommand = new PlaceOrderCommand(this);
-
-            User = authenticator.CurrentUser;
-            _orderService = orderService;
-            _emailService = emailService;
         }
 
         public void AddItem(OrderItem orderItem)
@@ -77,22 +81,24 @@ namespace PizzaStore.WPF.ViewModels
 
         public async Task PlaceOrderAsync()
         {
-            var address = new Address(Street, HouseNumber, HouseUnitNumber);
-            var order = new Order(Remarks, 0, TotalPrice, address, User, Items);
+            var address = new Address(Street, Building, Unit);
+            address = await _orderService.ValidateAddress(address);
 
-            //try
-            //{
+            var order = new Order(Remarks, 0, TotalPrice, User, address, Items);
+
+            try
+            {
                 await _orderService.CreateAsync(order);
-                
+
                 order = await _orderService.GetAsync(order.Id);
                 await _emailService.SendAsync(order);
-                
+
                 MessageBox.Show("Order has been placed! Check your e-mail box to see order's details.");
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Error: Order cannot be placed!");
-            //}
+            }
+            catch
+            {
+                MessageBox.Show("Error: Order cannot be placed!");
+            }
         }
     }
 }

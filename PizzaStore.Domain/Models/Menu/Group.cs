@@ -1,5 +1,4 @@
 ﻿using PizzaStore.Domain.SeedWork;
-using System.Collections.Generic;
 
 namespace PizzaStore.Domain.Models.Menu
 {
@@ -8,8 +7,6 @@ namespace PizzaStore.Domain.Models.Menu
         public string Name { get; private set; }
 
         public bool IsTopping { get; private set; }
-
-        public ICollection<Product> Products { get; private set; }
 
         public Group()
         { }
@@ -20,7 +17,7 @@ namespace PizzaStore.Domain.Models.Menu
             IsTopping = isTopping;
         }
 
-        public Group(int id, string name, bool isTopping) 
+        public Group(int id, string name, bool isTopping)
             : this(name, isTopping)
         {
             Id = id;

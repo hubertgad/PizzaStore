@@ -77,7 +77,7 @@ namespace PizzaStore.Infrastructure.Services.EmailServices
         	            <td>{ item.Product.Name }</th>
     	                <td>{ item.Product.Price } PLN</th>
                     </tr>");
-                foreach(var childItem in order.OrderItems.Where(q => q.ParentItem == item))
+                foreach (var childItem in order.OrderItems.Where(q => q.ParentItem == item))
                 {
                     body.Append(@$"<tr>
         	            <td>{ childItem.Product.Name }</th>

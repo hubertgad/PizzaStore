@@ -23,7 +23,7 @@ namespace PizzaStore.WPF.Commands
         {
             var values = (object[])parameter;
             var quanity = ((MenuPosition)values[0]).Quantity;
-            
+
             if (quanity > 0)
             {
                 return true;

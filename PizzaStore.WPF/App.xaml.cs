@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Org.BouncyCastle.Utilities.Collections;
 using PizzaStore.Domain;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Infrastructure;
 using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
@@ -80,6 +77,7 @@ namespace PizzaStore.WPF
                 context.Users.Add(new Domain.Models.User("hubertgad@gmail.com", "Hubret", hasher.HashPassword("aaa")));
                 context.SaveChanges();
             }
+            _host.Services.GetRequiredService<DataSeeder>().SeedDatabase();
 
             Window window = _host.Services.GetRequiredService<MainWindow>();
             window.Show();

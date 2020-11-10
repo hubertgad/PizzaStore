@@ -1,35 +1,37 @@
-﻿using System.Text;
+﻿using PizzaStore.Domain.SeedWork;
+using System;
 
 namespace PizzaStore.Domain.Models.OrderAggregate
 {
-    public class Address
+    public class Address : Entity
     {
         public string Street { get; private set; }
 
-        public string HouseNumber { get; private set; }
+        public string Building { get; private set; }
 
-        public string HouseUnitNumber { get; private set; }
+        public string Unit { get; private set; }
 
         public Address()
         { }
 
-        public Address(string street, string houseNumber, string houseUnitNumber)
+        public Address(string street, string houseNumber, string unit)
         {
             Street = street;
-            HouseNumber = houseNumber;
-            HouseUnitNumber = houseUnitNumber;
+            Building = houseNumber;
+            Unit = unit;
         }
 
-        public override string ToString()
+        public override bool Equals(object obj)
         {
-            var address = new StringBuilder($"{ Street } { HouseNumber }");
-            
-            if (!string.IsNullOrEmpty(HouseUnitNumber))
-            {
-                address.Append($"/{ HouseUnitNumber }");
-            }
+            return obj is Address address &&
+                   Street.Equals(address.Street) &&
+                   Building.Equals(address.Building) &&
+                   Unit.Equals(address.Unit);
+        }
 
-            return address.ToString();
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Street, Building, Unit);
         }
     }
 }

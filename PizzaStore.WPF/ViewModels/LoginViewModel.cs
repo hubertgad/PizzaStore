@@ -11,12 +11,12 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Email
         {
-            get 
-            { 
-                return _username; 
+            get
+            {
+                return _username;
             }
-            set 
-            { 
+            set
+            {
                 _username = value;
                 OnPropertyChanged(nameof(Email));
             }

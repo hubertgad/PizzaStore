@@ -9,9 +9,9 @@ namespace PizzaStore.WPF.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly IPizzaStoreViewModelFactory _viewModelFactory;
-        
+
         private readonly INavigator _navigator;
-        
+
         private readonly IAuthenticator _authenticator;
 
         public bool IsLoggedIn => _authenticator.IsLoggedIn;

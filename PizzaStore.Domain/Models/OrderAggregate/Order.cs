@@ -1,15 +1,13 @@
-﻿using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.SeedWork;
+﻿using PizzaStore.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class Order : Entity
     {
-        public DateTime OrderPlaced { get; private set; }
+        public DateTime Placed { get; private set; }
 
         public string Remarks { get; private set; }
 
@@ -21,8 +19,6 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public Address Address { get; private set; }
 
-        public int UserId { get; set; }
-
         public User User { get; private set; }
 
         public IEnumerable<OrderItem> OrderItems { get; private set; }
@@ -30,41 +26,15 @@ namespace PizzaStore.Domain.Models.OrderAggregate
         public Order()
         { }
 
-        public Order(string remarks, decimal discount, decimal totalPrice, Address address, User user, IEnumerable<OrderItem> orderItems)
+        public Order(string remarks, decimal discount, decimal totalPrice, User user, Address address, IEnumerable<OrderItem> orderItems)
         {
-            OrderPlaced = DateTime.Now;
+            Placed = DateTime.Now;
             Remarks = remarks;
             Discount = discount;
             TotalPrice = totalPrice;
+            User = user;
             Address = address;
-            UserId = user.Id;
             OrderItems = orderItems;
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Order placed: { OrderPlaced }");
-            sb.AppendLine();
-
-            sb.AppendLine($"Delivery information:");
-            sb.AppendLine($"\tAddress: { Address }");
-            sb.AppendLine();
-
-            sb.AppendLine($"Remarks: { Remarks }");
-            sb.AppendLine();
-
-            sb.AppendLine($"Products:");
-            foreach (var item in OrderItems)
-            {
-                sb.AppendLine($"\t{ item }");
-            }
-            sb.AppendLine();
-
-            sb.AppendLine($"Total price: { string.Format("{0:C2}", TotalPrice) }");
-
-            return sb.ToString();
         }
     }
 }

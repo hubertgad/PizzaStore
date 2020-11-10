@@ -9,20 +9,17 @@ namespace PizzaStore.Infrastructure.Services
 {
     class ProductDataService : IProductDataService
     {
-        private readonly PizzaStoreDbContextFactory _contextFactory;
+        private readonly PizzaStoreDbContext _context;
 
-        public ProductDataService(PizzaStoreDbContextFactory contextFactory)
+        public ProductDataService(PizzaStoreDbContext context)
         {
-            _contextFactory = contextFactory;
+            _context = context;
         }
 
-       public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> GetAll()
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            return context.Products
+            return _context.Products
                 .Include(q => q.Group)
-                //.Include(q => q.Tax)
                 .ToList();
         }
     }

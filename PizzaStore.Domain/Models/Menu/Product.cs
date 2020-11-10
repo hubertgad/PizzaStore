@@ -16,11 +16,9 @@ namespace PizzaStore.Domain.Models.Menu
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; private set; }
 
-        public int GroupId { get; private set; }
-
         public Group Group { get; private set; }
 
-        public Product() 
+        public Product()
         { }
 
         public Product(string name, decimal price, /*Tax tax,*/ Group group)
@@ -28,13 +26,7 @@ namespace PizzaStore.Domain.Models.Menu
             Name = name;
             Price = price;
             //TaxId = tax.Id;
-            GroupId = group.Id;
-        }
-
-        public Product(int id, string name, decimal price, /*Tax tax,*/ Group group)
-            : this (name, price, /*tax,*/ group)
-        {
-            Id = id;
+            Group = group;
         }
     }
 }

@@ -1,54 +1,42 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Infrastructure.Data;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services
 {
-    public class OrderDataService : GenericDataService<Order>
+    public class OrderDataService : GenericDataService<Order>, IOrderDataService
     {
-        public OrderDataService(PizzaStoreDbContextFactory contextFactory) : base(contextFactory) { }
+        public OrderDataService(PizzaStoreDbContext context) : base(context) { }
 
         public override async Task<Order> CreateAsync(Order entity)
         {
-            using var context = _contextFactory.CreateDbContext();
+            EntityEntry<Order> createdEntity = await _context.Orders.AddAsync(entity);
 
-            var orderItems = new List<OrderItem>();
-
-            foreach (var orderItem in entity.OrderItems)
-            {
-                orderItems.Add(new OrderItem(orderItem.ProductId, orderItem.ParentItem));
-            }
-
-            var order = new Order(entity.Remarks,
-                    entity.Discount,
-                    entity.TotalPrice,
-                    entity.Address,
-                    entity.UserId,
-                    orderItems);
-
-            EntityEntry<Order> createdEntity = await context.Orders.AddAsync(order);
-            //EntityEntry<Order> createdEntity = await context.Orders.AddAsync(entity);
-            //EntityEntry<Order> createdEntity = context.Orders.Attach(entity);
-            //context.Entry(entity).State = EntityState.Modified;
-
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return createdEntity.Entity;
         }
 
         public override async Task<Order> GetAsync(int id)
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            Order order = await context.Orders
+            Order order = await _context.Orders
                 .Include(q => q.User)
                 .Include(q => q.OrderItems)
+                .Include(q => q.Address)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
             return order;
+        }
+
+        public async Task<Address> ValidateAddress(Address newAddress)
+        {
+            return await _context.Addresses
+                   .FirstOrDefaultAsync(q => q.Street.Equals(newAddress.Street)
+                                    && q.Building.Equals(newAddress.Building)
+                                    && q.Unit.Equals(newAddress.Unit)) ?? newAddress;
         }
     }
 }

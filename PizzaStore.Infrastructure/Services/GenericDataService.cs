@@ -10,55 +10,45 @@ namespace PizzaStore.Infrastructure.Services
 {
     public class GenericDataService<T> : IDataService<T> where T : Entity
     {
-        protected readonly PizzaStoreDbContextFactory _contextFactory;
+        protected readonly PizzaStoreDbContext _context;
 
-        public GenericDataService(PizzaStoreDbContextFactory contextFactory)
+        public GenericDataService(PizzaStoreDbContext context)
         {
-            _contextFactory = contextFactory;
+            _context = context;
         }
 
         public virtual async Task<T> CreateAsync(T entity)
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            EntityEntry<T> createdEntity = await context.Set<T>().AddAsync(entity);
-            await context.SaveChangesAsync();
+            EntityEntry<T> createdEntity = await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
 
             return createdEntity.Entity;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            T entity = await context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
-            context.Set<T>().Remove(entity);
-            await context.SaveChangesAsync();
+            T entity = await _context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
 
             return true;
         }
 
         public virtual Task<T> GetAsync(int id)
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            return context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
+            return _context.Set<T>().FirstOrDefaultAsync(q => q.Id == id);
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            using var context = _contextFactory.CreateDbContext();
-
-            return await context.Set<T>().ToListAsync();
+            return await _context.Set<T>().ToListAsync();
         }
 
         public async Task<T> UpdateAsync(int id, T entity)
         {
-            using var context = _contextFactory.CreateDbContext();
-
             entity.Id = id;
-            context.Set<T>().Update(entity);
-            await context.SaveChangesAsync();
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
 
             return entity;
         }
