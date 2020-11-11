@@ -1,4 +1,5 @@
-﻿using PizzaStore.WPF.State.Authenticators;
+﻿using PizzaStore.Domain.Exceptions;
+using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
 using System;
@@ -14,7 +15,9 @@ namespace PizzaStore.WPF.Commands
 
         private readonly IRenavigator _renavigator;
 
-        public LoginCommand(LoginViewModel loginViewModel, IAuthenticator authenticator, IRenavigator renavigator)
+        public LoginCommand(LoginViewModel loginViewModel, 
+                            IAuthenticator authenticator, 
+                            IRenavigator renavigator)
         {
             _loginViewModel = loginViewModel;
             _authenticator = authenticator;
@@ -30,11 +33,22 @@ namespace PizzaStore.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            bool success = await _authenticator.LoginAsync(_loginViewModel.Email, parameter.ToString());
-
-            if (success)
+            try
             {
+                await _authenticator.LoginAsync(_loginViewModel.Email, _loginViewModel.Password);
                 _renavigator.Renavigate();
+            }
+            catch (UserNotFoundException)
+            {
+                _loginViewModel.ErrorMessage = "User not found.";
+            }
+            catch (InvalidPasswordException)
+            {
+                _loginViewModel.ErrorMessage = "Username and password does not match.";
+            }
+            catch (Exception)
+            {
+                _loginViewModel.ErrorMessage = "Login failed.";
             }
         }
     }

@@ -14,7 +14,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Items}">
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Cart.Items}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -26,7 +26,7 @@
                             <TextBlock Grid.Column="0" Margin="5" FontSize="12" Text="{Binding Product.Name}" />
                             <TextBlock Grid.Column="1" Margin="5" FontSize="12" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
                             <Button Grid.Column="3" Margin="2" Padding="3" FontSize="8" Content="X" 
-                                            Command="{Binding Path=DataContext.RemoveItemFromCartCommand, 
+                                            Command="{Binding Path=DataContext.Cart.RemoveItemFromCartCommand, 
                                                     RelativeSource={RelativeSource AncestorType={x:Type local:CartPreview}}}" 
                                             CommandParameter="{Binding}" />
                         </Grid>
@@ -34,8 +34,10 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <TextBlock Grid.Row="2" Margin="5" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right"
-                                Text="{Binding TotalPrice, StringFormat=Total: 0.00 PLN}" />
-            <Button Grid.Row="3" Content="Go to cart" IsEnabled="False" />
+                                Text="{Binding Cart.TotalPrice, StringFormat=Total: 0.00 PLN}" />
+            
+            <Button Grid.Row="3" Content="Go to cart" 
+                    Command="{Binding ViewCartCommand}"/>
         </Grid>
     </GroupBox>
 </UserControl>

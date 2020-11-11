@@ -1,6 +1,5 @@
 ﻿using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.WPF.Models;
 using PizzaStore.WPF.ViewModels;
 using System;
 using System.Collections;
@@ -22,7 +21,7 @@ namespace PizzaStore.WPF.Commands
         public bool CanExecute(object parameter)
         {
             var values = (object[])parameter;
-            var quanity = ((MenuPosition)values[0]).Quantity;
+            var quanity = ((MenuPositionViewModel)values[0]).Quantity;
 
             if (quanity > 0)
             {
@@ -36,16 +35,17 @@ namespace PizzaStore.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            if (!CanExecute(parameter)) return;
+            _cartViewModel.StatusMessage = string.Empty;
+            _cartViewModel.ErrorMessage = string.Empty;
 
             var values = (object[])parameter;
 
-            if ((MenuPosition)values[0] is MenuPosition menuPosition)
+            if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition)
             {
                 for (int i = 0; i < menuPosition.Quantity; i++)
                 {
                     var orderItem = new OrderItem(menuPosition.Product);
-                    _cartViewModel.AddItem(orderItem);
+                    _cartViewModel.Items.Add(orderItem);
 
                     if (values.Length > 1)
                     {
@@ -55,11 +55,13 @@ namespace PizzaStore.WPF.Commands
 
                             var orderItemTopping = new OrderItem(selectedTopping, orderItem);
 
-                            _cartViewModel.AddItem(orderItemTopping);
+                            _cartViewModel.Items.Add(orderItemTopping);
                         }
                     }
                 }
             }
+
+            _cartViewModel.TotalPriceChanged();
         }
     }
 }

@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzaStore.Domain;
+using PizzaStore.Domain.Interfaces;
 using PizzaStore.Infrastructure;
-using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
 using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
 using PizzaStore.WPF.ViewModels.Factories;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 
@@ -45,20 +43,36 @@ namespace PizzaStore.WPF
 
                     services.AddSingleton<CartViewModel>();
                     services.AddSingleton<OrderHistoryViewModel>();
-                    services.AddSingleton<MenuViewModel>();
 
-                    services.AddSingleton<CreateViewModel<MenuViewModel>>(s => () => s.GetRequiredService<MenuViewModel>());
                     services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => s.GetRequiredService<CartViewModel>());
-                    services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(() => new OrderHistoryViewModel());
+                    services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(s => () => new OrderHistoryViewModel());
+                    services.AddSingleton<CreateViewModel<MenuViewModel>>(s =>
+                    {
+                        return () => new MenuViewModel(
+                            s.GetRequiredService<IProductDataService>(),
+                            s.GetRequiredService<CartViewModel>(),
+                            s.GetRequiredService<ViewModelDelegateRenavigator<CartViewModel>>());
+                    });
+                    services.AddSingleton<CreateViewModel<RegisterViewModel>>(s =>
+                    {
+                        return () => new RegisterViewModel(
+                            s.GetRequiredService<IAuthenticator>(),
+                            s.GetRequiredService<ViewModelDelegateRenavigator<LoginViewModel>>());
+                    });
                     services.AddSingleton<CreateViewModel<LoginViewModel>>(s =>
                     {
                         return () => new LoginViewModel(
                             s.GetRequiredService<IAuthenticator>(),
-                            s.GetRequiredService<ViewModelDelegateRenavigator<MenuViewModel>>());
+                            s.GetRequiredService<ViewModelDelegateRenavigator<MenuViewModel>>(),
+                            s.GetRequiredService<ViewModelDelegateRenavigator<RegisterViewModel>>());
                     });
 
-                    services.AddSingleton<INavigator, Navigator>();
                     services.AddSingleton<ViewModelDelegateRenavigator<MenuViewModel>>();
+                    services.AddSingleton<ViewModelDelegateRenavigator<CartViewModel>>();
+                    services.AddSingleton<ViewModelDelegateRenavigator<LoginViewModel>>();
+                    services.AddSingleton<ViewModelDelegateRenavigator<RegisterViewModel>>();
+
+                    services.AddSingleton<INavigator, Navigator>();
                     services.AddSingleton<IAuthenticator, Authenticator>();
                     services.AddScoped<MainViewModel>();
 
@@ -69,14 +83,6 @@ namespace PizzaStore.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
-
-            var context = _host.Services.GetRequiredService<PizzaStoreDbContext>();
-            if (context.Users.Count() == 0)
-            {
-                PasswordHasher hasher = new PasswordHasher();
-                context.Users.Add(new Domain.Models.User("hubertgad@gmail.com", "Hubert", hasher.HashPassword("aaa")));
-                context.SaveChanges();
-            }
             _host.Services.GetRequiredService<DataSeeder>().SeedDatabase();
 
             Window window = _host.Services.GetRequiredService<MainWindow>();

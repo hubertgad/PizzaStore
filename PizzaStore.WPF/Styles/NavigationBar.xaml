@@ -2,10 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PizzaStore.WPF.Styles">
     <Style x:Key="NavButton" TargetType="RadioButton">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="LightGray" />
         <Setter Property="Padding" Value="10 5" />
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Background" Value="{StaticResource SecondaryBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
@@ -17,8 +18,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="White" TargetName="grid" />
-                            <Setter Property="Foreground" Value="Black" TargetName="textBlock" />
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" TargetName="grid" />
+                            <Setter Property="Foreground" Value="White" TargetName="textBlock" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

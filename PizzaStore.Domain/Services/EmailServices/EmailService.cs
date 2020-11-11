@@ -1,8 +1,10 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
+using PizzaStore.Domain.Exceptions;
 using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.OrderAggregate;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,24 +22,31 @@ namespace PizzaStore.Domain.Services.EmailServices
 
         public async Task SendAsync(Order order)
         {
-            var message = new MimeMessage();
-            message.To.Add(new MailboxAddress(order.User.Name, order.User.Email));
-            message.From.Add(new MailboxAddress("Pizza Store", "no-reply@hubertgad.net"));
-            message.Subject = $"Pizza Store: Order #{ order.Id } summary";
-
-            string body = SetEmailBody(order);
-
-            message.Body = new TextPart(TextFormat.Html)
+            try
             {
-                Text = body
-            };
+                var message = new MimeMessage();
+                message.To.Add(new MailboxAddress(order.User.Name, order.User.Email));
+                message.From.Add(new MailboxAddress("Pizza Store", "no-reply@hubertgad.net"));
+                message.Subject = $"Pizza Store: Order #{ order.Id } summary";
 
-            using var emailClient = new SmtpClient();
-            emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
-            emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
-            emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
-            await emailClient.SendAsync(message);
-            emailClient.Disconnect(true);
+                string body = SetEmailBody(order);
+
+                message.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = body
+                };
+
+                using var emailClient = new SmtpClient();
+                emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
+                emailClient.AuthenticationMechanisms.Remove("XOAUTH2");
+                emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
+                await emailClient.SendAsync(message);
+                emailClient.Disconnect(true);
+            }
+            catch (Exception e)
+            {
+                throw new CannotSendEmailException("Cannot send e-mail message.", e);
+            }
         }
 
         private string SetEmailBody(Order order)

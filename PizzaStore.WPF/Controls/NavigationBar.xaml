@@ -22,7 +22,7 @@
         <TextBlock Grid.Row="0" Padding="10" FontSize="32" FontWeight="SemiBold" Foreground="White" Text="PIZZA STORE" TextAlignment="Center" Background="{StaticResource PrimaryBrush}" />
         
         <Grid Grid.Row="1" RenderOptions.EdgeMode="Aliased" Background="{StaticResource SecondaryBrush}">
-            <Grid MaxWidth="1024">
+            <Grid MaxWidth="1280" Margin="30 0">
                 <Grid.Resources>
                     <Style TargetType="RadioButton" BasedOn="{StaticResource NavButton}"/>
                 </Grid.Resources>
@@ -34,12 +34,15 @@
                 </Grid.ColumnDefinitions>
                 
                 <RadioButton Grid.Column="0" Content="Menu" 
+                             IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:MenuViewModel}}" 
                              Command="{Binding UpdateCurrentViewModelCommand}" 
                              CommandParameter="{x:Static nav:ViewType.Menu}" />
                 <RadioButton Grid.Column="1" Content="Order history" 
+                             IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:OrderHistoryViewModel}}" 
                              Command="{Binding UpdateCurrentViewModelCommand}" 
                              CommandParameter="{x:Static nav:ViewType.OrderHistory}" />
                 <RadioButton Grid.Column="2" Content="Cart" 
+                             IsChecked="{Binding CurrentViewModel, Mode=OneWay, Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:CartViewModel}}" 
                              Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Cart}" />
                 
             </Grid>

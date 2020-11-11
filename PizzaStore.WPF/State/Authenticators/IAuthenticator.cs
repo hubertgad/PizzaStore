@@ -15,7 +15,7 @@ namespace PizzaStore.WPF.State.Authenticators
 
         Task<RegistrationResult> RegisterAsync(string email, string name, string password, string confirmPassword);
 
-        Task<bool> LoginAsync(string email, string password);
+        Task LoginAsync(string email, string password);
 
         void Logout();
     }

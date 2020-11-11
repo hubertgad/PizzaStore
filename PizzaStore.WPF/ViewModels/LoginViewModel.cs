@@ -22,13 +22,38 @@ namespace PizzaStore.WPF.ViewModels
             }
         }
 
-        public ICommand LoginCommand { get; }
+        private string _password;
 
-        public LoginViewModel(IAuthenticator authenticator, IRenavigator renavigator)
+        public string Password
         {
-            LoginCommand = new LoginCommand(this, authenticator, renavigator);
+            get 
+            { 
+                return _password; 
+            }
+            set 
+            { 
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
+
+
+        public ICommand LoginCommand { get; }
+        
+        public ICommand ViewRegisterCommand { get; }
+
+        public MessageViewModel ErrorMessageViewModel { get; set; }
+
+        public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
+
+        public LoginViewModel(IAuthenticator authenticator, IRenavigator loginRenavigator, IRenavigator registerRenavigator)
+        {
+            LoginCommand = new LoginCommand(this, authenticator, loginRenavigator);
+            ViewRegisterCommand = new RenavigateCommand(registerRenavigator);
 
             Email = "hubertgad@gmail.com";
+
+            ErrorMessageViewModel = new MessageViewModel();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.WPF.ViewModels;
 using System;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PizzaStore.WPF.Commands
@@ -23,9 +24,20 @@ namespace PizzaStore.WPF.Commands
 
         public void Execute(object parameter)
         {
+            _cartViewModel.StatusMessage = string.Empty;
+            _cartViewModel.ErrorMessage = string.Empty;
+
             if (parameter is OrderItem orderItem)
             {
-                _cartViewModel.RemoveItem(orderItem);
+                var toppingsToRemove = _cartViewModel.Items.Where(q => q.ParentItem == orderItem).ToList();
+
+                foreach (var topping in toppingsToRemove)
+                {
+                    _cartViewModel.Items.Remove(topping);
+                }
+                _cartViewModel.Items.Remove(orderItem);
+
+                _cartViewModel.TotalPriceChanged();
             }
         }
     }

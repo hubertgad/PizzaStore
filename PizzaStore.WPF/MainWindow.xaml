@@ -34,7 +34,7 @@
         </Grid>
 
         <ScrollViewer Grid.Row="1" Padding="20 0" VerticalScrollBarVisibility="Auto">
-            <ContentControl Margin="10" Content="{Binding CurrentViewModel}" />
+            <ContentControl Margin="10" MaxWidth="1280" Content="{Binding CurrentViewModel}" />
         </ScrollViewer>
 
     </Grid>

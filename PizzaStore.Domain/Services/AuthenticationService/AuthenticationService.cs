@@ -22,6 +22,11 @@ namespace PizzaStore.Domain.Services.AuthenticationService
         {
             User storedUser = await _userService.GetByEmailAsync(email);
 
+            if (storedUser == null)
+            {
+                throw new UserNotFoundException(email);
+            }
+
             PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(storedUser.PasswordHash, password);
 
             if (passwordResult != PasswordVerificationResult.Success)
@@ -41,7 +46,7 @@ namespace PizzaStore.Domain.Services.AuthenticationService
 
             User emailUser = await _userService.GetByEmailAsync(email);
 
-            if (emailUser.Email != null)
+            if (emailUser != null)
             {
                 return RegistrationResult.EmailAlreadyExists;
             }

@@ -1,9 +1,11 @@
 ﻿using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.Menu;
-using PizzaStore.WPF.Models;
+using PizzaStore.WPF.Commands;
+using PizzaStore.WPF.State.Navigators;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace PizzaStore.WPF.ViewModels
 {
@@ -13,17 +15,24 @@ namespace PizzaStore.WPF.ViewModels
 
         public CollectionView MenuItems { get; }
 
-        public MenuViewModel(IProductDataService productDataService, CartViewModel cartViewModel)
+        public ICommand AddItemToCartCommand { get; set; }
+
+        public ICommand ViewCartCommand { get; set; }
+
+        public MenuViewModel(IProductDataService productDataService, CartViewModel cartViewModel, IRenavigator cartRenavigator)
         {
             Cart = cartViewModel;
 
+            AddItemToCartCommand = new AddItemToCartCommand(cartViewModel);
+            ViewCartCommand = new RenavigateCommand(cartRenavigator);
+
             var products = productDataService.GetAll();
 
-            var menuItems = new ObservableCollection<MenuPosition>();
+            var menuItems = new ObservableCollection<MenuPositionViewModel>();
 
             foreach (var product in products.Where(q => !q.Group.IsTopping))
             {
-                var tempProduct = new MenuPosition { Product = product };
+                var tempProduct = new MenuPositionViewModel { Product = product };
                 foreach (var topping in products.Where(q => q.Group.IsTopping && q.Group.Name.Contains(product.Group.Name)))
                 {
                     if (tempProduct.Toppings == null)

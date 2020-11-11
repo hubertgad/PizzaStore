@@ -1,5 +1,4 @@
-﻿using PizzaStore.Domain.Exceptions;
-using PizzaStore.Domain.Interfaces;
+﻿using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models;
 using System;
 using System.Threading.Tasks;
@@ -34,18 +33,9 @@ namespace PizzaStore.WPF.State.Authenticators
 
         public event Action StateChanged;
 
-        public async Task<bool> LoginAsync(string email, string password)
+        public async Task LoginAsync(string email, string password)
         {
-            try
-            {
-                CurrentUser = await _authenticationService.LoginAsync(email, password);
-            }
-            catch (InvalidPasswordException)
-            {
-                return false;
-            }
-
-            return true;
+            CurrentUser = await _authenticationService.LoginAsync(email, password);
         }
 
         public void Logout()
