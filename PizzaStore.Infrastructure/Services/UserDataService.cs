@@ -49,9 +49,8 @@ namespace PizzaStore.Infrastructure.Services
             return users;
         }
 
-        public async Task<User> UpdateAsync(int id, User entity)
+        public async Task<User> UpdateAsync(User entity)
         {
-            entity.Id = id;
             _context.Users.Update(entity);
             await _context.SaveChangesAsync();
 
@@ -62,7 +61,7 @@ namespace PizzaStore.Infrastructure.Services
         {
             User user = await _context.Users
                 .Include(q => q.Orders)
-                .ThenInclude(q => q.Address)
+                    .ThenInclude(q => q.Address)
                 .FirstOrDefaultAsync(q => q.Email == email);
 
             return user;

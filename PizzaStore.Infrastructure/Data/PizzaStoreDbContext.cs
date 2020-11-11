@@ -11,8 +11,6 @@ namespace PizzaStore.Infrastructure.Data
 
         public DbSet<Group> Groups { get; set; }
 
-        //public DbSet<Tax> Taxes { get; set; }
-
         public DbSet<Product> Products { get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }

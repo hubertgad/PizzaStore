@@ -5,9 +5,9 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class OrderItem : Entity
     {
-        public Product Product { get; private set; }
+        public virtual Product Product { get; private set; }
 
-        public OrderItem ParentItem { get; private set; }
+        public virtual OrderItem ParentItem { get; private set; }
 
         public OrderItem()
         { }

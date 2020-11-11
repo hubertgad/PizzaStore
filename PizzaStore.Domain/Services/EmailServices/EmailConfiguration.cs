@@ -1,6 +1,6 @@
 ﻿using PizzaStore.Domain.Interfaces;
 
-namespace PizzaStore.Infrastructure.Services.EmailServices
+namespace PizzaStore.Domain.Services.EmailServices
 {
     public class EmailConfiguration : IEmailConfiguration
     {

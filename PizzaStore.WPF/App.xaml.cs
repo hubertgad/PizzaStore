@@ -38,8 +38,8 @@ namespace PizzaStore.WPF
                 })
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddDomain(context.Configuration);
                     services.AddInfrastructure(context.Configuration);
-                    services.AddDomain();
 
                     services.AddSingleton<IPizzaStoreViewModelFactory, PizzaStoreViewModelFactory>();
 
@@ -74,7 +74,7 @@ namespace PizzaStore.WPF
             if (context.Users.Count() == 0)
             {
                 PasswordHasher hasher = new PasswordHasher();
-                context.Users.Add(new Domain.Models.User("hubertgad@gmail.com", "Hubret", hasher.HashPassword("aaa")));
+                context.Users.Add(new Domain.Models.User("hubertgad@gmail.com", "Hubert", hasher.HashPassword("aaa")));
                 context.SaveChanges();
             }
             _host.Services.GetRequiredService<DataSeeder>().SeedDatabase();

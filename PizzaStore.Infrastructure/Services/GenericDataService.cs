@@ -44,9 +44,8 @@ namespace PizzaStore.Infrastructure.Services
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> UpdateAsync(int id, T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            entity.Id = id;
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
 

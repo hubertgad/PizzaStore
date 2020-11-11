@@ -7,8 +7,6 @@ namespace PizzaStore.Domain.Models
 {
     public class User : Entity
     {
-        public DateTime Joined { get; set; }
-
         public string Email { get; set; }
 
         public string Name { get; set; }
@@ -17,7 +15,9 @@ namespace PizzaStore.Domain.Models
 
         public string PasswordHash { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; }
+        public virtual IEnumerable<Order> Orders { get; set; }
+
+        public DateTime Joined { get; private set; }
 
         public User()
         { }

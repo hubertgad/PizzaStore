@@ -94,7 +94,7 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("OrderPlaced")
+                    b.Property<DateTime>("Placed")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Remarks")

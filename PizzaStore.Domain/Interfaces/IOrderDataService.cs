@@ -12,7 +12,7 @@ namespace PizzaStore.Domain.Interfaces
 
         Task<Order> CreateAsync(Order entity);
 
-        Task<Order> UpdateAsync(int id, Order entity);
+        Task<Order> UpdateAsync(Order entity);
 
         Task<bool> DeleteAsync(int id);
 

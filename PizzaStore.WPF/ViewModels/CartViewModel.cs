@@ -51,7 +51,6 @@ namespace PizzaStore.WPF.ViewModels
                 Building = address.Building;
                 Unit = address.Unit;
             }
-            Remarks = "Ma być ciepłe!!";
 
             Items = new ObservableCollection<OrderItem>();
 

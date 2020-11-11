@@ -10,7 +10,7 @@ using PizzaStore.Infrastructure.Data;
 namespace PizzaStore.Infrastructure.Migrations
 {
     [DbContext(typeof(PizzaStoreDbContext))]
-    [Migration("20201110215057_Initial")]
+    [Migration("20201111125605_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,7 +96,7 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("OrderPlaced")
+                    b.Property<DateTime>("Placed")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Remarks")

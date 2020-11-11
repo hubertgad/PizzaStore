@@ -16,11 +16,5 @@ namespace PizzaStore.Domain.Models.Menu
             Name = name;
             IsTopping = isTopping;
         }
-
-        public Group(int id, string name, bool isTopping)
-            : this(name, isTopping)
-        {
-            Id = id;
-        }
     }
 }

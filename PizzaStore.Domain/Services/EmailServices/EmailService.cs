@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Infrastructure.Services.EmailServices
+namespace PizzaStore.Domain.Services.EmailServices
 {
     public class EmailService : IEmailService
     {
@@ -74,14 +74,14 @@ namespace PizzaStore.Infrastructure.Services.EmailServices
             foreach (var item in order.OrderItems.Where(q => q.ParentItem == null))
             {
                 body.Append(@$"<tr>
-        	            <td>{ item.Product.Name }</th>
-    	                <td>{ item.Product.Price } PLN</th>
+        	            <td>{ item.Product.Name }</td>
+    	                <td>{ item.Product.Price } PLN</td>
                     </tr>");
                 foreach (var childItem in order.OrderItems.Where(q => q.ParentItem == item))
                 {
                     body.Append(@$"<tr>
-        	            <td>{ childItem.Product.Name }</th>
-    	                <td>{ childItem.Product.Price } PLN</th>
+        	            <td>+ { childItem.Product.Name }</td>
+    	                <td>{ childItem.Product.Price } PLN</td>
                     </tr>");
                 }
             }

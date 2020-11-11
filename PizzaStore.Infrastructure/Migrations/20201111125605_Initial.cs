@@ -80,12 +80,12 @@ namespace PizzaStore.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderPlaced = table.Column<DateTime>(nullable: false),
-                    Remarks = table.Column<string>(nullable: true),
-                    Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Discount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    Remarks = table.Column<string>(nullable: true),
                     AddressId = table.Column<int>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: true),
+                    Placed = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
