@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaStore.Domain.Exceptions;
 using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.Domain.Services;
-using PizzaStore.Domain.Services.EmailServices;
 using PizzaStore.Domain.Services.OrderServices;
 using PizzaStore.WPF.ViewModels;
 using System;
