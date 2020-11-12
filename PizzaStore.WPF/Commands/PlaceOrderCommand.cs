@@ -3,6 +3,7 @@ using PizzaStore.Domain.Exceptions;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Domain.Services;
 using PizzaStore.Domain.Services.EmailServices;
+using PizzaStore.Domain.Services.OrderServices;
 using PizzaStore.WPF.ViewModels;
 using System;
 using System.Windows.Input;
@@ -15,9 +16,7 @@ namespace PizzaStore.WPF.Commands
 
         private readonly CartViewModel _cartViewModel;
 
-        private readonly IOrderDataService _orderService;
-
-        private readonly IEmailService _emailService;
+        private readonly IPlaceOrderService _placeOrderService;
 
         private bool _isExecuting;
         public bool IsExecuting
@@ -34,12 +33,10 @@ namespace PizzaStore.WPF.Commands
         }
 
         public PlaceOrderCommand(CartViewModel cartViewModel,
-                                 IOrderDataService orderService,
-                                 IEmailService emailService)
+                                 IPlaceOrderService placeOrderService)
         {
             _cartViewModel = cartViewModel;
-            _orderService = orderService;
-            _emailService = emailService;
+            _placeOrderService = placeOrderService;
             IsExecuting = false;
         }
 
@@ -67,7 +64,6 @@ namespace PizzaStore.WPF.Commands
                 var address = new Address(_cartViewModel.Street,
                                           _cartViewModel.Building,
                                           _cartViewModel.Unit);
-                address = await _orderService.ValidateAddress(address);
 
                 var order = new Order(_cartViewModel.Remarks,
                                       0,
@@ -76,10 +72,7 @@ namespace PizzaStore.WPF.Commands
                                       address,
                                       _cartViewModel.Items);
 
-                await _orderService.CreateAsync(order);
-
-                order = await _orderService.GetAsync(order.Id);
-                await _emailService.SendAsync(order);
+                await _placeOrderService.PlaceOrder(order);
 
                 _cartViewModel.StatusMessage = "Order has been placed! Check your e-mail box to see order's details.";
 

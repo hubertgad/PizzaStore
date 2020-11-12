@@ -2,6 +2,7 @@
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Domain.Services;
 using PizzaStore.Domain.Services.EmailServices;
+using PizzaStore.Domain.Services.OrderServices;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Authenticators;
 using System.Collections.ObjectModel;
@@ -38,7 +39,7 @@ namespace PizzaStore.WPF.ViewModels
 
         public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
 
-        public CartViewModel(IAuthenticator authenticator, IOrderDataService orderService, IEmailService emailService)
+        public CartViewModel(IAuthenticator authenticator, IPlaceOrderService placeOrderService)
         {
             User = authenticator.CurrentUser;
 
@@ -54,7 +55,7 @@ namespace PizzaStore.WPF.ViewModels
             Items = new ObservableCollection<OrderItem>();
 
             RemoveItemFromCartCommand = new RemoveItemFromCartCommand(this);
-            PlaceOrderCommand = new PlaceOrderCommand(this, orderService, emailService);
+            PlaceOrderCommand = new PlaceOrderCommand(this, placeOrderService);
 
             StatusMessageViewModel = new MessageViewModel();
             ErrorMessageViewModel = new MessageViewModel();
