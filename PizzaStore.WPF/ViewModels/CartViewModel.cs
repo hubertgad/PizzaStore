@@ -1,6 +1,7 @@
-﻿using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models;
+﻿using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.OrderAggregate;
+using PizzaStore.Domain.Services;
+using PizzaStore.Domain.Services.EmailServices;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Authenticators;
 using System.Collections.ObjectModel;

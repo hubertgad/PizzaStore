@@ -6,7 +6,7 @@ namespace PizzaStore.WPF.ViewModels
     public class MenuPositionViewModel : ViewModelBase
     {
         public Product Product { get; set; }
-        
+
         public ObservableCollection<Product> Toppings { get; set; }
 
         private int _quantity;
@@ -14,8 +14,8 @@ namespace PizzaStore.WPF.ViewModels
         public int Quantity
         {
             get => _quantity;
-            set 
-            { 
+            set
+            {
                 _quantity = value;
                 OnPropertyChanged(nameof(Quantity));
             }

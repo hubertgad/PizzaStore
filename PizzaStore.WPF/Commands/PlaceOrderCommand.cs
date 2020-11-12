@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PizzaStore.Domain.Exceptions;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.OrderAggregate;
+using PizzaStore.Domain.Services;
+using PizzaStore.Domain.Services.EmailServices;
 using PizzaStore.WPF.ViewModels;
 using System;
 using System.Windows.Input;
@@ -32,8 +33,8 @@ namespace PizzaStore.WPF.Commands
             }
         }
 
-        public PlaceOrderCommand(CartViewModel cartViewModel, 
-                                 IOrderDataService orderService, 
+        public PlaceOrderCommand(CartViewModel cartViewModel,
+                                 IOrderDataService orderService,
                                  IEmailService emailService)
         {
             _cartViewModel = cartViewModel;
@@ -63,15 +64,15 @@ namespace PizzaStore.WPF.Commands
 
             try
             {
-                var address = new Address(_cartViewModel.Street, 
-                                          _cartViewModel.Building, 
+                var address = new Address(_cartViewModel.Street,
+                                          _cartViewModel.Building,
                                           _cartViewModel.Unit);
                 address = await _orderService.ValidateAddress(address);
 
-                var order = new Order(_cartViewModel.Remarks, 
+                var order = new Order(_cartViewModel.Remarks,
                                       0,
                                       _cartViewModel.TotalPrice,
-                                      _cartViewModel.User, 
+                                      _cartViewModel.User,
                                       address,
                                       _cartViewModel.Items);
 

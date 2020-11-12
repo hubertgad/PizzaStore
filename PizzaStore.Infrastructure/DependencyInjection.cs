@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PizzaStore.Domain.Interfaces;
+using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure.Data;
 using PizzaStore.Infrastructure.Services;
 
@@ -12,7 +12,7 @@ namespace PizzaStore.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("default");
-            services.AddDbContext<PizzaStoreDbContext>(o => 
+            services.AddDbContext<PizzaStoreDbContext>(o =>
                 o.UseLazyLoadingProxies()
                     .UseSqlServer(connectionString));
 

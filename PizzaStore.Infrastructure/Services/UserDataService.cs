@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models;
+using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,9 +25,8 @@ namespace PizzaStore.Infrastructure.Services
             return createdEntity.Entity;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(User entity)
         {
-            User entity = await _context.Users.FirstOrDefaultAsync(q => q.Id == id);
             _context.Users.Remove(entity);
             await _context.SaveChangesAsync();
 

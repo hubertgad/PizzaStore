@@ -5,9 +5,14 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Domain", "PizzaStore.Domain\PizzaStore.Domain.csproj", "{523A6DA4-791F-4E0A-8F83-996D72380E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.Infrastructure", "PizzaStore.Infrastructure\PizzaStore.Infrastructure.csproj", "{40E308A9-0275-4995-8000-B33542ACA75B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Infrastructure", "PizzaStore.Infrastructure\PizzaStore.Infrastructure.csproj", "{40E308A9-0275-4995-8000-B33542ACA75B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.WPF", "PizzaStore.WPF\PizzaStore.WPF.csproj", "{D547DDD7-1C14-49FE-87AB-C27526C37559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.WPF", "PizzaStore.WPF\PizzaStore.WPF.csproj", "{D547DDD7-1C14-49FE-87AB-C27526C37559}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{229B21A2-C6BB-4C53-9678-36B7F9439243}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

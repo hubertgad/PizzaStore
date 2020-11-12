@@ -1,7 +1,7 @@
 ﻿using PizzaStore.Domain.Models.Menu;
 using System.Collections.Generic;
 
-namespace PizzaStore.Domain.Interfaces
+namespace PizzaStore.Domain.Services
 {
     public interface IProductDataService
     {

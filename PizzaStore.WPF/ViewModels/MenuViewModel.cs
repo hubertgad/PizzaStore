@@ -1,5 +1,5 @@
-﻿using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models.Menu;
+﻿using PizzaStore.Domain.Models.Menu;
+using PizzaStore.Domain.Services;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Navigators;
 using System.Collections.ObjectModel;
@@ -32,21 +32,21 @@ namespace PizzaStore.WPF.ViewModels
 
             foreach (var product in products.Where(q => !q.Group.IsTopping))
             {
-                var tempProduct = new MenuPositionViewModel { Product = product };
+                var menuItem = new MenuPositionViewModel { Product = product };
                 foreach (var topping in products.Where(q => q.Group.IsTopping && q.Group.Name.Contains(product.Group.Name)))
                 {
-                    if (tempProduct.Toppings == null)
+                    if (menuItem.Toppings == null)
                     {
-                        tempProduct.Toppings = new ObservableCollection<Product>();
+                        menuItem.Toppings = new ObservableCollection<Product>();
                     }
-                    tempProduct.Toppings.Add(topping);
+                    menuItem.Toppings.Add(topping);
                 }
-                menuItems.Add(tempProduct);
+                menuItems.Add(menuItem);
             }
 
             MenuItems = (CollectionView)CollectionViewSource.GetDefaultView(menuItems);
-            PropertyGroupDescription groupDescription3 = new PropertyGroupDescription("Product.Group.Name");
-            MenuItems.GroupDescriptions.Add(groupDescription3);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Product.Group.Name");
+            MenuItems.GroupDescriptions.Add(groupDescription);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace PizzaStore.WPF.Commands
 
         private readonly IRenavigator _renavigator;
 
-        public LoginCommand(LoginViewModel loginViewModel, 
-                            IAuthenticator authenticator, 
+        public LoginCommand(LoginViewModel loginViewModel,
+                            IAuthenticator authenticator,
                             IRenavigator renavigator)
         {
             _loginViewModel = loginViewModel;

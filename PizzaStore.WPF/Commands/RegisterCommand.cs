@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PizzaStore.Domain.Interfaces;
+using PizzaStore.Domain.Services.AuthenticationServices;
 using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
-using System;
 using System.Threading.Tasks;
 
 namespace PizzaStore.WPF.Commands
@@ -14,8 +13,8 @@ namespace PizzaStore.WPF.Commands
         private readonly IAuthenticator _authenticator;
         private readonly IRenavigator _renavigator;
 
-        public RegisterCommand(RegisterViewModel registerViewModel, 
-                               IAuthenticator authenticator, 
+        public RegisterCommand(RegisterViewModel registerViewModel,
+                               IAuthenticator authenticator,
                                IRenavigator renavigator)
         {
             _registerViewModel = registerViewModel;

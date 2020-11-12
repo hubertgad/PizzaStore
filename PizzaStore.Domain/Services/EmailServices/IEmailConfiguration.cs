@@ -1,4 +1,4 @@
-﻿namespace PizzaStore.Domain.Interfaces
+﻿namespace PizzaStore.Domain.Services.EmailServices
 {
     public interface IEmailConfiguration
     {

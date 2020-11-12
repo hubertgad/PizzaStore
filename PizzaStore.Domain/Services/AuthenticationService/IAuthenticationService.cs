@@ -1,7 +1,7 @@
 ﻿using PizzaStore.Domain.Models;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Domain.Interfaces
+namespace PizzaStore.Domain.Services.AuthenticationServices
 {
     public enum RegistrationResult
     {

@@ -11,11 +11,11 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Email
         {
-            get 
-            { 
-                return _email; 
+            get
+            {
+                return _email;
             }
-            set 
+            set
             {
                 _email = value;
                 OnPropertyChanged(nameof(Email));
@@ -26,11 +26,11 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Name
         {
-            get 
-            { 
-                return _name; 
+            get
+            {
+                return _name;
             }
-            set 
+            set
             {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
@@ -41,12 +41,12 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Password
         {
-            get 
-            { 
-                return _password; 
+            get
+            {
+                return _password;
             }
-            set 
-            { 
+            set
+            {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
             }
@@ -56,12 +56,12 @@ namespace PizzaStore.WPF.ViewModels
 
         public string ConfirmPassword
         {
-            get 
-            { 
-                return _confirmPassword; 
+            get
+            {
+                return _confirmPassword;
             }
-            set 
-            { 
+            set
+            {
                 _confirmPassword = value;
                 OnPropertyChanged(nameof(ConfirmPassword));
             }

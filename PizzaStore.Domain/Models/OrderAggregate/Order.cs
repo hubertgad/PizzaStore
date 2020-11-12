@@ -8,14 +8,14 @@ namespace PizzaStore.Domain.Models.OrderAggregate
     public class Order : Entity
     {
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal TotalPrice { get; private set; }
+        public decimal TotalPrice { get; internal set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal Discount { get; private set; }
+        public decimal Discount { get; internal set; }
 
-        public string Remarks { get; private set; }
+        public string Remarks { get; internal set; }
 
-        public virtual Address Address { get; private set; }
+        public virtual Address Address { get; internal set; }
 
         public virtual User User { get; private set; }
 

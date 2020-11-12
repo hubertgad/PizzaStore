@@ -1,7 +1,7 @@
 ﻿using PizzaStore.Domain.Models.OrderAggregate;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Domain.Interfaces
+namespace PizzaStore.Domain.Services.EmailServices
 {
     public interface IEmailService
     {

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PizzaStore.Domain;
-using PizzaStore.Domain.Interfaces;
+using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure;
 using PizzaStore.Infrastructure.Services;
 using PizzaStore.WPF.State.Authenticators;

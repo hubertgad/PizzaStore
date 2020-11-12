@@ -1,5 +1,5 @@
-﻿using PizzaStore.Domain.Interfaces;
-using PizzaStore.Domain.Models;
+﻿using PizzaStore.Domain.Models;
+using PizzaStore.Domain.Services.AuthenticationServices;
 using System;
 using System.Threading.Tasks;
 

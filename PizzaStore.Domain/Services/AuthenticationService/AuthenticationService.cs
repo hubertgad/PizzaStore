@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using PizzaStore.Domain.Exceptions;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Domain.Services.AuthenticationService
+namespace PizzaStore.Domain.Services.AuthenticationServices
 {
     public class AuthenticationService : IAuthenticationService
     {

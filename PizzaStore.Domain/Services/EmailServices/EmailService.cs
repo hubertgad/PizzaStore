@@ -2,7 +2,6 @@
 using MimeKit;
 using MimeKit.Text;
 using PizzaStore.Domain.Exceptions;
-using PizzaStore.Domain.Interfaces;
 using PizzaStore.Domain.Models.OrderAggregate;
 using System;
 using System.Linq;

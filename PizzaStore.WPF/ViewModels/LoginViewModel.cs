@@ -26,12 +26,12 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Password
         {
-            get 
-            { 
-                return _password; 
+            get
+            {
+                return _password;
             }
-            set 
-            { 
+            set
+            {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
             }
@@ -39,7 +39,7 @@ namespace PizzaStore.WPF.ViewModels
 
 
         public ICommand LoginCommand { get; }
-        
+
         public ICommand ViewRegisterCommand { get; }
 
         public MessageViewModel ErrorMessageViewModel { get; set; }

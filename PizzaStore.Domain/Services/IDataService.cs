@@ -1,10 +1,9 @@
-﻿using PizzaStore.Domain.SeedWork;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PizzaStore.Domain.Interfaces
+namespace PizzaStore.Domain.Services
 {
-    public interface IDataService<T> where T : Entity
+    public interface IDataService<T>
     {
         Task<IEnumerable<T>> GetAllAsync();
 
@@ -14,6 +13,6 @@ namespace PizzaStore.Domain.Interfaces
 
         Task<T> UpdateAsync(T entity);
 
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(T entity);
     }
 }
