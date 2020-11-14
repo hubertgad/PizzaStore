@@ -1,7 +1,5 @@
 ﻿using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.Domain.Services;
-using PizzaStore.Domain.Services.EmailServices;
 using PizzaStore.Domain.Services.OrderServices;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Authenticators;
@@ -13,9 +11,9 @@ namespace PizzaStore.WPF.ViewModels
 {
     public class CartViewModel : ViewModelBase
     {
-        public User User { get; set; }
+        public User User { get; }
 
-        public ObservableCollection<OrderItem> Items { get; set; }
+        public ObservableCollection<OrderItem> Items { get; }
 
         public decimal TotalPrice => Items.Sum(q => q.Product.Price);
 
@@ -25,15 +23,19 @@ namespace PizzaStore.WPF.ViewModels
 
         public string Building { get; set; }
 
-        public string Unit { get; set; }
+        public ushort Unit { get; set; }
 
-        public ICommand RemoveItemFromCartCommand { get; set; }
+        public string ZipCode { get; set; }
 
-        public ICommand PlaceOrderCommand { get; set; }
+        public string City { get; set; }
 
-        public MessageViewModel StatusMessageViewModel { get; set; }
+        public ICommand RemoveItemFromCartCommand { get; }
 
-        public MessageViewModel ErrorMessageViewModel { get; set; }
+        public ICommand PlaceOrderCommand { get; }
+
+        public MessageViewModel StatusMessageViewModel { get; }
+
+        public MessageViewModel ErrorMessageViewModel { get; }
 
         public string StatusMessage { set => StatusMessageViewModel.Message = value; }
 

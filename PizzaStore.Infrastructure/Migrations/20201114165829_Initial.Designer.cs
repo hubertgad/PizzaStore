@@ -10,7 +10,7 @@ using PizzaStore.Infrastructure.Data;
 namespace PizzaStore.Infrastructure.Migrations
 {
     [DbContext(typeof(PizzaStoreDbContext))]
-    [Migration("20201111125605_Initial")]
+    [Migration("20201114165829_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,10 +72,16 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.Property<string>("Building")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Unit")
+                    b.Property<int>("Unit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

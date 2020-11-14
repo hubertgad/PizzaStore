@@ -4,13 +4,115 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PizzaStore.WPF.Views"
+             xmlns:converters="clr-namespace:PizzaStore.WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+    </UserControl.Resources>
+    
     <GroupBox Header="Order history">
-        <Grid>
-            <TextBlock 
-                HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Text="Not implemented yet" FontSize="36" />
-        </Grid>
+
+        <ItemsControl Margin="25 0 25 0" ItemsSource="{Binding Orders}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Expander FontSize="15" Margin="0 5">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="18" Text="Order #" />
+                                <TextBlock FontSize="18" Text="{Binding Id, StringFormat=0000000000}" />
+                            </StackPanel>
+                        </Expander.Header>
+                        
+                        <Grid Grid.IsSharedSizeScope="True" Margin="10 5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="0 10 0 0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Order placed:" Margin="0 0 10 10" />
+                                <TextBlock Grid.Column="1" Text="{Binding Placed, StringFormat='dd MMMM yyyy, hh:MM tt'}" FontStyle="Italic" HorizontalAlignment="Right" />
+                            </Grid>
+
+                            <TextBlock Grid.Row="1" FontWeight="Bold" Text="Products:" />
+
+                            <ListView Grid.Row="2" ItemsSource="{Binding OrderItems}">
+                                <ListView.Resources>
+                                    <Style TargetType="{x:Type ListView}">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                    </Style>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto" SharedSizeGroup="Name" />
+                                                            <ColumnDefinition Width="auto" SharedSizeGroup="Price" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="{Binding Product.Name}" Margin="0 0 10 0" />
+                                                        <TextBlock Grid.Column="1" Text="{Binding Product.Price, StringFormat=0.00 PLN}" HorizontalAlignment="Right" />
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                            
+                            <Grid Grid.Row="3" Margin="0 10 0 0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="Name" />
+                                    <ColumnDefinition Width="auto" SharedSizeGroup="Price" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Total price:" Margin="0 0 10 0" HorizontalAlignment="Right" />
+                                <TextBlock Grid.Column="1" FontWeight="Bold" Text="{Binding TotalPrice, StringFormat=0.00 PLN}" HorizontalAlignment="Right" />
+                            </Grid>
+
+                            <Grid Grid.Row="4" Visibility="{Binding Remarks, Converter={StaticResource StringToVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Remarks:" Margin="0 10 10 0" HorizontalAlignment="Right" />
+                                <TextBlock Grid.Column="1" FontStyle="Italic" Text="{Binding Remarks}" Margin="0 10 10 0" />
+                            </Grid>
+
+                            <Grid Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontWeight="Bold" Text="Delivery address:" Margin="0 10 10 0" HorizontalAlignment="Right" />
+                                <TextBlock Grid.Column="1" Margin="0 10 10 0" FontStyle="Italic">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}/{2}, {3} {4}">
+                                            <Binding Path="Address.Street" />
+                                            <Binding Path="Address.Building" />
+                                            <Binding Path="Address.Unit" />
+                                            <Binding Path="Address.ZipCode" />
+                                            <Binding Path="Address.City" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                        
+                    </Expander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
     </GroupBox>
+    
 </UserControl>

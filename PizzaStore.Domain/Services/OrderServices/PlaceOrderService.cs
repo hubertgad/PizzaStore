@@ -17,7 +17,8 @@ namespace PizzaStore.Domain.Services.OrderServices
 
         public async Task PlaceOrder(Order order)
         {
-            order.Address = await _orderDataService.ValidateAddress(order.Address);
+            order.Address = await _orderDataService.CheckIfAddressExists(order.Address);
+            
             order = await _orderDataService.CreateAsync(order);
 
             await _emailService.SendAsync(order);

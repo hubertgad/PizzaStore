@@ -70,10 +70,16 @@ namespace PizzaStore.Infrastructure.Migrations
                     b.Property<string>("Building")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Unit")
+                    b.Property<int>("Unit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

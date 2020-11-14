@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaStore.Infrastructure.Migrations
 {
@@ -15,7 +15,9 @@ namespace PizzaStore.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Street = table.Column<string>(nullable: true),
                     Building = table.Column<string>(nullable: true),
-                    Unit = table.Column<string>(nullable: true)
+                    Unit = table.Column<int>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

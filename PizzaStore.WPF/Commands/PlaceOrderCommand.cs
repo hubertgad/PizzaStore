@@ -61,7 +61,9 @@ namespace PizzaStore.WPF.Commands
             {
                 var address = new Address(_cartViewModel.Street,
                                           _cartViewModel.Building,
-                                          _cartViewModel.Unit);
+                                          _cartViewModel.Unit,
+                                          _cartViewModel.ZipCode,
+                                          _cartViewModel.City);
 
                 var order = new Order(_cartViewModel.Remarks,
                                       0,

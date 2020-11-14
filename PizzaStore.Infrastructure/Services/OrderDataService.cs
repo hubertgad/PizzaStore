@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services
@@ -34,11 +36,19 @@ namespace PizzaStore.Infrastructure.Services
             return true;
         }
 
-        public async Task<IEnumerable<Order>> GetAllAsync()
+        public async Task<IEnumerable<Order>> GetAllAsync(User user = null)
         {
-            List<Order> orders = await _context.Orders.ToListAsync();
+            var orders = _context.Orders;
 
-            return orders;
+            if (user != null)
+            {
+                orders.Where(q => q.User == user);
+            }
+
+            return await orders
+                .Include(q => q.OrderItems)
+                .Include(q => q.Address)
+                .ToListAsync();
         }
 
         public async Task<Order> GetAsync(int id)
@@ -60,12 +70,14 @@ namespace PizzaStore.Infrastructure.Services
             return entity;
         }
 
-        public async Task<Address> ValidateAddress(Address newAddress)
+        public async Task<Address> CheckIfAddressExists(Address newAddress)
         {
             return await _context.Addresses
                    .FirstOrDefaultAsync(q => q.Street.Equals(newAddress.Street)
                                     && q.Building.Equals(newAddress.Building)
-                                    && q.Unit.Equals(newAddress.Unit)) ?? newAddress;
+                                    && q.Unit.Equals(newAddress.Unit)
+                                    && q.ZipCode.Equals(newAddress.ZipCode)
+                                    && q.City.Equals(newAddress.City)) ?? newAddress;
         }
     }
 }

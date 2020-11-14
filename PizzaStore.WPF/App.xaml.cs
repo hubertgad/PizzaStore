@@ -45,7 +45,7 @@ namespace PizzaStore.WPF
                     services.AddSingleton<OrderHistoryViewModel>();
 
                     services.AddSingleton<CreateViewModel<CartViewModel>>(s => () => s.GetRequiredService<CartViewModel>());
-                    services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(s => () => new OrderHistoryViewModel());
+                    services.AddSingleton<CreateViewModel<OrderHistoryViewModel>>(s => () => s.GetRequiredService<OrderHistoryViewModel>());
                     services.AddSingleton<CreateViewModel<MenuViewModel>>(s =>
                     {
                         return () => new MenuViewModel(
