@@ -1,4 +1,5 @@
 ﻿using PizzaStore.Domain.SeedWork;
+using System.Collections.Generic;
 
 namespace PizzaStore.Domain.Models.Menu
 {
@@ -8,6 +9,8 @@ namespace PizzaStore.Domain.Models.Menu
 
         public bool IsTopping { get; private set; }
 
+        public virtual ICollection<Product> Products { get; private set; }
+
         public Group()
         { }
 
@@ -15,6 +18,7 @@ namespace PizzaStore.Domain.Models.Menu
         {
             Name = name;
             IsTopping = isTopping;
+            Products = new List<Product>();
         }
     }
 }

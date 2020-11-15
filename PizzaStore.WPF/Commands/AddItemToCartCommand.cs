@@ -3,6 +3,7 @@ using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.WPF.ViewModels;
 using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace PizzaStore.WPF.Commands
@@ -13,9 +14,12 @@ namespace PizzaStore.WPF.Commands
 
         private readonly CartViewModel _cartViewModel;
 
-        public AddItemToCartCommand(CartViewModel cartViewModel)
+        private readonly MenuViewModel _menuViewModel;
+
+        public AddItemToCartCommand(CartViewModel cartViewModel, MenuViewModel menuViewModel)
         {
             _cartViewModel = cartViewModel;
+            _menuViewModel = menuViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -23,7 +27,7 @@ namespace PizzaStore.WPF.Commands
             var values = (object[])parameter;
             var quanity = ((MenuPositionViewModel)values[0]).Quantity;
 
-            if (quanity > 0)
+            if (int.TryParse(quanity, out int intQuantity) && intQuantity > 0)
             {
                 return true;
             }
@@ -42,20 +46,30 @@ namespace PizzaStore.WPF.Commands
 
             if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition)
             {
-                for (int i = 0; i < menuPosition.Quantity; i++)
+                if (int.TryParse(menuPosition.Quantity, out int quantity) && quantity > 0)
                 {
-                    var orderItem = new OrderItem(menuPosition.Product);
-                    _cartViewModel.Items.Add(orderItem);
 
-                    if (values.Length > 1)
+                    for (int i = 0; i < quantity; i++)
                     {
-                        foreach (var item in (ICollection)values[1])
+                        if (values.Length > 1)
                         {
-                            var selectedTopping = (Product)item;
+                            ObservableCollection<OrderItem> toppings = new ObservableCollection<OrderItem>();
 
-                            var orderItemTopping = new OrderItem(selectedTopping, orderItem);
+                            var orderItem = new OrderItem(menuPosition.Product, null, toppings);
 
-                            _cartViewModel.Items.Add(orderItemTopping);
+                            _cartViewModel.Items.Add(orderItem);
+
+                            foreach (var item in (ICollection)values[1])
+                            {
+                                var selectedTopping = (Product)item;
+
+                                _cartViewModel.Items.Add(new OrderItem(selectedTopping, orderItem));
+                                //toppings.Add(new OrderItem(selectedTopping, orderItem));
+                            }
+                        }
+                        else
+                        {
+                            _cartViewModel.Items.Add(new OrderItem(menuPosition.Product));
                         }
                     }
                 }

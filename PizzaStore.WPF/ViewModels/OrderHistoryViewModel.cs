@@ -8,7 +8,7 @@ namespace PizzaStore.WPF.ViewModels
 {
     public class OrderHistoryViewModel : ViewModelBase
     {
-        public IEnumerable<Order> Orders { get; }
+        public ICollection<Order> Orders { get; set; }
 
         public OrderHistoryViewModel(IAuthenticator authenticator, IOrderDataService orderDataService)
         {

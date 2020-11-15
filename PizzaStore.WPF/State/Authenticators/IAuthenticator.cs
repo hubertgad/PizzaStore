@@ -1,5 +1,4 @@
 ﻿using PizzaStore.Domain.Models;
-using PizzaStore.Domain.Services.AuthenticationServices;
 using System;
 using System.Threading.Tasks;
 
@@ -13,7 +12,7 @@ namespace PizzaStore.WPF.State.Authenticators
 
         event Action StateChanged;
 
-        Task<RegistrationResult> RegisterAsync(string email, string name, string password, string confirmPassword);
+        Task RegisterAsync(string email, string name, string password, string confirmPassword);
 
         Task LoginAsync(string email, string password);
 

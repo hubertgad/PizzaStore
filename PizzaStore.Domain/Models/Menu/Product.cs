@@ -7,19 +7,24 @@ namespace PizzaStore.Domain.Models.Menu
     {
         public string Name { get; private set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; private set; }
+
+        public short Position { get; set; }
+
+        public bool IsActive { get; set; }
 
         public virtual Group Group { get; private set; }
 
         public Product()
         { }
 
-        public Product(string name, decimal price, Group group)
+        public Product(string name, decimal price, Group group, short position = 0)
         {
             Name = name;
             Price = price;
             Group = group;
+            Position = position;
+            IsActive = true;
         }
     }
 }

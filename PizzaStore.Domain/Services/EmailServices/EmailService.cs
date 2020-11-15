@@ -26,7 +26,7 @@ namespace PizzaStore.Domain.Services.EmailServices
                 var message = new MimeMessage();
                 message.To.Add(new MailboxAddress(order.User.Name, order.User.Email));
                 message.From.Add(new MailboxAddress("Pizza Store", "no-reply@hubertgad.net"));
-                message.Subject = $"Pizza Store: Order #{ order.Id } summary";
+                message.Subject = $"Pizza Store: Order #{ order.Placed } summary";
 
                 string body = SetEmailBody(order);
 
@@ -79,13 +79,13 @@ namespace PizzaStore.Domain.Services.EmailServices
     	            <th>Price</th>
                 </tr>");
 
-            foreach (var item in order.OrderItems.Where(q => q.ParentItem == null))
+            foreach (var orderItem in order.OrderItems.Where(q => q.ParentItem == null))
             {
                 body.Append(@$"<tr>
-        	            <td>{ item.Product.Name }</td>
-    	                <td>{ item.Product.Price } PLN</td>
+        	            <td>{ orderItem.Product.Name }</td>
+    	                <td>{ orderItem.Product.Price } PLN</td>
                     </tr>");
-                foreach (var childItem in order.OrderItems.Where(q => q.ParentItem == item))
+                foreach (var childItem in orderItem.ChildItems)
                 {
                     body.Append(@$"<tr>
         	            <td>+ { childItem.Product.Name }</td>

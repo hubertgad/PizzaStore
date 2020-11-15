@@ -13,21 +13,21 @@ namespace PizzaStore.WPF.ViewModels
     {
         public User User { get; }
 
-        public ObservableCollection<OrderItem> Items { get; }
+        public ObservableCollection<OrderItem> Items { get; set; }
 
-        public decimal TotalPrice => Items.Sum(q => q.Product.Price);
+        public decimal TotalPrice => Items.Sum(q => q.Product.Price /*+ q.ChildItems.Sum(w => w.Product.Price)*/);
 
         public string Remarks { get; set; }
 
-        public string Street { get; set; }
+        public string Street { get; set; } = string.Empty;
 
-        public string Building { get; set; }
+        public string Building { get; set; } = string.Empty;
 
-        public ushort Unit { get; set; }
+        public string Unit { get; set; } = string.Empty;
 
-        public string ZipCode { get; set; }
+        public string ZipCode { get; set; } = string.Empty;
 
-        public string City { get; set; }
+        public string City { get; set; } = string.Empty;
 
         public ICommand RemoveItemFromCartCommand { get; }
 
@@ -49,9 +49,11 @@ namespace PizzaStore.WPF.ViewModels
             {
                 var address = User.Orders.LastOrDefault().Address;
 
-                Street = address.Street;
+                Street = address.Street.Name;
                 Building = address.Building;
                 Unit = address.Unit;
+                ZipCode = address.ZipCode.Code;
+                City = address.City.Name;
             }
 
             Items = new ObservableCollection<OrderItem>();

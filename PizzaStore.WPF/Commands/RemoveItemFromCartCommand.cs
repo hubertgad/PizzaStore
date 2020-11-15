@@ -29,13 +29,14 @@ namespace PizzaStore.WPF.Commands
 
             if (parameter is OrderItem orderItem)
             {
-                var toppingsToRemove = _cartViewModel.Items.Where(q => q.ParentItem == orderItem).ToList();
-
-                foreach (var topping in toppingsToRemove)
+                if (orderItem.ParentItem == null)
                 {
-                    _cartViewModel.Items.Remove(topping);
+                    _cartViewModel.Items.Remove(orderItem);
                 }
-                _cartViewModel.Items.Remove(orderItem);
+                else
+                {
+                    _cartViewModel.Items.FirstOrDefault(q => q == orderItem.ParentItem).ChildItems.Remove(orderItem);
+                }
 
                 _cartViewModel.TotalPriceChanged();
             }

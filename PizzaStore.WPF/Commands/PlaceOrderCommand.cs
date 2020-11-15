@@ -78,6 +78,10 @@ namespace PizzaStore.WPF.Commands
 
                 _cartViewModel.Items.Clear();
             }
+            catch (InputNotValidException e)
+            {
+                _cartViewModel.ErrorMessage = e.Message;
+            }
             catch (DbUpdateException)
             {
                 _cartViewModel.ErrorMessage = "There has an error during connection to database occured. Order cannot be placed.";

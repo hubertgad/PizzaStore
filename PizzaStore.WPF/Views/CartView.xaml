@@ -17,12 +17,31 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
+                            
                             <TextBlock Grid.Column="0" Margin="5" FontSize="18" Text="{Binding Product.Name}" />
                             <TextBlock Grid.Column="1" Margin="5" FontSize="18" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
+                            <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ChildItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Margin="5" FontSize="18" Text="{Binding Product.Name, StringFormat='+ {0}'}" />
+                                            <TextBlock Grid.Column="1" Margin="5" FontSize="18" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -71,7 +90,7 @@
             <TextBlock Margin="5" FontSize="20" FontWeight="Bold" Text="Remarks" />
             <TextBox Margin="30 5" MinHeight="50" Text="{Binding Remarks}" />
 
-            <Button Margin="30 15" Padding="15" FontSize="25" HorizontalAlignment="Right" Content="Submit"
+            <Button Margin="30 15" Padding="15" FontSize="25" HorizontalAlignment="Right" Content="Submit" IsDefault="True"
                     Command="{Binding PlaceOrderCommand}"/>
 
             <c:Message DataContext="{Binding StatusMessageViewModel}" Foreground="DarkGreen" />

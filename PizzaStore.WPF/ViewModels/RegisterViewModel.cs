@@ -81,6 +81,16 @@ namespace PizzaStore.WPF.ViewModels
 
             RegisterCommand = new RegisterCommand(this, authenticator, loginRenavigator);
             ViewLoginCommand = new RenavigateCommand(loginRenavigator);
+
+            Email = string.Empty;
+            Name = string.Empty;
+            Password = string.Empty;
+            ConfirmPassword = string.Empty;
+            
+            Email = "hubertgad@gmail.com";
+            Name = "Hubert Gad";
+            Password = "a";
+            ConfirmPassword = "a";
         }
     }
 }

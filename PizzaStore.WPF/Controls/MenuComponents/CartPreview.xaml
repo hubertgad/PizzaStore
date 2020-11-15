@@ -23,12 +23,36 @@
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            
                             <TextBlock Grid.Column="0" Margin="5" FontSize="12" Text="{Binding Product.Name}" />
                             <TextBlock Grid.Column="1" Margin="5" FontSize="12" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
                             <Button Grid.Column="3" Margin="2" Padding="3" FontSize="8" Content="X" 
                                             Command="{Binding Path=DataContext.Cart.RemoveItemFromCartCommand, 
                                                     RelativeSource={RelativeSource AncestorType={x:Type local:CartPreview}}}" 
                                             CommandParameter="{Binding}" />
+                            <ItemsControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ChildItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Margin="5" FontSize="12" Text="{Binding Product.Name, StringFormat='+ {0}'}" />
+                                            <TextBlock Grid.Column="1" Margin="5" FontSize="12" Text="{Binding Product.Price, StringFormat=0.00 PLN}" />
+                                            <Button Grid.Column="3" Margin="2" Padding="3" FontSize="8" Content="X" 
+                                            Command="{Binding Path=DataContext.Cart.RemoveItemFromCartCommand, 
+                                                    RelativeSource={RelativeSource AncestorType={x:Type local:CartPreview}}}" 
+                                            CommandParameter="{Binding}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

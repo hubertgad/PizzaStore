@@ -9,9 +9,9 @@ namespace PizzaStore.WPF.ViewModels
 
         public ObservableCollection<Product> Toppings { get; set; }
 
-        private int _quantity;
+        private string _quantity;
 
-        public int Quantity
+        public string Quantity
         {
             get => _quantity;
             set
@@ -23,7 +23,7 @@ namespace PizzaStore.WPF.ViewModels
 
         public MenuPositionViewModel()
         {
-            Quantity = 1;
+            Quantity = "1";
         }
     }
 }

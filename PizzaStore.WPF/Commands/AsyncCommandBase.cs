@@ -25,7 +25,7 @@ namespace PizzaStore.WPF.Commands
 
         public virtual bool CanExecute(object parameter)
         {
-            return !IsExecuting;
+            return IsExecuting == false;
         }
 
         public async void Execute(object parameter)

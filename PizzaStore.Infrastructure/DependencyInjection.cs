@@ -14,7 +14,7 @@ namespace PizzaStore.Infrastructure
             string connectionString = configuration.GetConnectionString("default");
             services.AddDbContext<PizzaStoreDbContext>(o =>
                 o.UseLazyLoadingProxies()
-                    .UseSqlServer(connectionString));
+                 .UseSqlServer(connectionString));
 
             services.AddSingleton<IProductDataService, ProductDataService>();
             services.AddSingleton<IUserDataService, UserDataService>();

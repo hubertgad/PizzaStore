@@ -2,8 +2,10 @@
 using PizzaStore.Domain.Services;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Navigators;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -23,12 +25,19 @@ namespace PizzaStore.WPF.ViewModels
         {
             Cart = cartViewModel;
 
-            AddItemToCartCommand = new AddItemToCartCommand(cartViewModel);
+            AddItemToCartCommand = new AddItemToCartCommand(cartViewModel, this);
             ViewCartCommand = new RenavigateCommand(cartRenavigator);
 
-            var products = productDataService.GetAll();
+            MenuItems = FetchData(productDataService);
+        }
 
-            var menuItems = new ObservableCollection<MenuPositionViewModel>();
+        private CollectionView FetchData(IProductDataService productDataService)
+        {
+            var products = Task.Run(() => productDataService.GetAllAsync())
+                                          .Result
+                                          .OrderBy(q => q.Position);
+
+            var menuItems = new List<MenuPositionViewModel>();
 
             foreach (var product in products.Where(q => !q.Group.IsTopping))
             {
@@ -44,9 +53,11 @@ namespace PizzaStore.WPF.ViewModels
                 menuItems.Add(menuItem);
             }
 
-            MenuItems = (CollectionView)CollectionViewSource.GetDefaultView(menuItems);
+            var menuItemsView = (CollectionView)CollectionViewSource.GetDefaultView(menuItems);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Product.Group.Name");
-            MenuItems.GroupDescriptions.Add(groupDescription);
+            menuItemsView.GroupDescriptions.Add(groupDescription);
+
+            return menuItemsView;
         }
     }
 }

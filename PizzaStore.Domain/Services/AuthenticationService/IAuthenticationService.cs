@@ -10,7 +10,7 @@ namespace PizzaStore.Domain.Services.AuthenticationServices
 
     public interface IAuthenticationService
     {
-        Task<RegistrationResult> RegisterAsync(string email, string name, string password, string confirmPassword);
+        Task RegisterAsync(string email, string name, string password, string confirmPassword);
 
         Task<User> LoginAsync(string email, string password);
     }

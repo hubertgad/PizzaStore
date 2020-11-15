@@ -33,7 +33,7 @@
             <c:NavigationBar />
         </Grid>
 
-        <ScrollViewer Grid.Row="1" Padding="20 0" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Padding="20 0" VerticalScrollBarVisibility="Visible">
             <ContentControl Margin="10" MaxWidth="1280" Content="{Binding CurrentViewModel}" />
         </ScrollViewer>
 

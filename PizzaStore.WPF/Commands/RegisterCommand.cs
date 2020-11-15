@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PizzaStore.Domain.Services.AuthenticationServices;
+using PizzaStore.Domain.Exceptions;
 using PizzaStore.WPF.State.Authenticators;
 using PizzaStore.WPF.State.Navigators;
 using PizzaStore.WPF.ViewModels;
@@ -28,26 +28,17 @@ namespace PizzaStore.WPF.Commands
 
             try
             {
-                RegistrationResult result = await _authenticator
+                await _authenticator
                     .RegisterAsync(_registerViewModel.Email,
                                    _registerViewModel.Name,
                                    _registerViewModel.Password,
                                    _registerViewModel.ConfirmPassword);
 
-                switch (result)
-                {
-                    case RegistrationResult.Success:
-                        _renavigator.Renavigate();
-                        break;
-                    case RegistrationResult.EmailAlreadyExists:
-                        _registerViewModel.ErrorMessage = "This e-mail is already taken.";
-                        break;
-                    case RegistrationResult.PasswordDoNotMatch:
-                        _registerViewModel.ErrorMessage = "Passwords does not match.";
-                        break;
-                    default:
-                        break;
-                }
+                _renavigator.Renavigate();
+            }
+            catch (InputNotValidException e)
+            {
+                _registerViewModel.ErrorMessage = e.Message;
             }
             catch (DbUpdateException)
             {

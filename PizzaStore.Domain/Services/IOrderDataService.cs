@@ -7,7 +7,7 @@ namespace PizzaStore.Domain.Services
 {
     public interface IOrderDataService
     {
-        Task<IEnumerable<Order>> GetAllAsync(User user = null);
+        Task<ICollection<Order>> GetAllAsync(User user = null);
 
         Task<Order> GetAsync(int id);
 

@@ -37,7 +37,9 @@ namespace PizzaStore.Infrastructure.Services
         {
             return _context.Users
                 .Include(q => q.Orders)
-                .ThenInclude(q => q.Address)
+                    .ThenInclude(w => w.OrderItems)
+                .Include(q => q.Orders)
+                    .ThenInclude(q => q.Address)
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
@@ -61,6 +63,8 @@ namespace PizzaStore.Infrastructure.Services
             User user = await _context.Users
                 .Include(q => q.Orders)
                     .ThenInclude(q => q.Address)
+                .Include(q => q.Orders)
+                    .ThenInclude(q => q.OrderItems)
                 .FirstOrDefaultAsync(q => q.Email == email);
 
             return user;

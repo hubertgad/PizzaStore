@@ -36,19 +36,31 @@ namespace PizzaStore.Infrastructure.Services
             return true;
         }
 
-        public async Task<IEnumerable<Order>> GetAllAsync(User user = null)
+        public async Task<ICollection<Order>> GetAllAsync(User user = null)
         {
-            var orders = _context.Orders;
+            IQueryable<Order> orders = _context.Orders;
 
             if (user != null)
             {
-                orders.Where(q => q.User == user);
+                orders = orders.Where(q => q.User == user);
             }
 
-            return await orders
-                .Include(q => q.OrderItems)
+            var orderList = await orders
+                .Include(q => q.User)
                 .Include(q => q.Address)
+                .OrderByDescending(q => q.Placed)
                 .ToListAsync();
+
+            foreach (var order in orderList)
+            {
+                order.OrderItems = await _context
+                                        .OrderItems
+                                        .Where(q => q.Order == order && q.ParentItem == null)
+                                        .Include(q => q.ChildItems)
+                                        .ToListAsync();
+            }
+
+            return orderList;
         }
 
         public async Task<Order> GetAsync(int id)
@@ -72,12 +84,27 @@ namespace PizzaStore.Infrastructure.Services
 
         public async Task<Address> CheckIfAddressExists(Address newAddress)
         {
-            return await _context.Addresses
-                   .FirstOrDefaultAsync(q => q.Street.Equals(newAddress.Street)
-                                    && q.Building.Equals(newAddress.Building)
-                                    && q.Unit.Equals(newAddress.Unit)
-                                    && q.ZipCode.Equals(newAddress.ZipCode)
-                                    && q.City.Equals(newAddress.City)) ?? newAddress;
+            var existingCity = _context.Cities.FirstOrDefault(q => q.Name == newAddress.City.Name);
+            var existingZipCode = _context.ZipCodes.FirstOrDefault(q => q.Code == newAddress.ZipCode.Code);
+            var existingStreet = _context.Streets.FirstOrDefault(q => q.Name == newAddress.Street.Name);
+
+            if (existingCity != null) newAddress.City = existingCity;
+            if (existingZipCode != null) newAddress.ZipCode = existingZipCode;
+            if (existingStreet != null) newAddress.Street = existingStreet;
+
+            if (existingCity != null && existingZipCode != null && existingStreet != null)
+            {
+                var existingAddress = await _context.Addresses
+                       .FirstOrDefaultAsync(q => q.Street.Name.Equals(newAddress.Street.Name)
+                                        && q.Building.Equals(newAddress.Building)
+                                        && q.Unit.Equals(newAddress.Unit)
+                                        && q.ZipCode.Code.Equals(newAddress.ZipCode.Code)
+                                        && q.City.Name.Equals(newAddress.City.Name));
+
+                if (existingAddress != null) return existingAddress;
+            }
+            
+            return newAddress;
         }
     }
 }

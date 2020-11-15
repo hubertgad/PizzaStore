@@ -3,7 +3,7 @@ using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure.Data;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace PizzaStore.Infrastructure.Services
 {
@@ -16,11 +16,11 @@ namespace PizzaStore.Infrastructure.Services
             _context = context;
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return _context.Products
+            return await _context.Products
                 .Include(q => q.Group)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

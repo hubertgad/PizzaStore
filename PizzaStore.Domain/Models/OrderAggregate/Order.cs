@@ -1,16 +1,13 @@
 ﻿using PizzaStore.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaStore.Domain.Models.OrderAggregate
 {
     public class Order : Entity
     {
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal TotalPrice { get; internal set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
         public decimal Discount { get; internal set; }
 
         public string Remarks { get; internal set; }
@@ -19,14 +16,14 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public virtual User User { get; private set; }
 
-        public virtual IEnumerable<OrderItem> OrderItems { get; private set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         public DateTime Placed { get; private set; }
 
         public Order()
         { }
 
-        public Order(string remarks, decimal discount, decimal totalPrice, User user, Address address, IEnumerable<OrderItem> orderItems)
+        public Order(string remarks, decimal discount, decimal totalPrice, User user, Address address, ICollection<OrderItem> orderItems)
         {
             Remarks = remarks;
             Discount = discount;
