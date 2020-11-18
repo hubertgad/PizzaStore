@@ -1,5 +1,5 @@
 ﻿using PizzaStore.Domain.Models;
-using PizzaStore.Domain.Models.Menu;
+using PizzaStore.Domain.Models.OrderAggregate;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -44,22 +44,39 @@ namespace PizzaStore.WPF.ViewModels
             Items = new ObservableCollection<OrderItemViewModel>();
         }
 
-        public void TotalPriceChanged() => OnPropertyChanged(nameof(TotalPrice));
-    }
-
-    public class OrderItemViewModel : ViewModelBase
-    {
-        public Product Product { get; set; }
-
-        public OrderItemViewModel ParentItem { get; set; }
-
-        public ICollection<OrderItemViewModel> ChildItems { get; set; }
-
-        public OrderItemViewModel(Product product, OrderItemViewModel parentItem = null, ICollection<OrderItemViewModel> childItems = null)
+        public OrderViewModel(Order order)
         {
-            Product = product;
-            ParentItem = parentItem;
-            ChildItems = childItems;
+            User = order.User;
+            Items = new ObservableCollection<OrderItemViewModel>();
+            foreach (var item in order.OrderItems)
+            {
+                if (item.ParentItem == null)
+                {
+                    Items.Add(new OrderItemViewModel(item));
+                }
+            }
+            Remarks = order.Remarks;
+            Street = order.Address.Street.Name;
+            Building = order.Address.Building;
+            Unit = order.Address.Unit;
+            ZipCode = order.Address.ZipCode.Code;
+            City = order.Address.City.Name;
+        }
+
+        public void TotalPriceChanged() => OnPropertyChanged(nameof(TotalPrice));
+
+        public Order ToOrder()
+        {
+            var address = new Address(Street, Building, Unit, ZipCode, City);
+
+            var orderItems = new List<OrderItem>();
+
+            foreach (var item in Items)
+            {
+                orderItems.Add(item.ToOrderItem());
+            }
+
+            return new Order(Remarks, 0, TotalPrice, User, address, orderItems);
         }
     }
 }

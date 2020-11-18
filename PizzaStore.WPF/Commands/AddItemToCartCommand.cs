@@ -44,38 +44,73 @@ namespace PizzaStore.WPF.Commands
 
             var values = (object[])parameter;
 
-            if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition)
+            if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition
+                && int.TryParse(menuPosition.Quantity, out int quantity) 
+                && quantity > 0)
             {
-                if (int.TryParse(menuPosition.Quantity, out int quantity) && quantity > 0)
+                for (int i = 0; i < quantity; i++)
                 {
-
-                    for (int i = 0; i < quantity; i++)
+                    if (values.Length > 1)
                     {
-                        if (values.Length > 1)
+                        var toppings = new ObservableCollection<OrderItemViewModel>();
+
+                        var orderItem = new OrderItemViewModel(menuPosition.Product, null, toppings);
+
+                        foreach (var item in (ICollection)values[1])
                         {
-                            ObservableCollection<OrderItem> toppings = new ObservableCollection<OrderItem>();
+                            var selectedTopping = (Product)item;
 
-                            var orderItem = new OrderItem(menuPosition.Product, null, toppings);
-
-                            _cartViewModel.Items.Add(orderItem);
-
-                            foreach (var item in (ICollection)values[1])
-                            {
-                                var selectedTopping = (Product)item;
-
-                                _cartViewModel.Items.Add(new OrderItem(selectedTopping, orderItem));
-                                //toppings.Add(new OrderItem(selectedTopping, orderItem));
-                            }
+                            //_cartViewModel.Items.Add(new OrderItem(selectedTopping, orderItem));
+                            toppings.Add(new OrderItemViewModel(selectedTopping, orderItem));
                         }
-                        else
-                        {
-                            _cartViewModel.Items.Add(new OrderItem(menuPosition.Product));
-                        }
+
+                        _cartViewModel.OrderViewModel.Items.Add(orderItem);
+                    }
+                    else
+                    {
+                        _cartViewModel.OrderViewModel.Items.Add(new OrderItemViewModel(menuPosition.Product));
                     }
                 }
             }
-
-            _cartViewModel.TotalPriceChanged();
+            _cartViewModel.OrderViewModel.TotalPriceChanged();
         }
+
+        //public async void Execute(object parameter)
+        //{
+        //    _cartViewModel.StatusMessage = string.Empty;
+        //    _cartViewModel.ErrorMessage = string.Empty;
+
+        //    var values = (object[])parameter;
+
+        //    if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition
+        //        && int.TryParse(menuPosition.Quantity, out int quantity) 
+        //        && quantity > 0)
+        //    {
+        //        for (int i = 0; i < quantity; i++)
+        //        {
+        //            if (values.Length > 1)
+        //            {
+        //                ObservableCollection<OrderItem> toppings = new ObservableCollection<OrderItem>();
+
+        //                var orderItem = new OrderItem(menuPosition.Product, null, toppings);
+
+        //                foreach (var item in (ICollection)values[1])
+        //                {
+        //                    var selectedTopping = (Product)item;
+
+        //                    //_cartViewModel.Items.Add(new OrderItem(selectedTopping, orderItem));
+        //                    toppings.Add(new OrderItem(selectedTopping, orderItem));
+        //                }
+
+        //                _cartViewModel.Items.Add(orderItem);
+        //            }
+        //            else
+        //            {
+        //                _cartViewModel.Items.Add(new OrderItem(menuPosition.Product));
+        //            }
+        //        }
+        //    }
+        //    _cartViewModel.TotalPriceChanged();
+        //}
     }
 }

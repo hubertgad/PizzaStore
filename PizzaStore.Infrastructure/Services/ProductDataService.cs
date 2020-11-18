@@ -19,7 +19,6 @@ namespace PizzaStore.Infrastructure.Services
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Products
-                .Include(q => q.Group)
                 .ToListAsync();
         }
     }

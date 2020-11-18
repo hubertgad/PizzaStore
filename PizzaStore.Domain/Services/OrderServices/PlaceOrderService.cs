@@ -24,16 +24,6 @@ namespace PizzaStore.Domain.Services.OrderServices
 
             order.Address = await _orderDataService.CheckIfAddressExists(order.Address);
 
-            //foreach (var orderItem in order.OrderItems)
-            //{
-            //    orderItem.Order = order;
-
-            //    foreach (var childItem in orderItem.ChildItems)
-            //    {
-            //        childItem.Order = order;
-            //    }
-            //}
-
             order = await _orderDataService.CreateAsync(order);
 
             await _emailService.SendAsync(order);

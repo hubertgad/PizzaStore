@@ -14,6 +14,8 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public virtual Address Address { get; internal set; }
 
+        public int? UserId { get; set; }
+
         public virtual User User { get; private set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
@@ -32,6 +34,20 @@ namespace PizzaStore.Domain.Models.OrderAggregate
             Address = address;
             OrderItems = orderItems;
             Placed = DateTime.Now;
+
+            foreach (var orderItem in OrderItems)
+            {
+                orderItem.Order = this;
+
+                if (orderItem.ChildItems != null)
+                {
+                    foreach (var childItem in orderItem.ChildItems)
+                    {
+                        childItem.Order = this;
+                        childItem.ParentItem = orderItem;
+                    }
+                }
+            }
         }
     }
 }

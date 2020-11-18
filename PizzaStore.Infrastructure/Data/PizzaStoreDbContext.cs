@@ -2,7 +2,6 @@
 using PizzaStore.Domain.Models;
 using PizzaStore.Domain.Models.Menu;
 using PizzaStore.Domain.Models.OrderAggregate;
-using System.Linq;
 
 namespace PizzaStore.Infrastructure.Data
 {

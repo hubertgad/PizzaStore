@@ -21,6 +21,8 @@ namespace PizzaStore.Infrastructure.Services
 
         public async Task<Order> CreateAsync(Order entity)
         {
+            //using PizzaStoreDbContext context = _contextFactory.CreateDbContext();
+
             EntityEntry<Order> createdEntity = await _context.Orders.AddAsync(entity);
 
             await _context.SaveChangesAsync();
@@ -51,14 +53,14 @@ namespace PizzaStore.Infrastructure.Services
                 .OrderByDescending(q => q.Placed)
                 .ToListAsync();
 
-            foreach (var order in orderList)
-            {
-                order.OrderItems = await _context
-                                        .OrderItems
-                                        .Where(q => q.Order == order && q.ParentItem == null)
-                                        .Include(q => q.ChildItems)
-                                        .ToListAsync();
-            }
+            //foreach (var order in orderList)
+            //{
+            //    order.OrderItems = await _context
+            //                            .OrderItems
+            //                            .Where(q => q.Order == order && q.ParentItem == null)
+            //                            //.Include(q => q.ChildItems)
+            //                            .ToListAsync();
+            //}
 
             return orderList;
         }

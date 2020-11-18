@@ -13,21 +13,21 @@ namespace PizzaStore.WPF.ViewModels
     {
         public User User { get; }
 
-        public ObservableCollection<OrderItem> Items { get; set; }
+        //public ObservableCollection<OrderItem> Items { get; set; }
 
-        public decimal TotalPrice => Items.Sum(q => q.Product.Price /*+ q.ChildItems.Sum(w => w.Product.Price)*/);
+        //public decimal TotalPrice => Items.Sum(q => q.Product.Price + q.ChildItems.Sum(w => w.Product.Price));
 
-        public string Remarks { get; set; }
+        //public string Remarks { get; set; }
 
-        public string Street { get; set; } = string.Empty;
+        //public string Street { get; set; } = string.Empty;
 
-        public string Building { get; set; } = string.Empty;
+        //public string Building { get; set; } = string.Empty;
 
-        public string Unit { get; set; } = string.Empty;
+        //public string Unit { get; set; } = string.Empty;
 
-        public string ZipCode { get; set; } = string.Empty;
+        //public string ZipCode { get; set; } = string.Empty;
 
-        public string City { get; set; } = string.Empty;
+        //public string City { get; set; } = string.Empty;
 
         public ICommand RemoveItemFromCartCommand { get; }
 
@@ -41,22 +41,26 @@ namespace PizzaStore.WPF.ViewModels
 
         public string ErrorMessage { set => ErrorMessageViewModel.Message = value; }
 
+        public OrderViewModel OrderViewModel { get; set; }
+
         public CartViewModel(IAuthenticator authenticator, IPlaceOrderService placeOrderService)
         {
             User = authenticator.CurrentUser;
 
-            if (User.Orders.LastOrDefault() != null && User.Orders.LastOrDefault().Address != null)
-            {
-                var address = User.Orders.LastOrDefault().Address;
+            //if (User.Orders.LastOrDefault() != null && User.Orders.LastOrDefault().Address != null)
+            //{
+            //    var address = User.Orders.LastOrDefault().Address;
 
-                Street = address.Street.Name;
-                Building = address.Building;
-                Unit = address.Unit;
-                ZipCode = address.ZipCode.Code;
-                City = address.City.Name;
-            }
+            //    Street = address.Street.Name;
+            //    Building = address.Building;
+            //    Unit = address.Unit;
+            //    ZipCode = address.ZipCode.Code;
+            //    City = address.City.Name;
+            //}
 
-            Items = new ObservableCollection<OrderItem>();
+            //Items = new ObservableCollection<OrderItem>();
+
+            OrderViewModel = new OrderViewModel(authenticator.CurrentUser);
 
             RemoveItemFromCartCommand = new RemoveItemFromCartCommand(this);
             PlaceOrderCommand = new PlaceOrderCommand(this, placeOrderService);
@@ -65,6 +69,6 @@ namespace PizzaStore.WPF.ViewModels
             ErrorMessageViewModel = new MessageViewModel();
         }
 
-        public void TotalPriceChanged() => OnPropertyChanged(nameof(TotalPrice));
+        //public void TotalPriceChanged() => OnPropertyChanged(nameof(TotalPrice));
     }
 }

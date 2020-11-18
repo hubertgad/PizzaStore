@@ -10,7 +10,7 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public virtual Product Product { get; private set; }
 
-        public virtual OrderItem ParentItem { get; private set; }
+        public virtual OrderItem ParentItem { get; internal set; }
 
         public virtual ICollection<OrderItem> ChildItems { get; private set; }
 

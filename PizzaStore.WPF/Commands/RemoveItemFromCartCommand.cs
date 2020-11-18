@@ -27,18 +27,18 @@ namespace PizzaStore.WPF.Commands
             _cartViewModel.StatusMessage = string.Empty;
             _cartViewModel.ErrorMessage = string.Empty;
 
-            if (parameter is OrderItem orderItem)
+            if (parameter is OrderItemViewModel orderItem)
             {
                 if (orderItem.ParentItem == null)
                 {
-                    _cartViewModel.Items.Remove(orderItem);
+                    _cartViewModel.OrderViewModel.Items.Remove(orderItem);
                 }
                 else
                 {
-                    _cartViewModel.Items.FirstOrDefault(q => q == orderItem.ParentItem).ChildItems.Remove(orderItem);
+                    _cartViewModel.OrderViewModel.Items.FirstOrDefault(q => q == orderItem.ParentItem).ChildItems.Remove(orderItem);
                 }
 
-                _cartViewModel.TotalPriceChanged();
+                _cartViewModel.OrderViewModel.TotalPriceChanged();
             }
         }
     }

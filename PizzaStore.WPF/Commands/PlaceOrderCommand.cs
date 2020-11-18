@@ -40,7 +40,7 @@ namespace PizzaStore.WPF.Commands
 
         public bool CanExecute(object parameter)
         {
-            if (_cartViewModel.Items.Count > 0 && IsExecuting == false)
+            if (_cartViewModel.OrderViewModel.Items.Count > 0 && IsExecuting == false)
             {
                 return true;
             }
@@ -59,41 +59,73 @@ namespace PizzaStore.WPF.Commands
 
             try
             {
-                var address = new Address(_cartViewModel.Street,
-                                          _cartViewModel.Building,
-                                          _cartViewModel.Unit,
-                                          _cartViewModel.ZipCode,
-                                          _cartViewModel.City);
-
-                var order = new Order(_cartViewModel.Remarks,
-                                      0,
-                                      _cartViewModel.TotalPrice,
-                                      _cartViewModel.User,
-                                      address,
-                                      _cartViewModel.Items);
-
-                await _placeOrderService.PlaceOrder(order);
+                await _placeOrderService.PlaceOrder(_cartViewModel.OrderViewModel.ToOrder());
 
                 _cartViewModel.StatusMessage = "Order has been placed! Check your e-mail box to see order's details.";
 
-                _cartViewModel.Items.Clear();
+                _cartViewModel.OrderViewModel = new OrderViewModel(_cartViewModel.User);
             }
             catch (InputNotValidException e)
             {
                 _cartViewModel.ErrorMessage = e.Message;
             }
-            catch (DbUpdateException)
-            {
-                _cartViewModel.ErrorMessage = "There has an error during connection to database occured. Order cannot be placed.";
-            }
+            //catch (DbUpdateException)
+            //{
+            //    _cartViewModel.ErrorMessage = "There has an error during connection to database occured. Order cannot be placed.";
+            //}
             catch (CannotSendEmailException)
             {
                 _cartViewModel.ErrorMessage = "Order has been placed, but there was a problem with sending e-mail confirmation.";
             }
 
-            _cartViewModel.TotalPriceChanged();
+            _cartViewModel.OrderViewModel.TotalPriceChanged();
 
             IsExecuting = false;
         }
+        //public async void Execute(object parameter)
+        //{
+        //    IsExecuting = true;
+
+        //    _cartViewModel.StatusMessage = string.Empty;
+        //    _cartViewModel.ErrorMessage = string.Empty;
+
+        //    try
+        //    {
+        //        var address = new Address(_cartViewModel.Street,
+        //                                  _cartViewModel.Building,
+        //                                  _cartViewModel.Unit,
+        //                                  _cartViewModel.ZipCode,
+        //                                  _cartViewModel.City);
+
+        //        var order = new Order(_cartViewModel.Remarks,
+        //                              0,
+        //                              _cartViewModel.TotalPrice,
+        //                              _cartViewModel.User,
+        //                              address,
+        //                              _cartViewModel.Items);
+
+        //        await _placeOrderService.PlaceOrder(order);
+
+        //        _cartViewModel.StatusMessage = "Order has been placed! Check your e-mail box to see order's details.";
+
+        //        _cartViewModel.Items.Clear();
+        //    }
+        //    catch (InputNotValidException e)
+        //    {
+        //        _cartViewModel.ErrorMessage = e.Message;
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        _cartViewModel.ErrorMessage = "There has an error during connection to database occured. Order cannot be placed.";
+        //    }
+        //    catch (CannotSendEmailException)
+        //    {
+        //        _cartViewModel.ErrorMessage = "Order has been placed, but there was a problem with sending e-mail confirmation.";
+        //    }
+
+        //    _cartViewModel.TotalPriceChanged();
+
+        //    IsExecuting = false;
+        //}
     }
 }
