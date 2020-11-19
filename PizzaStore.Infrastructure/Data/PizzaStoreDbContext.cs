@@ -83,10 +83,10 @@ namespace PizzaStore.Infrastructure.Data
                 .HasOne(q => q.User)
                 .WithMany(q => q.Orders)
                 .IsRequired();
-            //modelBuilder.Entity<Order>()
-            //    .HasMany(q => q.OrderItems)
-            //    .WithOne(q => q.Order)
-            //    .IsRequired();
+            modelBuilder.Entity<Order>()
+                .HasMany(q => q.OrderItems)
+                .WithOne(q => q.Order)
+                .IsRequired();
 
             modelBuilder.Entity<Address>()
                 .Property(q => q.Building)

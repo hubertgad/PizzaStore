@@ -11,7 +11,6 @@ namespace PizzaStore.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-
             string connectionString = configuration.GetConnectionString("default");
             services.AddDbContext<PizzaStoreDbContext>(o =>
                 o.UseLazyLoadingProxies()

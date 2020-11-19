@@ -10,4 +10,4 @@
 
 
 ### Resources
-- [💾 Database Diagram](https://download.hubertgad.net/PizzaStore/DatabaseDiagram.png)
+- [💾 Database Diagram](https://github.com/hubertgad/PizzaStore/wiki/Database-diagram)

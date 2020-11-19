@@ -86,11 +86,6 @@ namespace PizzaStore.WPF.ViewModels
             Name = string.Empty;
             Password = string.Empty;
             ConfirmPassword = string.Empty;
-            
-            Email = "hubertgad@gmail.com";
-            Name = "Hubert Gad";
-            Password = "a";
-            ConfirmPassword = "a";
         }
     }
 }

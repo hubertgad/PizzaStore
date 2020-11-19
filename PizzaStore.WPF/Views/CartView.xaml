@@ -48,7 +48,7 @@
             </ItemsControl>
             
             <TextBlock Margin="0 0 30 0" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right"
-                       Text="{Binding TotalPrice, StringFormat=Total: 0.00 PLN}" />
+                       Text="{Binding OrderViewModel.TotalPrice, StringFormat=Total: 0.00 PLN}" />
             
             <TextBlock Margin="5" FontSize="20" FontWeight="Bold" Text="Address:" />
             <Grid Margin="20 0 20 0" DataContext="{Binding OrderViewModel}">
@@ -71,24 +71,24 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Street:" Margin="10" />
-                <TextBox Grid.Column="1" Text="{Binding Street}" Margin="10" />
+                <TextBox Grid.Column="1" Text="{Binding Street, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
                 <TextBlock Grid.Column="2" Text="Building:" Margin="10" />
-                <TextBox Grid.Column="3" Text="{Binding Building}" Margin="10" />
+                <TextBox Grid.Column="3" Text="{Binding Building, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
                 <TextBlock Grid.Column="4" Text="Unit:" Margin="10" />
-                <TextBox Grid.Column="5" Text="{Binding Unit}" Margin="10" />
+                <TextBox Grid.Column="5" Text="{Binding Unit, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
                 <TextBlock Grid.Column="6" Text="Zip Code:" Margin="10" />
-                <TextBox Grid.Column="7" Text="{Binding ZipCode}" Margin="10" />
+                <TextBox Grid.Column="7" Text="{Binding ZipCode, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
                 <TextBlock Grid.Column="8" Text="City:" Margin="10" />
-                <TextBox Grid.Column="9" Text="{Binding City}" Margin="10" />
+                <TextBox Grid.Column="9" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:" Margin="10" />
-                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Name}" Margin="10" />
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Phone:" Margin="10" />
-                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Phone}" Margin="10" />
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding User.Phone, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
             </Grid>
             
             <TextBlock Margin="5" FontSize="20" FontWeight="Bold" Text="Remarks" />
-            <TextBox Margin="30 5" MinHeight="50" Text="{Binding Remarks}" />
+            <TextBox Margin="30 5" MinHeight="50" Text="{Binding OrderViewModel.Remarks, UpdateSourceTrigger=PropertyChanged}" />
 
             <Button Margin="30 15" Padding="15" FontSize="25" HorizontalAlignment="Right" Content="Submit" IsDefault="True"
                     Command="{Binding PlaceOrderCommand}"/>
