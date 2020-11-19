@@ -1,5 +1,4 @@
-﻿using PizzaStore.Domain.Models.OrderAggregate;
-using PizzaStore.WPF.ViewModels;
+﻿using PizzaStore.WPF.ViewModels;
 using System;
 using System.Linq;
 using System.Windows.Input;

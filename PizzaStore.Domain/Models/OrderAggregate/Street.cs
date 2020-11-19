@@ -8,7 +8,7 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public Street()
         { }
-        
+
         public Street(string name)
         {
             Name = name;

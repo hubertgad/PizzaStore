@@ -1,5 +1,4 @@
 ﻿using PizzaStore.Domain.SeedWork;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PizzaStore.Domain.Models.Menu
 {

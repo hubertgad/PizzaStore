@@ -25,7 +25,7 @@ namespace PizzaStore.WPF.ViewModels
         {
             Cart = cartViewModel;
 
-            AddItemToCartCommand = new AddItemToCartCommand(cartViewModel, this);
+            AddItemToCartCommand = new AddItemToCartCommand(cartViewModel);
             ViewCartCommand = new RenavigateCommand(cartRenavigator);
 
             MenuItems = FetchData(productDataService);

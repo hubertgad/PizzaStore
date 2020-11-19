@@ -16,7 +16,7 @@ namespace PizzaStore.Infrastructure.Data
         public DbSet<OrderItem> OrderItems { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
-        
+
         public DbSet<City> Cities { get; set; }
 
         public DbSet<ZipCode> ZipCodes { get; set; }

@@ -13,12 +13,9 @@ namespace PizzaStore.WPF.Commands
 
         private readonly CartViewModel _cartViewModel;
 
-        private readonly MenuViewModel _menuViewModel;
-
-        public AddItemToCartCommand(CartViewModel cartViewModel, MenuViewModel menuViewModel)
+        public AddItemToCartCommand(CartViewModel cartViewModel)
         {
             _cartViewModel = cartViewModel;
-            _menuViewModel = menuViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -36,7 +33,7 @@ namespace PizzaStore.WPF.Commands
             }
         }
 
-        public async void Execute(object parameter)
+        public void Execute(object parameter)
         {
             _cartViewModel.StatusMessage = string.Empty;
             _cartViewModel.ErrorMessage = string.Empty;
@@ -44,7 +41,7 @@ namespace PizzaStore.WPF.Commands
             var values = (object[])parameter;
 
             if ((MenuPositionViewModel)values[0] is MenuPositionViewModel menuPosition
-                && int.TryParse(menuPosition.Quantity, out int quantity) 
+                && int.TryParse(menuPosition.Quantity, out int quantity)
                 && quantity > 0)
             {
                 for (int i = 0; i < quantity; i++)
