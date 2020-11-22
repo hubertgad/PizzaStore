@@ -26,7 +26,7 @@ namespace PizzaStore.Domain.Services.EmailServices
                 var message = new MimeMessage();
                 message.To.Add(new MailboxAddress(order.User.Name, order.User.Email));
                 message.From.Add(new MailboxAddress("Pizza Store", "no-reply@hubertgad.net"));
-                message.Subject = $"Pizza Store: Order #{ order.Placed } summary";
+                message.Subject = $"Pizza Store: Order #{ order.Id } summary";
 
                 string body = SetEmailBody(order);
 
