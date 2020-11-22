@@ -10,9 +10,9 @@ namespace PizzaStore.Domain.Models.OrderAggregate
 
         public virtual Street Street { get; set; }
 
-        public string Building { get; private set; }
+        public string Building { get; set; }
 
-        public string Unit { get; private set; }
+        public string Unit { get; set; }
 
         public Address()
         { }
