@@ -31,7 +31,6 @@ namespace PizzaStore.WPF
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(c =>
                 {
-                    c.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     c.AddUserSecrets(Assembly.GetExecutingAssembly());
                 })
                 .ConfigureServices((context, services) =>
