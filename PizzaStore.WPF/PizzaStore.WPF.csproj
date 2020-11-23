@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <UserSecretsId>6ff518b3-849f-4fd7-abf7-540c5da3ef12</UserSecretsId>
+    <ApplicationIcon>PizzaStore.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
