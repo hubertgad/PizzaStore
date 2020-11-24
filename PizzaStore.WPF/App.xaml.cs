@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PizzaStore.ApplicationAPI;
+using PizzaStore.ApplicationAPI.Interfaces;
 using PizzaStore.Domain;
 using PizzaStore.Domain.Services;
 using PizzaStore.Infrastructure;
@@ -37,6 +39,7 @@ namespace PizzaStore.WPF
                 {
                     services.AddDomain(context.Configuration);
                     services.AddInfrastructure(context.Configuration);
+                    services.AddApplicationAPI();
 
                     services.AddSingleton<IPizzaStoreViewModelFactory, PizzaStoreViewModelFactory>();
 
@@ -48,7 +51,7 @@ namespace PizzaStore.WPF
                     services.AddSingleton<CreateViewModel<MenuViewModel>>(s =>
                     {
                         return () => new MenuViewModel(
-                            s.GetRequiredService<IProductDataService>(),
+                            s.GetRequiredService<IProductAPIService>(),
                             s.GetRequiredService<CartViewModel>(),
                             s.GetRequiredService<ViewModelDelegateRenavigator<CartViewModel>>());
                     });

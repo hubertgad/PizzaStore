@@ -1,5 +1,5 @@
-﻿using PizzaStore.Domain.Models.Menu;
-using PizzaStore.Domain.Services;
+﻿using PizzaStore.ApplicationAPI.Interfaces;
+using PizzaStore.Domain.Models.Menu;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Navigators;
 using System.Collections.Generic;
@@ -21,17 +21,17 @@ namespace PizzaStore.WPF.ViewModels
 
         public ICommand ViewCartCommand { get; set; }
 
-        public MenuViewModel(IProductDataService productDataService, CartViewModel cartViewModel, IRenavigator cartRenavigator)
+        public MenuViewModel(IProductAPIService productAPIService, CartViewModel cartViewModel, IRenavigator cartRenavigator)
         {
             Cart = cartViewModel;
 
             AddItemToCartCommand = new AddItemToCartCommand(cartViewModel);
             ViewCartCommand = new RenavigateCommand(cartRenavigator);
 
-            MenuItems = FetchData(productDataService);
+            MenuItems = FetchData(productAPIService);
         }
 
-        private CollectionView FetchData(IProductDataService productDataService)
+        private CollectionView FetchData(IProductAPIService productDataService)
         {
             var products = Task.Run(() => productDataService.GetAllAsync())
                                           .Result
