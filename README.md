@@ -12,4 +12,4 @@ Data is being persisted in MSSQL database using Entity Framework.
 
 ### Resources
 - [💾 Database Diagram](https://github.com/hubertgad/PizzaStore/wiki/Database-diagram)
-- [▶️ YouTube: Pizza Store application workflow](https://youtu.be/0qm-oSK_f9w)
+- [▶️ YouTube: Pizza Store application flow](https://youtu.be/0qm-oSK_f9w)
