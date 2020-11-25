@@ -1,23 +1,25 @@
-﻿using Newtonsoft.Json;
-using PizzaStore.ApplicationAPI.Interfaces;
+﻿using PizzaStore.ApplicationApi.Interfaces;
 using PizzaStore.Domain.Models.Menu;
 using System.Collections.Generic;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace PizzaStore.ApplicationAPI.Services
+namespace PizzaStore.ApplicationApi.Services
 {
-    public class ProductAPIService : IProductAPIService
+    public class ProductApiService : IProductApiService
     {
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            using WebClient client = new WebClient();
-            
-            string response = client.DownloadString("https://pizzastore.hubertgad.net/product");
+            string url = "https://pizzastore.hubertgad.net/product";
+            using HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url);
 
-            IEnumerable<Product> result = JsonConvert.DeserializeObject<IEnumerable<Product>>(response);
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<Product> result = await response.Content.ReadAsAsync<List<Product>>();
+                return result;
+            }
 
-            return result;
+            return null;
         }
     }
 }
