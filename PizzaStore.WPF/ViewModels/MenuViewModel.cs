@@ -1,4 +1,4 @@
-﻿using PizzaStore.ApplicationAPI.Interfaces;
+﻿using PizzaStore.ApplicationApi.Interfaces;
 using PizzaStore.Domain.Models.Menu;
 using PizzaStore.WPF.Commands;
 using PizzaStore.WPF.State.Navigators;
