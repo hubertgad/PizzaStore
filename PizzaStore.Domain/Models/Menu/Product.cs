@@ -4,15 +4,15 @@ namespace PizzaStore.Domain.Models.Menu
 {
     public class Product : Entity
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public decimal Price { get; private set; }
+        public decimal Price { get; set; }
 
         public short Position { get; set; }
 
         public bool IsActive { get; set; }
 
-        public virtual Group Group { get; private set; }
+        public virtual Group Group { get; set; }
 
         public Product()
         { }
