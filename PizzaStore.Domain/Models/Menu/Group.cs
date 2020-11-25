@@ -5,9 +5,9 @@ namespace PizzaStore.Domain.Models.Menu
 {
     public class Group : Entity
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public bool IsTopping { get; private set; }
+        public bool IsTopping { get; set; }
 
         public virtual ICollection<Product> Products { get; private set; }
 
