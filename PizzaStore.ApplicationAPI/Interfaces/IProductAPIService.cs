@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PizzaStore.ApplicationAPI.Interfaces
+namespace PizzaStore.ApplicationApi.Interfaces
 {
-    public interface IProductAPIService
+    public interface IProductApiService
     {
         public Task<IEnumerable<Product>> GetAllAsync();
     }

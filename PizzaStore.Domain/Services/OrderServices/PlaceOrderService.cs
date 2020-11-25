@@ -1,7 +1,6 @@
 ﻿using PizzaStore.Domain.Exceptions;
 using PizzaStore.Domain.Models.OrderAggregate;
 using PizzaStore.Domain.Services.EmailServices;
-using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -63,7 +62,7 @@ namespace PizzaStore.Domain.Services.OrderServices
                 message.AppendLine("- Street name has be at most 50 character long.");
             }
         }
-        
+
         private void ValidateBuilding(Order order, ref StringBuilder message)
         {
             if (order.Address.Building == null || order.Address.Building.Length < 1)

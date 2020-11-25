@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PizzaStore.ApplicationAPI.Interfaces;
-using PizzaStore.ApplicationAPI.Services;
+using PizzaStore.ApplicationApi.Interfaces;
+using PizzaStore.ApplicationApi.Services;
 
-namespace PizzaStore.ApplicationAPI
+namespace PizzaStore.ApplicationApi
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddApplicationAPI(this IServiceCollection services)
         {
-            services.AddSingleton<IProductAPIService, ProductAPIService>();
+            services.AddSingleton<IProductApiService, ProductApiService>();
 
             return services;
         }
